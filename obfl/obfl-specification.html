@@ -1,0 +1,2216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type"
+  content="application/xhtml+xml; charset=UTF-8" />
+  <title>OBFL - Open Braille Formatting Language</title>
+  <meta name="dc:identifier" content="" />
+  <meta name="dc:Title" content="OBFL Specification" />
+  <meta name="dc:Language" content="en" />
+  <meta name="dc:Date" content="2015-12-10" />
+  <link rel="stylesheet" href="styles/w3c-unofficial.css" type="text/css" />
+  <link rel="stylesheet" href="styles/style.css" type="text/css" />
+</head>
+
+<body>
+<h1>OBFL - Open Braille Formatting Language</h1>
+
+<p>Working draft, revised December 10, 2015</p>
+<dl>
+  <dt>This version:</dt>
+    <dd><a
+      href="http://files.pef-format.org/drafts/obfl/obfl-specification.html">http://files.pef-format.org/drafts/obfl/obfl-specification.html</a></dd>
+  <dt>Author:</dt>
+    <dd>Joel Håkansson</dd>
+  <!--
+                                                                                                                                <dt>Contributors:</dt>
+                                                                                                                                <dd></dd>-->
+</dl>
+
+<h2 id="L62"><a class="mozTocH2" name="mozTocId823610"></a>Abstract</h2>
+
+<p>This document specifies the Open Braille Formatting Language (OBFL), a data
+format for representing text formatting layout. OBFL is an <a
+href="#ref-xml">XML</a> 1.0 application.</p>
+
+<h2 id="L71"><a class="mozTocH2" name="mozTocId427116"></a>Status of this
+Document</h2>
+
+<p>This document is a working draft.</p>
+
+<h2 id="L77"><a class="mozTocH2" name="mozTocId469583"></a>Table of
+Contents</h2>
+
+<div class="toc">
+<ul>
+  <li><a href="#L255">Introduction</a>
+    <ul>
+      <li><a href="#L261">What is OBFL?</a></li>
+      <li><a href="#L265">Why is OBFL Necessary?</a></li>
+      <li><a href="#L279">Scope Limitations</a></li>
+    </ul>
+  </li>
+  <li><a href="#L287">Definitions</a>
+    <ul>
+      <li><a href="#L295">Terminology</a></li>
+      <li><a href="#L302">General Terms</a></li>
+      <li><a href="#L425">Axes and Node Types</a></li>
+      <li><a href="#L449">Relationship to Other Specifications</a></li>
+    </ul>
+  </li>
+  <li><a href="#L453">Definition of OBFL</a>
+    <ul>
+      <li><a href="#L459">Document Conformance </a></li>
+      <li><a href="#L493">Using OBFL with Other Namespaces</a></li>
+      <li><a href="#L501">Internet Media Type and File Extension</a></li>
+    </ul>
+  </li>
+  <li><a href="#L502">White Space Processing</a>
+    <ul>
+      <li><a href="#L632">Problems with White Space</a></li>
+      <li><a href="#L657">Implications of Incorrect White Space</a></li>
+      <li><a href="#L671">Default White Space Processing</a></li>
+    </ul>
+  </li>
+  <li><a href="#L558">Elements</a>
+    <ul>
+      <li><a href="#L565">obfl</a></li>
+      <li><a href="#L587">meta</a></li>
+      <li><a href="#L5871">layout-master</a></li>
+      <li><a href="#L608">template</a></li>
+      <li><a href="#L608-2">default-template</a></li>
+      <li><a href="#L647">page-area</a></li>
+      <li><a href="#L20904">fallback</a></li>
+      <li><a href="#L20925">rename</a></li>
+      <li><a href="#L629">before</a></li>
+      <li><a href="#L6291">after</a></li>
+      <li><a href="#L62911">header</a></li>
+      <li><a href="#L6471">footer</a></li>
+      <li><a href="#L1296">margin-region</a></li>
+      <li><a href="#L1328">indicators</a></li>
+      <li><a href="#L1329">marker-indicator</a>
+        <ul>
+          <li><a href="#L1365">Example</a></li>
+        </ul>
+      </li>
+      <li><a href="#L665">field</a></li>
+      <li><a href="#L683">marker-reference</a>
+        <ul>
+          <li><a href="#L1333">start-offset</a></li>
+        </ul>
+      </li>
+      <li><a href="#L696">string</a></li>
+      <li><a href="#L709">current-page</a></li>
+      <li><a href="#L722">evaluate</a>
+        <ul>
+          <li><a href="#L1033">Example</a></li>
+        </ul>
+      </li>
+      <li><a href="#L735">table-of-contents</a></li>
+      <li><a href="#L1105">toc-entry</a></li>
+      <li><a href="#L1207">leader</a></li>
+      <li><a href="#L1353">marker</a></li>
+      <li><a href="#L1438">br</a></li>
+      <li><a href="#L836">page-number</a></li>
+      <li><a href="#L849">span</a></li>
+      <li><a href="#L8491">style</a></li>
+      <li><a href="#L84911">volume-template</a></li>
+      <li><a href="#L870">pre-content</a></li>
+      <li><a href="#L888">post-content</a></li>
+      <li><a href="#L906">sequence</a></li>
+      <li><a href="#L11470">dynamic-sequence</a></li>
+      <li><a href="#L1023">block</a></li>
+      <li><a href="#L924">anchor</a></li>
+      <li><a href="#L9242">list-of-references</a></li>
+      <li><a href="#L951">on-collection-start</a></li>
+      <li><a href="#L9511">on-page-start</a></li>
+      <li><a href="#L9512">on-page-end</a></li>
+      <li><a href="#L9513">on-collection-end</a></li>
+      <li><a href="#L9241">toc-sequence</a></li>
+      <li><a href="#L9514">on-toc-start</a></li>
+      <li><a href="#L969">on-volume-start</a></li>
+      <li><a href="#L987">on-volume-end</a></li>
+      <li><a href="#L1005">on-toc-end</a></li>
+      <li><a href="#L1194">collection</a></li>
+      <li><a href="#L1210">item</a></li>
+    </ul>
+  </li>
+  <li><a href="#L1608">Attribute Definitions</a>
+    <ul>
+      <li><a href="#L21839">hyphenate</a>
+        <ul>
+          <li><a href="#L21851">Example</a></li>
+        </ul>
+      </li>
+      <li><a href="#rowspacing">row-spacing</a></li>
+      <li><a href="#L2462">translate</a>
+        <ul>
+          <li><a href="#L2475">pre-translated</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#L16081">Attribute Groups</a>
+    <ul>
+      <li><a href="#block-atts">Block</a>
+        <ul>
+          <li><a href="#L2519">Collapsing Margins</a></li>
+          <li><a href="#L2536">Example</a></li>
+        </ul>
+      </li>
+      <li><a href="#borders">Borders</a></li>
+    </ul>
+  </li>
+  <li><a href="#L756">Rule Sets</a>
+    <ul>
+      <li><a href="#L763">Relax NG Rule Set</a></li>
+      <li><a href="#L774">Other Rule Sets</a></li>
+    </ul>
+  </li>
+  <li><a href="#L784">References</a>
+    <ul>
+      <li><a href="#L786">Normative References</a></li>
+      <li><a href="#L881">Informative References</a></li>
+    </ul>
+  </li>
+</ul>
+</div>
+
+<h2 id="L255">Introduction</h2>
+
+<p><strong>This section is informative.</strong> </p>
+
+<h3 id="L261">What is OBFL?</h3>
+
+<p>The Open Braille Formatting Language (OBFL) is a document type that
+represents text formatting layout. It is designed for paged media, with the
+additional capability of media divided in physical volumes. Specifically, it is
+designed for braille, but can also be used in other fixed character width
+contexts.</p>
+
+<h3 id="L265">Why is OBFL Necessary?</h3>
+
+<p>OBFL brings a number of things to braille production:</p>
+<ul>
+  <li>A braille formatting standard.</li>
+  <li>Separation of authoring formats and braille formatting.</li>
+  <li>Economy. Work on input format interpretation can be migrated to other
+    braille formatters supporting OBFL.</li>
+</ul>
+
+<h3 id="L279">Scope Limitations</h3>
+
+<p>OBFL is a braille formatting language. This includes areas specific to
+braille formatting, such as volume splitting. However, there are many other
+issues in braille production that OBFL neither can nor should solve. For
+example, issues involving controlling text to braille translations (except by
+means of formatting related abstractions).</p>
+
+<h2 id="L287">Definitions</h2>
+
+<p><strong>This section is normative.</strong> </p>
+
+<p>The following terms and definitions are used within this document.</p>
+
+<h3 id="L295">Terminology</h3>
+
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", SHOULD",
+"SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
+interpreted as described in <a href="#ref-rfc2119">RFC 2119</a>.</p>
+
+<h3 id="L302">General Terms</h3>
+<dl>
+  <dt>Document</dt>
+    <dd>A document is a stream of data that, after being combined with any
+      other streams it references, is structured such that it holds information
+      contained within <span class="term">elements</span>, that are organized
+      as defined in an associated <span class="term">schema</span>. See <a
+      href="#docconf">Document Conformance</a> for more information.</dd>
+  <dt><a name="facilities" id="facilities">Facilities</a></dt>
+    <dd>Facilities are <span class="term">elements</span>, <span
+      class="term">attributes</span>, and the semantics associated with those
+      <span class="term">elements</span> and <span
+      class="term">attributes</span>.</dd>
+  <dt>Implementation</dt>
+    <dd>See User agent.</dd>
+  <dt>Parsing</dt>
+    <dd>Parsing is the act whereby a <span class="term">document</span> is
+      read, and the information contained within the <span
+      class="term">document</span> is filtered into the context of the <span
+      class="term">elements</span> in which the information is structured.</dd>
+  <dt>Rendering</dt>
+    <dd>See <a
+      href="http://www.w3.org/TR/di-gloss/#def-rendering">definition</a> in
+      Device Independence Glossary document [<a href="#ref-digloss">DI
+      Glossary</a>].</dd>
+  <dt>Row height</dt>
+    <dd>Row height is the height of a row excluding row spacing.</dd>
+  <dt>Schema</dt>
+    <dd>A schema is a collection of markup rules that, as a collection, define
+      the legal structure, <span class="term">elements</span>, and <span
+      class="term">attributes</span> available for use in an XML document that
+      complies to the defined schema.</dd>
+  <dt>User agent</dt>
+    <dd>See <a
+      href="http://www.w3.org/TR/di-gloss/#def-user-agent">definition</a> in
+      Device Independence Glossary document [<a href="#ref-digloss">DI
+      Glossary</a>].</dd>
+  <dt>Validation</dt>
+    <dd>Validation is a process whereby <span class="term">documents</span> are
+      verified against the associated <span class="term">schema</span>,
+      ensuring that the structure, use of <span class="term">elements</span>,
+      and use of <span class="term">attributes</span> are consistent with the
+      definitions in the <span class="term">schema</span>.</dd>
+  <dt><a name="wellformed" id="wellformed">Well-formed</a> </dt>
+    <dd>A <span class="term">document</span> is well-formed when it is
+      structured according to the rules defined in <a
+      href="http://www.w3.org/TR/REC-xml#sec-well-formed">Section 2.1</a> of
+      the XML 1.0 Recommendation [<a class="nref" href="#ref-xml">XML</a>].</dd>
+</dl>
+
+<h3 id="L425">Axes and Node Types</h3>
+
+<p>The use of <dfn>axes</dfn> in this document (such as "child", "parent",
+"ancestor", "descendant") is consistent with <a
+href="http://www.w3.org/TR/xpath#axes">Section 2.2</a> of the XPath 1.0
+Recommendation [<a class="nref" href="#ref-xpath">XPath</a>].</p>
+
+<p>The use of <dfn>node types</dfn> in this document (such as "root",
+"element", "text", "attribute") is consistent with <a
+href="http://www.w3.org/TR/xpath#data-model">Section 5</a> of the XPath 1.0
+Recommendation [<a class="nref" href="#ref-xpath">XPath</a>].</p>
+
+<h3 id="L449">Relationship to Other Specifications</h3>
+
+<p>This specification is based on the specific versions of the standards and
+specifications referenced herein, which are used as defined except as noted in
+this document. Any refinement or replacement of a referenced specification by a
+newer or different version is not directly applicable to this standard.
+Conformance to this standard is based on the versions of the standards and
+specifications in effect at the time of writing.</p>
+
+<h2 id="L453">Definition of OBFL</h2>
+
+<p><strong>This section is normative.</strong> </p>
+
+<h3 id="L459"><a name="docconf" id="docconf">Document Conformance</a> </h3>
+
+<p>A conforming OBFL document is an XML document that requires only the
+facilities described as mandatory in this specification. Such a document must
+meet all of the following criteria:</p>
+<ol class="plain">
+  <li>It must conform to the constraints associated with the namespaces used in
+    it.<br />
+  </li>
+  <li>The local part of the root element of the document must be
+    <dfn>obfl</dfn>.</li>
+  <li>The root element of the document must be in the OBFL namespace.</li>
+  <li>The start tag of the root element of the document must contain an xmlns
+    declaration for the OBFL namespace [<a href="#ref-xmlns">XMLNS</a>]. The
+    namespace URI for OBFL is defined to be
+    <dfn>http://www.daisy.org/ns/2011/obfl</dfn>. An example root element might
+    look like: &lt;obfl version="2011-1"
+    xmlns="http://www.daisy.org/ns/2011/obfl"&gt;</li>
+</ol>
+
+<h3 id="L493"><a name="Using1" id="Using1">Using OBFL with Other
+Namespaces</a></h3>
+
+<p>The OBFL namespace may be used with other XML namespaces as per [<a
+href="#ref-xmlns">XMLNS</a>].</p>
+
+<h3 id="L501">Internet Media Type and File Extension</h3>
+
+<p>The Internet media type for OBFL is "application/x-obfl+xml".</p>
+
+<p>It is recommended that OBFL files have the extension ".obfl" (all lowercase)
+on all platforms.</p>
+
+<h2 id="L502">White Space Processing</h2>
+
+<p><strong>This section is normative.</strong> </p>
+
+<h3 id="L632">Problems with White Space</h3>
+
+<p>While processing XML-documents white space is often introduced
+unintentionally, i.e. without the intent to carry meaning.</p>
+
+<p>White space can be introduced by a graphical editor. Incorrect style
+boundaries - i.e. including surrounding white space - is visually undetectable
+and usually not corrected by VYSIWYG editors.</p>
+
+<p>White space can be introduced as a result of pretty printing. Pretty
+printing is often employed by users of XML-editors as it improves readability
+and navigability. However, it is an inexact process which makes certain
+assumtions about the XML-document. Most algorithms do not change elements that
+evidently contain both non white space text nodes and elements. However, pretty
+printing algorithms often assume that an element that only has non-text
+children can be reformatted, even if:</p>
+<ul>
+  <li>other elements with the same name has mixed contents in them elsewhere in
+    the document</li>
+  <li>the associated DTD or XML-schema clearly states that the element can
+    contain both text nodes and elements</li>
+</ul>
+
+<p>White space can be introduced manually. For example, by adding an XML
+comment:</p>
+<pre>	&lt;block&gt;
+	&lt;!-- Just an innocent comment at the start of a new block --&gt; 
+	We offer free &lt;style name="em"&gt;technical support&lt;/style&gt; for subscribers.&lt;/block&gt;</pre>
+
+<p>or when nesting block elements:</p>
+<pre>	&lt;block&gt;
+		&lt;block&gt;We offer free &lt;style name="em"&gt;technical support&lt;/style&gt; for subscribers.&lt;/block&gt;
+	&lt;block&gt;</pre>
+
+<p>That the above could have rendering implications are often unknown to users
+working with XML-files.</p>
+
+<h3 id="L657">Implications of Incorrect White Space</h3>
+
+<p>The implications of incorrect white space is more severe in braille than in
+visual media. This is true in particular for inline elements such as style
+markers due to the fact that they are added as separate characters in
+braille.</p>
+
+<p>In a word processor this:</p>
+<pre>  &lt;p&gt;We offer free&lt;em&gt; technical support &lt;/em&gt;for subscribers.&lt;/p&gt;</pre>
+
+<p>is visually equvialent to:</p>
+<pre>  &lt;p&gt;We offer free &lt;em&gt;technical support&lt;/em&gt; for subscribers.&lt;/p&gt;</pre>
+
+<p>In braille however, the former will be percieved as an error as the braille
+markers will be disjoint from the text.</p>
+
+<h3 id="L671">Default White Space Processing</h3>
+
+<p>The following applies to all characters defined as white space by <a
+href="#ref-unicode">[Unicode]</a> with the exception of 'NO-BREAK SPACE'
+(U+00A0). To affect rendering, &amp;#x00A0 must be surrounded by non white
+space characters on both sides.</p>
+
+<p>Note that, line breaks are also white space characters. These do not
+constitute line breaks in OBFL. Authors should use appropriate elements and
+attributes to achieve formatting effects that involve white space, rather than
+space characters.</p>
+
+<p>Also note that, Unicode characters 'ZERO WIDTH SPACE' (U+200B) and 'BRAILLE
+PATTERN BLANK' (U+2800) are not regarded as white space by the Unicode
+specification and should be preserved.</p>
+
+<p>Sequences of white space separate "words" (we use the term "word" here to
+mean "sequences of non-white space characters"). When formatting text, user
+agents should identify these words and lay them out according to the
+conventions of the particular written language (script). This typically involve
+putting space between words.</p>
+
+<p>Note that a sequence of white spaces between words in the source document
+may result in a different rendered inter-word spacing. In particular, user
+agents should collapse input white space sequences when producing output
+inter-word space.</p>
+
+<p>A user agent should by default process white space according to the
+following:</p>
+<ul>
+  <li>there should never be more than one white space in sequence</li>
+  <li>white space at the start or end of block elements should be ignored</li>
+  <li>white space at the start or end of inline elements should be rendered
+    outside of the element</li>
+</ul>
+<!-- 
+<pre>
+  &lt;block>We offer free &lt;style name="em">technical support&lt;/style> for subscribers.&lt;/block>
+and not:
+  &lt;block>We offer free&lt;style name="em"> technical support &lt;/style>for subscribers.&lt;/block>
+</pre>
+ -->
+<!--
+
+<p>Any text, including white space, in OBFL elements that are not allowed to contain text should be disregarded 
+in the rendering process.</p>
+
+<p>Therefore, the following OBFL fragment:</p>
+<pre>
+  &lt;block>We offer free&lt;style name="em"> technical support &lt;/style>for subscribers.&lt;/block>
+</pre>
+<p>should be interpreted by default as:</p>
+<pre>
+  &lt;block>We offer free &lt;style name="em">technical support&lt;/style> for subscribers.&lt;/block>
+</pre> 
+ -->
+
+<h2 id="L558">Elements</h2>
+
+<p><strong>This section is informative.</strong></p>
+
+<p>Elements are listed in document order. In this listing, unprefixed elements
+are in the OBFL namespace.</p>
+
+<p>The top level element structure of an OBFL document is as follows:</p>
+<pre>&lt;obfl&gt;
+  &lt;meta&gt;...&lt;/meta&gt;
+  &lt;layout-master&gt;...&lt;/layout-master&gt;
+  &lt;table-of-contents&gt;...&lt;/table-of-contents&gt;
+  &lt;volume-template&gt;...&lt;/volume-template&gt;
+  &lt;collection&gt;...&lt;/collection&gt;
+  &lt;sequence&gt;...&lt;/sequence&gt;
+&lt;/obfl&gt;</pre>
+
+<h3 id="L565" class="include">obfl</h3>
+
+<p>The obfl element is the root element of an OBFL document.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>The obfl element is the root element of an OBFL document.</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>version [required]</dt>
+          <dd class="no-markup">The string '2011-1'</dd>
+        <dt>xml:lang [required]</dt>
+          <dd>The document's primary language as defined in <a
+            href="http://www.w3.org/TR/REC-xml/#sec-lang-tag">Section 2.12</a>
+            of the XML 1.0 Recommendation [<a class="nref"
+            href="#ref-xml">XML</a>].</dd>
+        <dt>hyphenate [optional]</dt>
+          <dd>Whether or not to hyphenate text descendants. </dd>
+          <dd>One of 'true' or 'false'.</dd>
+          <dd>See the <a href="#L21839">attribute description</a> for more
+            information.</dd>
+        <dt>translate [optional]</dt>
+          <dd>Specifies a translation policy.</dd>
+          <dd>See the <a href="#L2462">attribute description</a> for more
+            information.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>In this order: 
+      <ul>
+        <li>meta [optional]</li>
+        <li>layout-master [1 or more]</li>
+        <li>table-of-contents [0 or more]</li>
+        <li>volume-template [0 or more]</li>
+        <li>collection [0 or more]</li>
+        <li>sequence [1 or more]</li>
+      </ul>
+    </dd>
+</dl>
+</div>
+
+<h3 id="L587" class="include">meta</h3>
+
+<p>The meta element contains meta data, e.g. Dublin Core. Currently, any
+element is allowed, however a stricter set of elements might be more useful.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>obfl</dd>
+  <dt>Content Model</dt>
+    <dd>Elements from any namespace. [0 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L5871" class="include">layout-master</h3>
+
+<p>The layout-master element defines the appearence of pages in the sequences
+where the layout-master is applied. It contains page template information, such
+as the width and height of pages.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>obfl</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+    	<dt>name [required]</dt>
+    		<dd>The name of the layout-master</dd>
+        <dt>duplex [optional]</dt>
+          <dd>'true' (default???) or 'false'</dd>
+        <dt>inner-margin [optional]</dt>
+          <dd>The inner margin, in characters.</dd>
+          <dd>Default is 0.</dd>
+        <dt>outer-margin [optional]</dt>
+          <dd>The outer margin, in characters.</dd>
+          <dd>Default is 0.</dd>
+        <dt>page-height [required]</dt>
+          <dd>The page height, in row heights.</dd>
+        <dt>page-number-variable [optional]</dt>
+          <dd>A name for the variable to be used in expression evaluation.</dd>
+          <dd>Default is ???.</dd>
+        <dt>page-width [required]</dt>
+          <dd>The page width, in characters.</dd>
+        <dt>row-spacing [optional]</dt>
+          <dd>The row spacing, in row heights. E.g. 1.0 is normal row spacing,
+            2.0 is double.</dd>
+          <dd>1.0 is default.</dd>
+          <dd>See the <a href="#rowspacing">attribute description</a> for more
+            information.</dd>
+      </dl>
+      <p>This element supports the <a href="#borders">Borders</a> attribute
+      group.</p>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>In this order: 
+      <ul>
+        <li>template [0 or more]</li>
+        <li>default-template [required]</li>
+        <li>page-area [optional]</li>
+      </ul>
+    </dd>
+</dl>
+</div>
+
+<h3 id="L608" class="include">template</h3>
+
+<p>The template element contains template information that applies under
+specific conditions. The template conditions are tested in document order, and
+the first template whose condition returns true is applied.</p>
+<p>Headers, footers and page-areas span the full width of the page, whereas the
+ text flow area is reduced by the combined width of the margin-regions.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>layout-master</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>use-when [required]</dt>
+          <dd>An expression.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>In this order: 
+      <ul>
+        <li>header [1 or more]</li>
+        <li>footer [1 or more]</li>
+        <li>margin-region [0 or more]</li>
+      </ul>
+    </dd>
+</dl>
+</div>
+
+<h3 id="L608-2" class="include">default-template</h3>
+
+<p>The default-template element contains the same type of information as the
+template element and acts as a fallback when no previous template element
+applies.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>layout-master</dd>
+  <dt>Content Model</dt>
+    <dd>In this order: 
+      <ul>
+        <li>header [1 or more]</li>
+        <li>footer [1 or more]</li>
+        <li>margin-region [0 or more]</li>
+      </ul>
+    </dd>
+</dl>
+</div>
+
+<h3 id="L647" class="include">page-area</h3>
+
+<p>The page-area element is a page anchored place-holder for items in a
+collection.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>layout-master</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>align [optional]</dt>
+          <dd>The alignment of the page-area on the page.</dd>
+          <dd>One of 'bottom' (default) or 'top'.</dd>
+        <dt>collection [required]</dt>
+          <dd>The name of a collection to find items in.</dd>
+        <dt>max-height [required]</dt>
+          <dd>The maximum number of lines to use for collection items.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>In this order: 
+      <ul>
+        <li>fallback [optional]</li>
+        <li>before [optional]</li>
+        <li>after [optional]</li>
+      </ul>
+    </dd>
+</dl>
+</div>
+
+<h3 class="include" id="L20904">fallback</h3>
+
+<p>The fallback element is used to determine what should happen if rendering of
+the collection fails. The fallback element must include an instruction for the
+collection that triggered it, but it may also include additional instructions
+for other collections.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>page-area</dd>
+  <dt>Attributes</dt>
+    <dd>None</dd>
+  <dt>Content Model</dt>
+    <dd>rename [1 or more]</dd>
+</dl>
+</div>
+
+<h3 class="include" id="L20925">rename</h3>
+
+<p>The rename element is used within the fallback element to specify a
+collection that should be renamed. The new name must not be in use as an
+identifier elsewhere (but it should be referenced).</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>fallback</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>collection [required]</dt>
+          <dd>The id of the collection that should be renamed.</dd>
+        <dt>to [required]</dt>
+          <dd>An id to move items to if the fallback is triggered.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>Emtpy.</dd>
+</dl>
+</div>
+
+<p></p>
+
+<h3 id="L629" class="include">before</h3>
+
+<p>The before element contains blocks to insert before the contents of the page
+area.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>page-area</dd>
+  <dt>Attributes</dt>
+    <dd>This element supports the <a href="#block-atts">Block</a> attribute
+      group. 
+      <p>This element supports the <a href="#borders">Borders</a> attribute
+      group.</p>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>block, text(), leader, marker, br, evaluate, page-number, span, style
+      [0 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L6291" class="include">after</h3>
+
+<p>The after element contains blocks to insert after the contents of the page
+area.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>page-area</dd>
+  <dt>Attributes</dt>
+    <dd>This element supports the <a href="#block-atts">Block</a> attribute
+      group. 
+      <p>This element supports the <a href="#borders">Borders</a> attribute
+      group.</p>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>block, text(), leader, marker, br, evaluate, page-number, span, style
+      [0 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L62911" class="include">header</h3>
+
+<p>The header element contains the page header information. The chunks of text
+created when resolving each child elements contents are distributed in an equal
+spaced cell grid over a single row.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>template, default-template</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>row-spacing [optional]</dt>
+          <dd>The row spacing, in row heights. E.g. 1.0 is normal row spacing,
+            2.0 is double.</dd>
+          <dd>See the <a href="#rowspacing">attribute description</a> for more
+            information.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>field [0 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L6471" class="include">footer</h3>
+
+<p>The footer element contains the page footer information. The chunks of text
+created when resolving each child elements contents are distributed in an equal
+spaced cell grid over a single row.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>template, default-template</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>row-spacing [optional]</dt>
+          <dd>The row spacing, in row heights. E.g. 1.0 is normal row spacing,
+            2.0 is double.</dd>
+          <dd>See the <a href="#rowspacing">attribute description</a> for more
+            information.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>field [0 or more]</dd>
+</dl>
+</div>
+
+<h3 class="include" id="L1296">margin-region</h3>
+
+<p>Adds a margin region.</p>
+
+<div class="sidebar markup">
+<dl>
+	<dt>Usage</dt>
+	<dd>template, default-template</dd>
+	<dt>Attributes</dt>
+	<dd><dl>
+		<dt>align [required]</dt>
+		<dd>One of 'left', 'right'</dd>
+		<dt>width [optional]</dt>
+		<dd>The width in characters.</dd>
+		<dd>Default is 1.</dd>
+	</dl></dd>
+	<dt>Content Model</dt>
+		<dd>indicators [optional]</dd>
+</dl>
+</div>
+
+<h3 class="include" id="L1328">indicators</h3>
+
+<p>The indicators element uses the full height of the margin-region to indicate
+rows where one of the specified conditions are met.</p>
+
+<p>The conditions should be evaluated in the order they occur in this element.
+In other words, only the first match is rendered when more than one condition
+applies to a given row.</p>
+
+<div class="sidebar markup">
+<dl>
+	<dt>Usage</dt>
+	<dd>margin-region</dd>
+	<dt>Attributes</dt>
+	<dd>None</dd>
+	<dt>Content Model</dt>
+	<dd>marker-indicator [0 or more]</dd>
+</dl>
+</div>
+
+<h3 class="include" id="L1329">marker-indicator</h3>
+
+<p>The marker-indicator element indicates that one or more of the specified markers are present on the indicated row.</p>
+
+<div class="sidebar markup">
+<dl>
+	<dt>Usage</dt>
+	<dd>indicators</dd>
+	<dt>Attributes</dt>
+	<dd><dl>
+		<dt>markers [required]</dt>
+			<dd>A whitespace separated list of names of the markers to find.</dd>
+		<dt>indicator [required]</dt>
+			<dd>A <span class="no-markup">string</span> to place in the margin-region level with the row where a marker is found. The length of
+			the translated <span class="no-markup">string</span> must not exceed the width of the margin-region.</dd>
+	</dl></dd>
+	<dt>Content Model</dt>
+	<dd>Empty</dd>
+</dl>
+</div>
+
+<h4 id="L1365">Example</h4>
+<p>Given the following input:</p>
+<pre>
+	&lt;layout-master name="default" ...>
+	&lt;default-template>
+		&lt;header/>
+		&lt;footer/>
+		&lt;margin-region align="left">
+			&lt;indicators>
+				&lt;marker-indicator markers="pages sections" indicator="!"/>
+				&lt;marker-indicator markers="images" indicator="?"/>
+			&lt;/indicators>
+		&lt;/margin-region>
+	&lt;/default-template>
+	&lt;/layout-master>
+	...
+	&lt;sequence master="default">
+		&lt;block margin-left="1">&lt;marker class="sections" value="1"/>Page 1&lt;/block>
+		&lt;block margin-left="1">Page 2&lt;marker class="pages" value="2"/>&lt;/block>
+	&lt;/sequence>
+</pre>
+<p>The output would be:</p>
+<pre>
+! Page 1
+! Page 2
+</pre>
+
+<h3 id="L665" class="include">field</h3>
+
+<p>The field element contains data.</p>
+
+<div class="sidebar">
+<dl>
+  <dt>Usage</dt>
+    <dd class="markup">header, footer</dd>
+  <dt>Attributes</dt>
+  	<dd>
+  		<dl>
+  			<dt>text-style [optional]</dt>
+  			<dd class="">A text style, e.g. emphasis or strong</dd>
+  		</dl>
+  	</dd>
+  <dt>Content Model</dt>
+    <dd class="markup">marker-reference, string, current-page, evaluate [1 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L683" class="include">marker-reference</h3>
+
+<p>The marker-reference element indicates that it should resolve to the value
+of a marker of the same class in the direction and scope specified by this
+element. If no reference is found, the empty string is returned.</p>
+
+<div class="sidebar">
+<dl>
+  <dt>Usage</dt>
+    <dd class="markup">field</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>marker [required]</dt>
+          <dd class="markup">The name of the marker to find.</dd>
+        <dt>direction [required]</dt>
+          <dd>One of 'forward', 'backward'</dd>
+        <dt>scope [required]</dt>
+          <dd>One of 'page-content', 'page', 'spread', 'sheet', 'sequence',
+            'volume', 'document'</dd>
+        <dt>start-offset [optional]</dt>
+          <dd>Offset the search by the specified number of pages.</dd>
+          <dd>Default is 0</dd>
+        <dt>text-style [optional]</dt>
+          <dd class="">A text style, e.g. emphasis or strong</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>Empty.</dd>
+</dl>
+</div>
+
+<h4 id="L1333">start-offset</h4>
+
+<p>The start-offset attribute offsets the start of the search by the specified
+number of pages. This applies irrespectively of the scope of the search.</p>
+
+<p>By default, the search begins on the page where the marker-reference element
+is placed. The search, once combined with a non-zero start-offset, could start
+on a non-existing page. If the search direction is the same as the offset
+direction, the search would never hit an existing page and the empty string is
+returned. However, if the search direction is opposite to the offset direction,
+the search could eventually hit an existing page. Depending on the scope,
+<b>the following applies in this particular situation</b>:</p>
+<dl>
+  <dt>page-content</dt>
+    <dd>return the empty string</dd>
+  <dt>page</dt>
+    <dd>return the empty string</dd>
+  <dt>spread</dt>
+    <dd>if the current page belongs to the same spread as the page with the
+      specified offset (had it existed), start the search on the first existing
+      page in the search direction, otherwise return the emtpy string</dd>
+  <dt>sheet</dt>
+    <dd>if the current page belongs to the same sheet as the page with the
+      specified offset (had it existed), start the search on the first existing
+      page in the search direction, otherwise return the emtpy string</dd>
+  <dt>sequence</dt>
+    <dd>start the search on the first existing page in the search direction</dd>
+  <dt>volume</dt>
+    <dd>start the search on the first existing page in the search direction</dd>
+  <dt>document</dt>
+    <dd>start the search on the first existing page in the search direction</dd>
+</dl>
+
+<h3 id="L696" class="include">string</h3>
+
+<p>The string element indicates that it should resolve to the contents of its
+value attribute.</p>
+
+<div class="sidebar">
+<dl>
+  <dt>Usage</dt>
+    <dd class="markup">field</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>value [required]</dt>
+          <dd class="no-markup">The string to output</dd>
+        <dt>text-style [optional]</dt>
+  		<dd class="">A text style, e.g. emphasis or strong</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>Empty.</dd>
+</dl>
+</div>
+
+<h3 id="L709" class="include">current-page</h3>
+
+<p>The current-page element indicates that it should resolve to the value of
+the current page, using the number format specified by this element.</p>
+
+<div class="sidebar">
+<dl>
+  <dt>Usage</dt>
+    <dd class="markup">field</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt><del class="2015-10-13">style [required]</del></dt><dt>number-format [optional]</dt>
+          <dd>One of 'default', 'roman', 'upper-roman', 'lower-roman',
+            'upper-alpha', 'lower-alpha'.</dd>
+         <dt>text-style [optional]</dt>
+  			<dd class="">A text style, e.g. emphasis or strong</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>Empty.</dd>
+</dl>
+</div>
+
+<h3 id="L722" class="include">evaluate</h3>
+
+<p>The evaluate element inserts the result of evaluating an expression, see the
+<a href="obfl-evaluation-language.html">OBFL evaluation language</a> for more
+information.</p>
+
+<div class="sidebar">
+<dl>
+  <dt>Usage</dt>
+    <dd class="markup">before, after, field, toc-entry, block, item</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>expression [required]</dt>
+          <dd>A valid <a href="obfl-evaluation-language.html">OBFL Evaluation
+            Language</a> expression.</dd>
+  		<dt>text-style [optional]</dt>
+  		<dd class="">A text style, e.g. emphasis or strong</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>Emtpy.</dd>
+</dl>
+</div>
+
+<h4 id="L1033">Example</h4>
+
+<p><code>&lt;evaluate expression="(= 0 1)"/&gt;</code></p>
+
+<h3 id="L735" class="include">table-of-contents</h3>
+
+<p>The table-of-contents element defines the entries in a table of contents.
+Note that this element specifies formatting of data in a table of contents, it
+does not by it self specify that a table of contents should be inserted. It is
+required that the order of the toc-entries is consistent with the blocks it
+references.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>obfl</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>name [required]</dt>
+          <dd>An id.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>toc-entry [1 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L1105" class="include">toc-entry</h3>
+
+<p>The toc-entry element defines an entry in a table of contents.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>table-of-contents</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>ref-id [required]</dt>
+          <dd>The id of the block this entry is connected with.</dd>
+      </dl>
+      <p>This element supports the <a href="#block-atts">Block</a> attribute
+      group.</p>
+      <p>This element supports the <a href="#borders">Borders</a> attribute
+      group.</p>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>text(), leader, marker, br, evaluate, toc-entry, page-number, span,
+      style [0 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L1207" class="include">leader</h3>
+
+<p>The leader element moves the location of the following piece of text within
+the current row.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>before, after, toc-entry, block, item</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>align [optional]</dt>
+          <dd>Alignment of the text following the leader.</dd>
+          <dd>The leader can be aligned to the left, center or right of the
+            following text segment.</dd>
+          <dd>One of 'left' (default), 'center' or 'right'.</dd>
+        <dt>pattern [optional]</dt>
+          <dd>Fill pattern to use up to the leader position.</dd>
+          <dd>Default is ' '.</dd>
+        <dt>position [required]</dt>
+          <dd>Position of the leader within the row. Can be relative (percent)
+            or absolute (column). For example: 50% or 12.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>Empty.</dd>
+</dl>
+</div>
+
+<h3 id="L1353" class="include">marker</h3>
+
+<p>The marker element provides locations for classes of values that may be
+refered to in headers and footers.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>before, after, toc-entry, block, item</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>class [required]</dt>
+          <dd>A class name for this marker, to be used when searching for
+            markers.</dd>
+        <dt>value [required]</dt>
+          <dd>value for this marker</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>Empty.</dd>
+</dl>
+</div>
+
+<h3 id="L1438" class="include">br</h3>
+
+<p>The br element provides a line break within a block of text (i.e. a
+paragraph).</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>before, after, toc-entry, block, item</dd>
+  <dt>Content Model</dt>
+    <dd>Empty.</dd>
+</dl>
+</div>
+
+<h3 id="L836" class="include">page-number</h3>
+
+<p>The page-number element inserts the page number of the referenced
+element.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>before, after, toc-entry, block, item</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>ref-id [required]</dt>
+          <dd></dd>
+        <dt><del class="2015-10-13">style [optional]</del></dt>
+        <dt>number-format [optional]</dt>
+          <dd>One of 'default', 'roman', 'upper-roman', 'lower-roman',
+            'upper-alpha', 'lower-alpha'.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>Empty.</dd>
+</dl>
+</div>
+
+<h3 id="L849" class="include">span</h3>
+
+<p>The span element represents a segment of text whose hyphenation policy or
+language is different from the surrounding text.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>before, after, toc-entry, block, item</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>xml:lang [optional]</dt>
+          <dd>A language as defined in <a
+            href="http://www.w3.org/TR/REC-xml/#sec-lang-tag">Section 2.12</a>
+            of the XML 1.0 Recommendation [<a class="nref"
+            href="#ref-xml">XML</a>].</dd>
+        <dt>hyphenate [optional]</dt>
+          <dd>Whether or not to hyphenate text descendants. </dd>
+          <dd>One of 'true' or 'false'.</dd>
+          <dd>See the <a href="#L21839">attribute description</a> for more
+            information.</dd>
+        <dt>translate [optional]</dt>
+          <dd>Specifies a translation policy.</dd>
+          <dd>See the <a href="#L2462">attribute description</a> for more
+            information.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>text(), style, anchor [0 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L8491" class="include">style</h3>
+
+<p>The style element represents a segment of text with a specific style, e.g.
+emphasis or strong.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>before, after, toc-entry, block, item, span, style</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>name [required]</dt>
+          <dd>The name of the style.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>text(), style, marker, br, anchor [0 or more]</dd>
+</dl>
+</div>
+
+<p></p>
+
+<h3 id="L84911" class="include">volume-template</h3>
+
+<p>The volume-template element contains static contents that is to be inserted
+before or after a braille volume's body of pages. In additional to the normal
+sequences that can be used to create static contents such as information about
+the author and title of the book, there is a special sequence called
+toc-sequence.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>obfl</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>volume-count-variable [optional]</dt>
+          <dd>Definition of the name of the variable holding the number of
+            volumes. It can be used in an expression, e.g. <code>(= $volumes
+            1)</code>.</dd>
+          <dd>Default is 'volumes'.</dd>
+        <dt>volume-number-variable [optional]</dt>
+          <dd>Definition of the name of the variable holding the current volume
+            number. It can be used in an expression, e.g. <code>(= $volume
+            1)</code>.</dd>
+          <dd>Default is 'volume'.</dd>
+        <dt>use-when [optional]</dt>
+          <dd>A condition for applying the volume-template, expressed using the
+            <a href="obfl-evaluation-language.html">OBFL Evaluation
+            Language</a>.</dd>
+        <dt>sheets-in-volume-max [required]</dt>
+          <dd>Defines the maximum number of sheets in a volume using this
+            volume-template.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>In this order: 
+      <ul>
+        <li>pre-content [required]</li>
+        <li>post-content [required]</li>
+      </ul>
+    </dd>
+</dl>
+</div>
+
+<h3 id="L870" class="include">pre-content</h3>
+
+<p>The pre-content element defines contents that should preceed a braille
+volume's body of pages.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>volume-template</dd>
+  <dt>Content Model</dt>
+    <dd>sequence, dynamic-sequence, toc-sequence [0 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L888" class="include">post-content</h3>
+
+<p>The post-content element defines contents that should follow a braille
+volume's body of pages.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>volume-template</dd>
+  <dt>Content Model</dt>
+    <dd>sequence, dynamic-sequence [0 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L906" class="include">sequence</h3>
+
+<p>The sequence element contains the text body.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>obfl, pre-content, post-content</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>master [required]</dt>
+          <dd>Name of layout-master to use for this sequence.</dd>
+        <dt>initial-page-number [optional]</dt>
+          <dd>the inital page number for the sequence</dd>
+        <dt>xml:lang [optional]</dt>
+          <dd>the sequence's primary language as defined in <a
+            href="http://www.w3.org/TR/REC-xml/#sec-lang-tag">Section 2.12</a>
+            of the XML 1.0 Recommendation [<a class="nref"
+            href="#ref-xml">XML</a>].</dd>
+        <dt>hyphenate [optional]</dt>
+          <dd>Whether or not to hyphenate text descendants. </dd>
+          <dd>One of 'true' or 'false'.</dd>
+          <dd>See the <a href="#L21839">attribute description</a> for more
+            information.</dd>
+        <dt>translate [optional]</dt>
+          <dd>Specifies a translation policy.</dd>
+          <dd>See the <a href="#L2462">attribute description</a> for more
+            information.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>block [1 or more] </dd>
+</dl>
+</div>
+
+<h3 class="include" id="L11470">dynamic-sequence</h3>
+
+<p>The dynamic-sequence is similar to a regular sequence. The main difference
+is that it can contain elements that are generated based on the placement of
+the body of text. Another difference is that its existence depends on the
+existence of generated content. Without any generated content, the sequence
+should be excluded entierly.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>pre-content, post-content</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>master [required]</dt>
+          <dd>A reference to a layout-master</dd>
+        <dt>initial-page-number [optional]</dt>
+          <dd>The inital page number for the dynamic-sequence</dd>
+        <dt>xml:lang [optional]</dt>
+          <dd>The dynamic-sequence's primary language as defined in <a
+            href="http://www.w3.org/TR/REC-xml/#sec-lang-tag">Section 2.12</a>
+            of the XML 1.0 Recommendation [<a class="nref"
+            href="#ref-xml">XML</a>].</dd>
+        <dt>hyphenate [optional]</dt>
+          <dd>Whether or not to hyphenate text descendants. </dd>
+          <dd>One of 'true' or 'false'.</dd>
+          <dd>See the <a href="#L21839">attribute description</a> for more
+            information.</dd>
+        <dt>translate [optional]</dt>
+          <dd>Specifies a translation policy.</dd>
+          <dd>See the <a href="#L2462">attribute description</a> for more
+            information.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>block, list-of-references [1 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L1023" class="include">block</h3>
+
+<p>The block element defines a block of text.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>before, after, sequence, dynamic-sequence, on-collection-start,
+      on-page-start, on-page-end, on-collection-end, on-toc-start,
+      on-volume-start, on-volume-end, on-toc-end, item</dd>
+  <dt>General Attributes</dt>
+    <dd><p>This element supports the <a href="#block-atts">Block</a> attribute
+      group.</p>
+      <p>This element supports the <a href="#borders">Borders</a> attribute
+      group.</p>
+    </dd>
+  <dt>Special Attributes</dt>
+    <dd>The following attributes only apply to block elements in the context of
+      the text body. 
+      <dl>
+        <dt>keep-with-previous-sheets [optional]</dt>
+          <dd>Indicates that <em>the end of</em> this block should be kept in the same volume as
+            the specified number of preceding sheets.</dd>
+          <dd>An integer in the range [0, 9]</dd>
+        <dt>keep-with-next-sheets [optional]</dt>
+          <dd>Indicates that <em>the beginning of</em> this block should be kept in the same volume as
+            the specified number of following sheets.</dd>
+          <dd>An integer in the range [0, 9]</dd>
+      </dl>
+    </dd>
+    <dd><dl>
+        <dt>break-before [optional]</dt>
+          <dd class="no-markup">Break before block begins.</dd>
+          <dd>One of 'auto', 'page'.</dd>
+        <dt>keep [optional]</dt>
+          <dd>Keep rows in this block together.</dd>
+          <dd>One of 'auto', 'all'.</dd>
+        <dt>keep-with-next [optional]</dt>
+          <dd>Keep the following block's first line(s) on the same page as this
+            block.</dd>
+          <dd>An integer in the range [0, 9].</dd>
+        <dt>orphans [optional]</dt>
+          <dd>Specifies the minimum number of lines of a paragraph that must be left at the bottom of a page.</dd>
+          <dd>An integer in the range [1, 9].</dd>
+          <dd>Default is 1.</dd>
+        <dt>vertical-align [optional]</dt>
+          <dd>One of 'before', 'center', 'after'</dd>
+          <dd>Note that all block properties that effect the height of the
+            block are taken into account when aligning, both visible (i.e.
+            borders) and invisible (i.e. paddings and margins).</dd>
+        <dt>vertical-position [optional]</dt>
+          <dd>Specifies a vertical position for the block in row heights from
+            the top of the page body area.</dd>
+          <dd>Can be relative (percent) or absolute (a positive integer).</dd>
+          <dd>For example: 50% or 12</dd>
+          <dd>Note that vertical-positioning behave like leaders. In other
+            words, the vertical-position attribute can only increase the amount
+            of space preceding a block. It does not rearrange blocks. If a
+            second block has a vertical position lower than the block preceding
+            it, the second blocks vertical-position will either be ignored or
+            rendered on the following page, depending on the specific
+            situation. </dd>
+        <dt>widows [optional]</dt>
+          <dd>Specifies the minimum number of lines of a paragraph that must be left at the top of a page.</dd>
+          <dd>An integer in the range [1, 9].</dd>
+          <dd>Default is 1.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>text(), leader, marker, br, evaluate, page-number, span, style, anchor,
+      block [0 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L924" class="include">anchor</h3>
+
+<p>The anchor element references an item in a collection, suggesting that the
+item has a connection to the text near the location of the anchor.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>span, style, block</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>item [required]</dt>
+          <dd>A reference to an item id.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>Empty.</dd>
+</dl>
+</div>
+
+<h3 id="L9242" class="include">list-of-references</h3>
+
+<p>The list-of-references element contains instructions needed to render a
+collection of items ordered by page of reference. Note that a
+list-of-references only contains static contents inserted while generating the
+sequence (on-collection-start, on-page-start, on-page-end, on-collection-end).
+The actual items are collected from the referenced collection.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>dynamic-sequence</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>collection [required]</dt>
+          <dd>A reference to a collection, either an explicitly defined
+            collection or one defined as a fallback for another group.</dd>
+        <dt>range [required]</dt>
+          <dd>A data selection property.</dd>
+          <dd>One of 'document' or 'volume'.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>In this order: 
+      <ul>
+        <li>on-collection-start [optional]</li>
+        <li>on-page-start [optional]</li>
+        <li>on-page-end [optional]</li>
+        <li>on-collection-end [optional]</li>
+      </ul>
+    </dd>
+</dl>
+</div>
+
+<h3 id="L951" class="include">on-collection-start</h3>
+
+<p>The on-collection-start element defines blocks of text to insert before the
+collection items.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>list-of-references</dd>
+  <dt>Attributes</dt>
+    <dd>None</dd>
+  <dt>Content Model</dt>
+    <dd>block [1 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L9511" class="include">on-page-start</h3>
+
+<p>The on-page-start element defines blocks of text to insert before the
+collection items on a page.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>list-of-references</dd>
+  <dt>Attributes</dt>
+    <dd>None</dd>
+  <dt>Content Model</dt>
+    <dd>block [1 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L9512" class="include">on-page-end</h3>
+
+<p>The on-page-end element defines blocks of text to insert after the
+collection items on a page.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>list-of-references</dd>
+  <dt>Attributes</dt>
+    <dd>None</dd>
+  <dt>Content Model</dt>
+    <dd>block [1 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L9513" class="include">on-collection-end</h3>
+
+<p>The on-collection-end element defines blocks of text to insert after the
+collection items.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>list-of-references</dd>
+  <dt>Attributes</dt>
+    <dd>None</dd>
+  <dt>Content Model</dt>
+    <dd>block [1 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L9241" class="include">toc-sequence</h3>
+
+<p>The toc-sequence element contains instructions needed to generate a TOC's
+for braille books. Since the number of volumes and their contents is unknown
+prior to the layout process and since the TOC in braille books may be different
+for each volume, it is not sufficient to define the TOC before applying the
+layout as in XSL-FO. Note that a toc-sequence only contains static contents
+inserted while generating the toc (on-toc-start, on-volume-start, on-volume-end
+and on-toc-end). The actual TOC entries are collected from the referenced toc
+data.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>pre-content</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>master [required]</dt>
+          <dd>A reference to a layout-master</dd>
+        <dt>toc [required]</dt>
+          <dd>A reference to a table-of-contents</dd>
+        <dt>range [required]</dt>
+          <dd>A data selection property (document/volume)</dd>
+        <dt>use-when [required]</dt>
+          <dd>A condition for applying the toc-sequence, expressed using the <a
+            href="obfl-evaluation-language.html">OBFL Evaluation
+          Language</a></dd>
+        <dt>initial-page-number [optional]</dt>
+          <dd>The inital page number for the toc-sequence</dd>
+        <dt>xml:lang [optional]</dt>
+          <dd>The toc-sequence's primary language as defined in <a
+            href="http://www.w3.org/TR/REC-xml/#sec-lang-tag">Section 2.12</a>
+            of the XML 1.0 Recommendation [<a class="nref"
+            href="#ref-xml">XML</a>].</dd>
+        <dt>hyphenate [optional]</dt>
+          <dd>Whether or not to hyphenate text descendants. </dd>
+          <dd>One of 'true' or 'false'.</dd>
+          <dd>See the <a href="#L21839">attribute description</a> for more
+            information.</dd>
+        <dt>translate [optional]</dt>
+          <dd>Specifies a translation policy.</dd>
+          <dd>See the <a href="#L2462">attribute description</a> for more
+            information.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>In this order: 
+      <ul>
+        <li>on-toc-start [0 or more]</li>
+        <li>on-volume-start [0 or more]</li>
+        <li>on-volume-end [0 or more]</li>
+        <li>on-toc-end [0 or more]</li>
+      </ul>
+    </dd>
+</dl>
+</div>
+
+<h3 id="L9514" class="include">on-toc-start</h3>
+
+<p>The on-toc-start element defines blocks of text to insert before the TOC
+data.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>toc-sequence</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>use-when [optional]</dt>
+          <dd>a condition for inserting the contents, expressed using the <a
+            href="obfl-evaluation-language.html">OBFL Evaluation
+          Language</a></dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>block [1 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L969" class="include">on-volume-start</h3>
+
+<p>The on-volume-start element defines blocks of text to insert before the TOC
+data of a volume. Note that this element only applies to document range
+TOC's.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>toc-sequence</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>use-when [optional]</dt>
+          <dd>a condition for inserting the contents, expressed using the <a
+            href="obfl-evaluation-language.html">OBFL Evaluation
+          Language</a></dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>block [1 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L987" class="include">on-volume-end</h3>
+
+<p>The on-volume-end element defines blocks of text to insert after the TOC
+data of a volume. Note that this element only applies to document range
+TOC's.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>toc-sequence</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>use-when [optional]</dt>
+          <dd>a condition for inserting the contents, expressed using the <a
+            href="obfl-evaluation-language.html">OBFL Evaluation
+          Language</a></dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>block [1 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L1005" class="include">on-toc-end</h3>
+
+<p>The on-toc-end element defines blocks of text to insert after the TOC
+data.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>toc-sequence</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>use-when [optional]</dt>
+          <dd>a condition for inserting the contents, expressed using the <a
+            href="obfl-evaluation-language.html">OBFL Evaluation
+          Language</a></dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>block [1 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L1194" class="include">collection</h3>
+
+<p>Defines items to be placed somewhere within the flow, typically as page
+positioned elements, such as footnotes.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>obfl</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>name [required]</dt>
+          <dd>An identifier for the collection.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>item [0 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L1210" class="include">item</h3>
+
+<p>Defines the formatting of an item that should be inserted somewhere in the
+flow. The behavior of this element is similar to the toc-entry element, except
+that nesting of items is not allowed.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>collection</dd>
+  <dt>Attributes</dt>
+    <dd><p>This element supports the <a href="#block-atts">Block</a> attribute
+      group.</p>
+      <p>This element supports the <a href="#borders">Borders</a> attribute
+      group.</p>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>block, text(), leader, marker, br, evaluate, page-number, span, style
+      [0 or more]</dd>
+</dl>
+</div>
+
+<p></p>
+
+<h2 id="L1608">Attribute Definitions</h2>
+
+<h3 id="L21839">hyphenate</h3>
+
+<p>The overall hyphenation policy should be determined by the implementing
+application, for example per job or in a system setting. A user's preference
+should be respected, unless doing so would render the text difficult to read or
+interpret for some reason. The hyphenate attribute can be used when detailed
+control over hyphenation is required, e.g. to ensure proper rendering of
+content that may be difficult to interpret if hyphenated, such as
+hyperlinks.</p>
+
+<p>The hyphenation specified by <tt>hyphenate</tt> applies to all elements in
+its content unless overridden with another instance of <tt>hyphenate</tt>. In
+particular, the empty value of <tt>hyphenate</tt> is used on an element B to
+override a specification of <tt>hyphenate</tt> on an enclosing element A,
+without specififying another hyphenation policy. Within B, the user's
+preference for hyphenation should be applied.</p>
+
+<p>The value of the hyphenate attribute can either be 'true' or 'false'. The
+value 'true' indicates that a hyphenation algorithm should be applied to the
+text contents, i.e. add hyphenation information to the text. The value 'false'
+indicates that a hyphenation algorithm should <strong>NOT</strong> be applied
+to the text contents. However, obvious hyphention points that were already in
+the text to begin with <em>may</em> be used to hyphenate. Examples of
+hyphenation points that may be used to hyphenate even when the value of the
+hyphenate attribute is 'false' include (but are not limited to): SOFT HYPHEN
+(U+00AD) and ZERO WIDTH SPACE (U+200B).</p>
+
+<h4 id="L21851">Example</h4>
+
+<p>The following table illustrates the output for different combinations of
+input text and hyphenate attribute value (the first row has room for three more
+characters):</p>
+
+<table border="1" width="300px">
+  <thead>
+    <tr>
+      <th>input</th>
+      <th>hyphenate</th>
+      <th>output</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2">ex-ample</td>
+      <td>true</td>
+      <td>ex- 
+
+        <p>ample</p>
+      </td>
+    </tr>
+    <tr>
+      <td>false</td>
+      <td>ex- 
+
+        <p>ample</p>
+      </td>
+    </tr>
+    <tr>
+      <td rowspan="2">example</td>
+      <td>true</td>
+      <td>ex- 
+
+        <p>ample</p>
+      </td>
+    </tr>
+    <tr>
+      <td>false</td>
+      <td><p><br />
+        example</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="rowspacing">row-spacing</h3>
+
+<p>The row spacing, in row heights. E.g. 1.0 is normal row spacing, 2.0 is
+double.</p>
+
+<p>Row spacing effects the appearance of the following vertical measurements
+that are expressed in rows:</p>
+<ul>
+  <li>margin-bottom</li>
+  <li>margin-top</li>
+  <li>padding-bottom</li>
+  <li>padding-top</li>
+</ul>
+
+<p>For example, if row-spacing is 2.0, a vertical margin or padding of 2 will
+render a spacing equal to four row heights.</p>
+
+<h3 id="L2462">translate</h3>
+
+<p>The overall translation policy should be determined by the user of the
+application, for example as a job parameter or a system setting. A user's
+preference should be respected whenever possible. Setting the translate
+attribute on the obfl-element is generally not recommended. The translate
+attribute should be used when detailed control over translation is
+<b>required</b>, e.g. when combining different languages or in books about
+braille code.</p>
+
+<p>The value of the translate attribute can be 'pre-translated', 'grade0', 'grade1',
+'grade2' or 'grade3'.</p>
+
+<p>The translation specified by <tt>translate</tt> applies to all elements in
+its content unless overridden with another instance of <tt>translate</tt>. In
+particular, the empty value of <tt>translate</tt> is used on an element B to
+override a specification of <tt>translate</tt> on an enclosing element A,
+without specififying another translation. Within B, the user's preference for
+translation should be applied.</p>
+
+<h4 id="L2475">pre-translated</h4>
+
+<p>The value 'pre-translated' indicates that <i>the contents is already
+braille</i> and hence does not need processing by a complete braille translator
+to produce braille output. When using this value, text nodes MUST contain a
+combination of braille characters [U+2800-U+28FF] and the following:</p>
+<dl>
+  <dt>SPACE (U+0020)</dt>
+    <dd>Regular space MUST be used at word boundaries for the purpose of line
+      breaking.</dd>
+  <dt>SOFT HYPHEN (U+00AD)</dt>
+    <dd>Soft hyphen is used for dynamically inserting a hyphen at the end of a
+      line. Regular hyphens can be represented by a braille pattern followed by
+      U+200B.</dd>
+  <dt>ZERO WIDTH SPACE (U+200B)</dt>
+    <dd>Zero width space is used together with any braille pattern to allow
+      line breaks within a sequence of braille patterns.</dd>
+</dl>
+
+<p>Note that:</p>
+<ul>
+
+<li>BRAILLE PATTERN BLANK (U+2800) is not whitespace nor line
+breaking. It can be used in place of NO-BREAK SPACE (U+00A0). For other
+purposes, use U+0020</li>
+
+<li>pre-translated text nodes are not influenced by the hyphenate attribute nor the global hyphenation policy</li>
+
+<li class="markup">style elements MUST NOT occur in pre-translated context</li>
+</ul>
+
+<h2 id="L16081">Attribute Groups</h2>
+
+<h3 id="block-atts">Block</h3>
+
+<div class="sidebar">
+<dl>
+  <dt>first-line-indent [optional]</dt>
+    <dd>Indent of the first line of a block (in characters)</dd>
+    <dd>A number.</dd>
+  <dt>text-indent [optional]</dt>
+    <dd>Indent of every line in the block except the first one (in
+    characters)</dd>
+    <dd>A number.</dd>
+  <dt>block-indent [optional]</dt>
+    <dd>Indent of this block's block children (in characters)</dd>
+    <dd>A number.</dd>
+  <dt>list-type [optional]</dt>
+    <dd>The type of list for this block.</dd>
+    <dd>One of 'none' (default), 'ol', 'ul', 'pl'.</dd>
+  <dt>margin-bottom [optional]</dt>
+    <dd>Bottom margin for this block (in rows).</dd>
+    <dd>A number.</dd>
+  <dt>margin-left [optional]</dt>
+    <dd>Left margin for this block (in characters).</dd>
+    <dd>A number.</dd>
+  <dt>margin-top [optional]</dt>
+    <dd>Top margin for this block (in rows).</dd>
+    <dd>A number.</dd>
+  <dt>margin-right [optional]</dt>
+    <dd>Right margin for this block (in characters).</dd>
+    <dd>A number.</dd>
+  <dt>padding-bottom [optional]</dt>
+    <dd>Bottom padding for this block (in rows).</dd>
+    <dd>A number.</dd>
+  <dt>padding-left [optional]</dt>
+    <dd>Left padding for this block (in characters).</dd>
+    <dd>A number.</dd>
+  <dt>padding-top [optional]</dt>
+    <dd>Top padding for this block (in rows).</dd>
+    <dd>A number.</dd>
+  <dt>padding-right [optional]</dt>
+    <dd>Right padding for this block (in characters).</dd>
+    <dd>A number.</dd>
+  <dt>align [optional]</dt>
+    <dd>Specifies the text alignment.</dd>
+    <dd>One of 'left' (default), 'center' or 'right'.</dd>
+  <dt>id [optional]</dt>
+    <dd>An identifier.</dd>
+  <dt>row-spacing [optional]</dt>
+    <dd>The row spacing, in row heights. E.g. 1.0 is normal row spacing, 2.0 is
+      double.</dd>
+    <dd>Default is 1.0.</dd>
+    <dd>See the <a href="#rowspacing">attribute description</a> for more
+      information.</dd>
+  <dt>xml:lang [optional]</dt>
+    <dd>the language of text descendants as defined in <a
+      href="http://www.w3.org/TR/REC-xml/#sec-lang-tag">Section 2.12</a> of the
+      XML 1.0 Recommendation [<a class="nref" href="#ref-xml">XML</a>].</dd>
+  <dt>hyphenate [optional]</dt>
+    <dd>Whether or not to hyphenate text descendants. </dd>
+    <dd>One of 'true' or 'false'.</dd>
+    <dd>See the <a href="#L21839">attribute description</a> for more
+      information.</dd>
+  <dt>translate [optional]</dt>
+    <dd>Specifies a translation policy.</dd>
+    <dd>See the <a href="#L2462">attribute description</a> for more
+      information.</dd>
+</dl>
+</div>
+
+<h4 id="L2519">Collapsing Margins</h4>
+
+<p>Adjoining margins of two or more blocks (which might or might not be
+siblings) can combine to form a single margin. Margins that combine this way
+are said to collapse, and the resulting combined margin is called a collapsed
+margin.</p>
+
+<p>Horizontal margins never collapse.</p>
+
+<p>Vertical margins collapse when:</p>
+<ul>
+  <li>no padding or border separate them</li>
+  <li>they are on the same page</li>
+</ul>
+
+<p>When two or more margins collapse, the resulting margin width is the maximum
+of the collapsing margins' widths. If the top and bottom margins of a block are
+adjoining, then it is possible for margins to collapse through it.</p>
+
+<h4 id="L2536">Example</h4>
+
+<p>The following figure illustrates some of the available block properties.</p>
+
+<div class="dashed-box" style="display: table">
+
+<table class="box-model">
+  <tbody>
+    <tr>
+      <td colspan="3">margin-top</td>
+    </tr>
+    <tr>
+      <td>margin-left</td>
+      <td>
+        <div class="solid-box">
+
+        <table class="box-model">
+          <tbody>
+            <tr>
+              <td colspan="3">border-top</td>
+            </tr>
+            <tr>
+              <td>border-left</td>
+              <td>
+                <div class="dashed-box">
+
+                <table class="box-model">
+                  <tbody>
+                    <tr>
+                      <td colspan="3">padding-top</td>
+                    </tr>
+                    <tr>
+                      <td>padding-left</td>
+                      <td>
+                        <div class="dashed-box"
+                        style="padding: 1em; text-align: left;">
+                        <pre>  first-line-indent="2" ... ...
+text-indent="0" ... ... ... ...
+... ... ... ... ... ... ... ...</pre>
+                        <pre>first-line-indent="0" ... ... .
+  text-indent="2" ... ... ... .
+  . ... ... ... ... ... ... ...</pre>
+                        <pre>align="left"
+         align="center"
+                  align="right"</pre>
+
+                        <div class="dashed-box" style="margin-left: 1em">
+                        <pre>A child block with 
+block-indent="2"</pre>
+                        </div>
+                        <pre>row-spacing="1.0" ... ... ... .
+... ... ... ... ... ... ... ...
+... ... ... ... ... ... ... ...</pre>
+                        <pre>row-spacing="2.0" ... ... ... .
+
+... ... ... ... ... ... ... ...
+
+... ... ... ... ... ... ... ...</pre>
+                        </div>
+                      </td>
+                      <td>padding-right</td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">padding-bottom</td>
+                    </tr>
+                  </tbody>
+                </table>
+                </div>
+              </td>
+              <td>border-right</td>
+            </tr>
+            <tr>
+              <td colspan="3">border-bottom</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </td>
+      <td>margin-right</td>
+    </tr>
+    <tr>
+      <td colspan="3">margin-bottom</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3 id="borders">Borders</h3>
+
+<div class="sidebar">
+<dl>
+  <dt>border-style [optional]</dt>
+    <dd>Border style, sets the default border style.</dd>
+    <dd>One of 'none', 'solid'.</dd>
+  <dt>border-bottom-style [optional]</dt>
+    <dd>Border bottom style, overrides the default border style</dd>
+    <dd>One of 'none', 'solid'.</dd>
+  <dt>border-left-style [optional]</dt>
+    <dd>Border left style, overrides the default border style</dd>
+    <dd>One of 'none', 'solid'.</dd>
+  <dt>border-top-style [optional]</dt>
+    <dd>Border top style, overrides the default border style</dd>
+    <dd>One of 'none', 'solid'.</dd>
+  <dt>border-right-style [optional]</dt>
+    <dd>Border right style, overrides the default border style</dd>
+    <dd>One of 'none', 'solid'.</dd>
+  <dt>border-width [optional]</dt>
+    <dd>Border width, sets the default border width. The default value is 1.
+      Due to the limitations in expressiveness of text-only media, the meaning
+      of the numbers are open to interpretation. 1 should be the thinnest
+      possible value, 2 should be the double width of 1, and so on. However, if
+      it better matches the capabilities of the border characters, 2 could also
+      mean the second thinnest possible border, and 3 the third thinnest
+      border, and so on.</dd>
+    <dd>One of '1', '2', '3', '4', '5', '6', '7', '8', '9'.</dd>
+  <dt>border-bottom-width [optional]</dt>
+    <dd>Border bottom width, overrides the default border width</dd>
+    <dd>One of '1', '2', '3', '4', '5', '6', '7', '8', '9'.</dd>
+  <dt>border-left-width [optional]</dt>
+    <dd>Border left width, overrides the default border width</dd>
+    <dd>One of '1', '2', '3', '4', '5', '6', '7', '8', '9'.</dd>
+  <dt>border-top-width [optional]</dt>
+    <dd>Border top width, overrides the default border width</dd>
+    <dd>One of '1', '2', '3', '4', '5', '6', '7', '8', '9'.</dd>
+  <dt>border-right-width [optional]</dt>
+    <dd>Border right width, overrides the default border width</dd>
+    <dd>One of '1', '2', '3', '4', '5', '6', '7', '8', '9'.</dd>
+  <dt>border-align [optional]</dt>
+    <dd>Border align, sets the default border align</dd>
+    <dd>One of 'inner', 'center', 'outer'.</dd>
+  <dt>border-bottom-align [optional]</dt>
+    <dd>Border bottom align, overrides the default border align</dd>
+    <dd>One of 'inner', 'center', 'outer'.</dd>
+  <dt>border-left-align [optional]</dt>
+    <dd>Border left align, overrides the default border align</dd>
+    <dd>One of 'inner', 'center', 'outer'.</dd>
+  <dt>border-top-align [optional]</dt>
+    <dd>Border top align, overrides the default border align</dd>
+    <dd>One of 'inner', 'center', 'outer'.</dd>
+  <dt>border-right-align [optional]</dt>
+    <dd>Border right align, overrides the default border align</dd>
+    <dd>One of 'inner', 'center', 'outer'.</dd>
+</dl>
+</div>
+
+<h2 id="L756">Rule Sets</h2>
+
+<p>The rule sets mentioned below are included in the <a href="obfl.zip">zip
+file</a> for this specification. Users looking for local copies of the rule
+sets to work with should download and use this archive rather than using the
+specific references below.</p>
+
+<h3 id="L763"><a name="Relax1" id="Relax1">Relax NG Rule Set</a></h3>
+
+<p><strong>This section is normative.</strong></p>
+
+<p>The Relax NG rule set (XML syntax) "<a
+href="validation/obfl.rng">validation/obfl.rng</a>" forms a normative part of
+this specification.</p>
+
+<h3 id="L774">Other Rule Sets</h3>
+
+<p><strong>This section is informative.</strong></p>
+
+<p>The XML schema rule set "<a
+href="validation/obfl.xsd">validation/obfl.xsd</a>" forms an informative part
+of this specification.</p>
+<!-- 
+<p>The DTD rule set "<a
+href="validation/obfl.rng">validation/obfl.dtd</a>" forms an informative part
+of this specification.</p>
+ -->
+
+<p>The Relax NG (Compact syntax) rule set "<a
+href="validation/obfl.rnc">validation/obfl.rnc</a>" forms an informative part
+of this specification.</p>
+
+<h2 id="L784">References</h2>
+
+<h3 id="L786">Normative References</h3>
+
+<p><strong>This section is normative.</strong> </p>
+<dl>
+  <dt><a name="ref-digloss" id="ref-digloss"><strong>[DI
+  Glossary]</strong></a></dt>
+    <dd>"<a href="http://www.w3.org/TR/2005/WD-di-gloss-20050118/">Glossary of
+      Terms for Device Independence</a>", Rhys Lewis, 18 January 2005.<br />
+      <a href="http://www.w3.org/TR/di-gloss/">Latest version</a> available at:
+      http://www.w3.org/TR/di-gloss/</dd>
+  <dt><a name="ref-rfc2119" id="ref-rfc2119"><strong>[RFC2119]</strong></a></dt>
+    <dd>"<a href="http://www.ietf.org/rfc/rfc2119.txt">RFC2119: Key words for
+      use in RFCs to Indicate Requirement Levels</a>", S. Bradner, March
+      1997.<br />
+      Available at: http://www.ietf.org/rfc/rfc2119.txt</dd>
+  <dt><a name="ref-unicode" id="ref-unicode"><strong>[Unicode]</strong></a></dt>
+    <dd>"<a href="http://www.unicode.org/versions/Unicode5.1.0/">Unicode
+      Standard, Version 5.1.0</a>", The Unicode Consortium. The Unicode
+      Standard, Version 5.1.0, defined by: The Unicode Standard, Version 5.0
+      (Boston, MA, Addison-Wesley, 2007. ISBN 0-321-48091-0), as amended by
+      Unicode 5.1.0.<br />
+      <a href="http://www.unicode.org/versions/latest/">Latest version</a>
+      available at: http://www.unicode.org/versions/latest/</dd>
+  <dt><a name="ref-xml" id="ref-xml"><strong>[XML]</strong></a></dt>
+    <dd>"<a href="http://www.w3.org/TR/2006/REC-xml-20060816">Extensible Markup
+      Language (XML) 1.0 (Fourth Edition)</a>", T. Bray, J. Paoli, C. M.
+      Sperberg-McQueen, E. Maler, F. Yergeau, 29 September 2006.<br />
+      <a href="http://www.w3.org/TR/xml">Latest version</a> available at:
+      http://www.w3.org/TR/xml</dd>
+  <dt><a name="ref-xmlns" id="ref-xmlns"><strong>[XMLNS]</strong></a></dt>
+    <dd>"<a href="http://www.w3.org/TR/2006/REC-xml-names-20060816">Namespaces
+      in XML 1.0 (Second Edition)</a>", T. Bray, D. Hollander, A. Layman, R.
+      Tobin, 16 August 2006.<br />
+      <a href="http://www.w3.org/TR/xml-names">Latest version</a> available at:
+      http://www.w3.org/TR/xml-names</dd>
+  <dt><a name="ref-xpath" id="ref-xpath"><strong>[XPath]</strong></a></dt>
+    <dd>"<a href="http://www.w3.org/TR/1999/REC-xpath-19991116">XML Path
+      Language (XPath) Version (1.0)"</a>, J. Clark, S. DeRose, 16 November
+      1999.<br />
+      <a href="http://www.w3.org/TR/xpath">Latest version</a> available at:
+      http://www.w3.org/TR/xpath</dd>
+</dl>
+
+<h3 id="L881">Informative References</h3>
+
+<p><strong>This section is informative.</strong></p>
+<dl>
+  <dt>[Example OBFL document: Example 1]</dt>
+    <dd>"<a href="examples/example1.obfl">examples/example1.obfl</a>"</dd>
+    	<dd>A short OBFL example containing usage examples of most of the elements.</dd>
+  <dt>[Examples from Dotify]</dt>
+  	<dd><a href="https://rawgit.com/joeha480/dotify/master/dotify.formatter.impl/test/org.daisy.dotify.engine.impl.resource-files.tests-overview.html">https://rawgit.com/joeha480/dotify/master/dotify.formatter.impl/test/org.daisy.dotify.engine.impl.resource-files.tests-overview.html</a></dd>
+  	<dd>Formatting tests from the Dotify implementation of OBFL.</dd>
+</dl>
+<script type="text/javascript" src="markup.js">
+</script>
+</body>
+</html>

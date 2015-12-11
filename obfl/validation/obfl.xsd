@@ -1,0 +1,1121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.daisy.org/ns/2011/obfl" xmlns:obfl="http://www.daisy.org/ns/2011/obfl">
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  <xs:group name="blockContents">
+    <xs:sequence>
+      <xs:choice minOccurs="0">
+        <xs:element ref="obfl:leader"/>
+        <xs:element ref="obfl:marker"/>
+        <xs:element ref="obfl:br"/>
+        <xs:element ref="obfl:evaluate"/>
+        <xs:element ref="obfl:page-number"/>
+        <xs:element ref="obfl:span"/>
+        <xs:element ref="obfl:style"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:group>
+  <xs:attributeGroup name="row-spacing">
+    <xs:attribute name="row-spacing"/>
+  </xs:attributeGroup>
+  <!-- hyphenate, true to hyphenate, false otherwise -->
+  <xs:attributeGroup name="textAtts">
+    <xs:attribute ref="xml:lang"/>
+    <xs:attribute name="hyphenate">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+          <xs:enumeration value=""/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="translate">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value=""/>
+          <xs:enumeration value="pre-translated"/>
+          <xs:enumeration value="grade0"/>
+          <xs:enumeration value="grade1"/>
+          <xs:enumeration value="grade2"/>
+          <xs:enumeration value="grade3"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="name-id">
+    <xs:attribute name="name" use="required" type="xs:ID"/>
+  </xs:attributeGroup>
+  <!--
+    none, no border (default)
+    solid, a solid line
+    dashed, a dashed line
+  -->
+  <!--
+    Due to the limitations in expressiveness of text-only media, the meaning of the numbers are
+    open to interpretation. 1 should be the thinnest possible value, 2 should be the double width 
+    of 1, and so on. However, if it better matches the capabilities of the border characters, 2 
+    could also mean the second thinnest possible border, and 3 the third thinnest border, and so on. 
+    The default value is 1.
+  -->
+  <!--
+    border-style, border style
+    border-bottom-style, border bottom style
+    border-left-style, border left style
+    border-top-style, border top style
+    border-right-style, border right style
+    border-width, border width (thin or wide)
+  -->
+  <xs:simpleType name="border-align-enum">
+    <xs:annotation>
+      <xs:documentation>
+      inner, align border to the inner edge of the character cell
+      center, align borders in between the inner and outer edge of the character cell
+      outer, align border to the outer edge of the character cell
+    </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="inner"/>
+      <xs:enumeration value="center"/>
+      <xs:enumeration value="outer"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:attributeGroup name="border-atts">
+    <xs:attribute name="border-style">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="none"/>
+          <xs:enumeration value="solid"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="border-bottom-style">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="none"/>
+          <xs:enumeration value="solid"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="border-left-style">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="none"/>
+          <xs:enumeration value="solid"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="border-top-style">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="none"/>
+          <xs:enumeration value="solid"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="border-right-style">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="none"/>
+          <xs:enumeration value="solid"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="border-width">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="1"/>
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+          <xs:enumeration value="4"/>
+          <xs:enumeration value="5"/>
+          <xs:enumeration value="6"/>
+          <xs:enumeration value="7"/>
+          <xs:enumeration value="8"/>
+          <xs:enumeration value="9"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="border-bottom-width">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="1"/>
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+          <xs:enumeration value="4"/>
+          <xs:enumeration value="5"/>
+          <xs:enumeration value="6"/>
+          <xs:enumeration value="7"/>
+          <xs:enumeration value="8"/>
+          <xs:enumeration value="9"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="border-left-width">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="1"/>
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+          <xs:enumeration value="4"/>
+          <xs:enumeration value="5"/>
+          <xs:enumeration value="6"/>
+          <xs:enumeration value="7"/>
+          <xs:enumeration value="8"/>
+          <xs:enumeration value="9"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="border-top-width">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="1"/>
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+          <xs:enumeration value="4"/>
+          <xs:enumeration value="5"/>
+          <xs:enumeration value="6"/>
+          <xs:enumeration value="7"/>
+          <xs:enumeration value="8"/>
+          <xs:enumeration value="9"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="border-right-width">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="1"/>
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+          <xs:enumeration value="4"/>
+          <xs:enumeration value="5"/>
+          <xs:enumeration value="6"/>
+          <xs:enumeration value="7"/>
+          <xs:enumeration value="8"/>
+          <xs:enumeration value="9"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="border-align" type="obfl:border-align-enum"/>
+    <xs:attribute name="border-bottom-align" type="obfl:border-align-enum"/>
+    <xs:attribute name="border-left-align" type="obfl:border-align-enum"/>
+    <xs:attribute name="border-top-align" type="obfl:border-align-enum"/>
+    <xs:attribute name="border-right-align" type="obfl:border-align-enum"/>
+  </xs:attributeGroup>
+  <!--
+    break-before, if present, break before block begins
+    first-line-indent, indent (in chars) of first line block
+    keep, keep rows in this block
+    keep-with-next, keep the following block's first line(s) together with this block
+    list-type, the list type of this block
+    margin-bottom, bottom margin for this block (in rows)
+    margin-left, left margin for this block (in chars)
+    margin-top, top margin for this block (in rows)
+    margin-right, right margin for this block (in chars)
+    padding-bottom, bottom padding for this block (in rows)
+    padding-left, left padding for this block (in chars)
+    padding-top, top padding for this block (in rows)
+    padding-right, right padding for this block (in chars)
+    text-indent, indent (in chars) of every line in the block except the first one
+    block-indent, indent (in chars) of this block's block children
+  -->
+  <xs:attributeGroup name="blockAtts">
+    <xs:attribute name="break-before">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="auto"/>
+          <xs:enumeration value="page"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="first-line-indent"/>
+    <xs:attribute name="keep">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="auto"/>
+          <xs:enumeration value="all"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="keep-with-next">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="0"/>
+          <xs:enumeration value="1"/>
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+          <xs:enumeration value="4"/>
+          <xs:enumeration value="5"/>
+          <xs:enumeration value="6"/>
+          <xs:enumeration value="7"/>
+          <xs:enumeration value="8"/>
+          <xs:enumeration value="9"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="orphans">
+      <xs:annotation>
+        <xs:documentation>
+          The "orphans" property specifies the minimum number of lines of a paragraph that must be left at the bottom of a page.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:integer">
+          <xs:minInclusive value="1"/>
+          <xs:maxInclusive value="9"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="widows">
+      <xs:annotation>
+        <xs:documentation>
+          The "widows" property specifies the minimum number of lines of a paragraph that must be left at the top of a page.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:integer">
+          <xs:minInclusive value="1"/>
+          <xs:maxInclusive value="9"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="keep-with-previous-sheets">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="0"/>
+          <xs:enumeration value="1"/>
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+          <xs:enumeration value="4"/>
+          <xs:enumeration value="5"/>
+          <xs:enumeration value="6"/>
+          <xs:enumeration value="7"/>
+          <xs:enumeration value="8"/>
+          <xs:enumeration value="9"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="keep-with-next-sheets">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="0"/>
+          <xs:enumeration value="1"/>
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+          <xs:enumeration value="4"/>
+          <xs:enumeration value="5"/>
+          <xs:enumeration value="6"/>
+          <xs:enumeration value="7"/>
+          <xs:enumeration value="8"/>
+          <xs:enumeration value="9"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="list-type">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="none"/>
+          <xs:enumeration value="ol"/>
+          <xs:enumeration value="ul"/>
+          <xs:enumeration value="pl"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="margin-bottom"/>
+    <xs:attribute name="margin-left"/>
+    <xs:attribute name="margin-top"/>
+    <xs:attribute name="margin-right"/>
+    <xs:attribute name="padding-bottom"/>
+    <xs:attribute name="padding-left"/>
+    <xs:attribute name="padding-top"/>
+    <xs:attribute name="padding-right"/>
+    <xs:attribute name="text-indent"/>
+    <xs:attribute name="block-indent"/>
+    <xs:attribute name="align">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="left"/>
+          <xs:enumeration value="center"/>
+          <xs:enumeration value="right"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="vertical-align">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="before"/>
+          <xs:enumeration value="center"/>
+          <xs:enumeration value="after"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="vertical-position"/>
+    <xs:attribute name="id" type="xs:ID"/>
+    <xs:attributeGroup ref="obfl:row-spacing"/>
+    <xs:attributeGroup ref="obfl:border-atts"/>
+    <xs:attributeGroup ref="obfl:textAtts"/>
+  </xs:attributeGroup>
+  <!--
+    master, name of master to use for this sequence
+    initial-page-number, number of first page in the sequence
+  -->
+  <xs:attributeGroup name="sequenceAtts">
+    <xs:attribute name="master" use="required" type="xs:IDREF"/>
+    <xs:attribute name="initial-page-number"/>
+    <xs:attributeGroup ref="obfl:textAtts"/>
+  </xs:attributeGroup>
+  <!-- Document root -->
+  <xs:element name="obfl">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="obfl:meta"/>
+        <xs:element maxOccurs="unbounded" ref="obfl:layout-master"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:table-of-contents"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:volume-template"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:collection"/>
+        <xs:element maxOccurs="unbounded" ref="obfl:sequence"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="obfl:attlist-obfl"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-obfl">
+    <xs:attribute name="version" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="2011-1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute ref="xml:lang" use="required"/>
+    <xs:attribute name="hyphenate">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+          <xs:enumeration value=""/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="translate">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value=""/>
+          <xs:enumeration value="pre-translated"/>
+          <xs:enumeration value="grade0"/>
+          <xs:enumeration value="grade1"/>
+          <xs:enumeration value="grade2"/>
+          <xs:enumeration value="grade3"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <!---->
+  <xs:element name="meta" type="obfl:any"/>
+  <!-- Layout master -->
+  <xs:element name="layout-master">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:template"/>
+        <xs:element ref="obfl:default-template"/>
+        <xs:element minOccurs="0" ref="obfl:page-area"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="obfl:attlist-layout-master"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-layout-master">
+    <xs:attributeGroup ref="obfl:name-id"/>
+    <xs:attribute name="page-width" use="required"/>
+    <xs:attribute name="page-height" use="required"/>
+    <xs:attribute name="inner-margin"/>
+    <xs:attribute name="outer-margin"/>
+    <xs:attributeGroup ref="obfl:row-spacing"/>
+    <xs:attribute name="duplex">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="page-number-variable"/>
+    <xs:attributeGroup ref="obfl:border-atts"/>
+  </xs:attributeGroup>
+  <xs:element name="template">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="obfl:template-children">
+          <xs:attributeGroup ref="obfl:attlist-template"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-template">
+    <xs:attribute name="use-when" use="required"/>
+  </xs:attributeGroup>
+  <xs:element name="default-template" type="obfl:template-children"/>
+  <xs:complexType name="template-children">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="obfl:header"/>
+      <xs:element maxOccurs="unbounded" ref="obfl:footer"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:margin-region"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="header">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:field"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="obfl:attlist-header"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-header">
+    <xs:attributeGroup ref="obfl:row-spacing"/>
+  </xs:attributeGroup>
+  <xs:element name="footer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:field"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="obfl:attlist-footer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-footer">
+    <xs:attributeGroup ref="obfl:row-spacing"/>
+  </xs:attributeGroup>
+  <xs:element name="margin-region">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="obfl:indicators"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="obfl:attlist-margin-region"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-margin-region">
+    <xs:attribute name="align" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="left"/>
+          <xs:enumeration value="right"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="width" type="xs:positiveInteger"/>
+  </xs:attributeGroup>
+  <xs:element name="indicators">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:marker-indicator"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="marker-indicator">
+    <xs:complexType>
+      <xs:attributeGroup ref="obfl:attlist-marker-indicator"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-marker-indicator">
+    <xs:attribute name="markers" use="required" type="xs:NMTOKENS"/>
+    <xs:attribute name="indicator" use="required" type="xs:normalizedString"/>
+  </xs:attributeGroup>
+  <xs:element name="field">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element ref="obfl:marker-reference"/>
+        <xs:element ref="obfl:string"/>
+        <xs:element ref="obfl:current-page"/>
+        <xs:element ref="obfl:evaluate"/>
+      </xs:choice>
+      <xs:attributeGroup ref="obfl:attlist-field"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-field">
+    <xs:attribute name="text-style" type="xs:NMTOKEN"/>
+  </xs:attributeGroup>
+  <xs:element name="current-page">
+    <xs:complexType>
+      <xs:attributeGroup ref="obfl:attlist-current-page"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-current-page">
+    <xs:attribute name="number-format">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="default"/>
+          <xs:enumeration value="roman"/>
+          <xs:enumeration value="upper-roman"/>
+          <xs:enumeration value="lower-roman"/>
+          <xs:enumeration value="upper-alpha"/>
+          <xs:enumeration value="lower-alpha"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="text-style" type="xs:NMTOKEN"/>
+  </xs:attributeGroup>
+  <xs:element name="marker-reference">
+    <xs:complexType>
+      <xs:attributeGroup ref="obfl:attlist-marker-reference"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-marker-reference">
+    <xs:attribute name="marker" use="required" type="xs:NMTOKEN"/>
+    <xs:attribute name="direction" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="forward"/>
+          <xs:enumeration value="backward"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="scope" use="required">
+      <xs:annotation>
+        <xs:documentation>Defines the boundaries of the search</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="page-content"/>
+          <xs:enumeration value="page"/>
+          <xs:enumeration value="spread"/>
+          <xs:enumeration value="sheet"/>
+          <xs:enumeration value="sequence"/>
+          <xs:enumeration value="volume"/>
+          <xs:enumeration value="document"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="start-offset" type="xs:short">
+      <xs:annotation>
+        <xs:documentation>Offsets the start of the search by the specified number of pages</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="text-style" type="xs:NMTOKEN"/>
+  </xs:attributeGroup>
+  <xs:element name="string">
+    <xs:complexType>
+      <xs:attributeGroup ref="obfl:attlist-string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-string">
+    <xs:attribute name="value" use="required"/>
+    <xs:attribute name="text-style" type="xs:NMTOKEN"/>
+  </xs:attributeGroup>
+  <xs:element name="evaluate">
+    <xs:complexType>
+      <xs:attributeGroup ref="obfl:attlist-evaluate"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-evaluate">
+    <xs:attribute name="expression" use="required"/>
+    <xs:attribute name="text-style" type="xs:NMTOKEN"/>
+  </xs:attributeGroup>
+  <xs:element name="table-of-contents">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="obfl:toc-entry"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="obfl:attlist-table-of-contents"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-table-of-contents">
+    <xs:attributeGroup ref="obfl:name-id"/>
+  </xs:attributeGroup>
+  <xs:element name="toc-entry">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="obfl:blockContents"/>
+        <xs:element ref="obfl:toc-entry"/>
+      </xs:choice>
+      <xs:attributeGroup ref="obfl:attlist-toc-entry"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-toc-entry">
+    <xs:attribute name="ref-id" use="required" type="xs:IDREF"/>
+    <xs:attributeGroup ref="obfl:blockAtts"/>
+  </xs:attributeGroup>
+  <xs:element name="volume-template">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="obfl:pre-content"/>
+        <xs:element ref="obfl:post-content"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="obfl:attlist-volume-template"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-volume-template">
+    <xs:attribute name="use-when"/>
+    <xs:attribute name="volume-number-variable"/>
+    <xs:attribute name="volume-count-variable"/>
+    <xs:attribute name="sheets-in-volume-max" use="required"/>
+  </xs:attributeGroup>
+  <xs:element name="pre-content">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="obfl:sequence"/>
+        <xs:element ref="obfl:dynamic-sequence"/>
+        <xs:element ref="obfl:toc-sequence"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="post-content">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="obfl:sequence"/>
+        <xs:element ref="obfl:dynamic-sequence"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="toc-sequence">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:on-toc-start"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:on-volume-start"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:on-volume-end"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:on-toc-end"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="obfl:attlist-toc-sequence"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-toc-sequence">
+    <xs:attribute name="toc" use="required" type="xs:IDREF"/>
+    <xs:attribute name="range" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="document"/>
+          <xs:enumeration value="volume"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attributeGroup ref="obfl:sequenceAtts"/>
+  </xs:attributeGroup>
+  <xs:element name="on-toc-start">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="obfl:block"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="obfl:attlist-on-toc-start"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-on-toc-start">
+    <xs:attribute name="use-when"/>
+  </xs:attributeGroup>
+  <xs:element name="on-volume-start">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="obfl:block"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="obfl:attlist-on-volume-start"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-on-volume-start">
+    <xs:attribute name="use-when"/>
+  </xs:attributeGroup>
+  <xs:element name="on-volume-end">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="obfl:block"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="obfl:attlist-on-volume-end"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-on-volume-end">
+    <xs:attribute name="use-when"/>
+  </xs:attributeGroup>
+  <xs:element name="on-toc-end">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="obfl:block"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="obfl:attlist-on-toc-end"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-on-toc-end">
+    <xs:attribute name="use-when"/>
+  </xs:attributeGroup>
+  <xs:element name="list-of-references">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="obfl:on-collection-start"/>
+        <xs:element minOccurs="0" ref="obfl:on-page-start"/>
+        <xs:element minOccurs="0" ref="obfl:on-page-end"/>
+        <xs:element minOccurs="0" ref="obfl:on-collection-end"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="obfl:attlist-list-of-references"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-list-of-references">
+    <xs:attribute name="collection" use="required" type="xs:IDREF"/>
+    <xs:attribute name="range" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="document"/>
+          <xs:enumeration value="volume"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:element name="on-collection-start">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="obfl:block"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="on-collection-end">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="obfl:block"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="on-page-start">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="obfl:block"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="on-page-end">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="obfl:block"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="dynamic-sequence">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element ref="obfl:block"/>
+        <xs:element ref="obfl:list-of-references"/>
+      </xs:choice>
+      <xs:attributeGroup ref="obfl:attlist-dynamic-sequence"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-dynamic-sequence">
+    <xs:attributeGroup ref="obfl:sequenceAtts"/>
+  </xs:attributeGroup>
+  <!-- A sequence of blocks -->
+  <xs:element name="sequence">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="obfl:block"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="obfl:attlist-sequence"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-sequence">
+    <xs:attributeGroup ref="obfl:sequenceAtts"/>
+  </xs:attributeGroup>
+  <!-- fallback-scope (all|page) #IMPLIED -->
+  <xs:element name="page-area">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="obfl:fallback"/>
+        <xs:element minOccurs="0" ref="obfl:before"/>
+        <xs:element minOccurs="0" ref="obfl:after"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="obfl:attlist-page-area"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-page-area">
+    <xs:attribute name="align">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="bottom"/>
+          <xs:enumeration value="top"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="collection" use="required" type="xs:IDREF"/>
+    <xs:attribute name="max-height" use="required"/>
+  </xs:attributeGroup>
+  <xs:element name="fallback">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="obfl:rename"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="rename">
+    <xs:complexType>
+      <xs:attributeGroup ref="obfl:attlist-rename"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-rename">
+    <xs:attribute name="collection" use="required" type="xs:IDREF"/>
+    <xs:attribute name="to" use="required" type="xs:ID"/>
+  </xs:attributeGroup>
+  <xs:element name="before">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="obfl:blockContents"/>
+        <xs:element ref="obfl:block"/>
+      </xs:choice>
+      <xs:attributeGroup ref="obfl:attlist-before"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-before">
+    <xs:attributeGroup ref="obfl:blockAtts"/>
+  </xs:attributeGroup>
+  <xs:element name="after">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="obfl:blockContents"/>
+        <xs:element ref="obfl:block"/>
+      </xs:choice>
+      <xs:attributeGroup ref="obfl:attlist-after"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-after">
+    <xs:attributeGroup ref="obfl:blockAtts"/>
+  </xs:attributeGroup>
+  <xs:element name="collection">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="obfl:item"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="obfl:attlist-collection"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-collection">
+    <xs:attributeGroup ref="obfl:name-id"/>
+  </xs:attributeGroup>
+  <!-- A block of text -->
+  <xs:element name="block">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="obfl:blockContents"/>
+        <xs:element ref="obfl:anchor"/>
+        <xs:element ref="obfl:block"/>
+      </xs:choice>
+      <xs:attributeGroup ref="obfl:attlist-block"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-block">
+    <xs:attributeGroup ref="obfl:blockAtts"/>
+  </xs:attributeGroup>
+  <xs:element name="item">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="obfl:blockContents"/>
+        <xs:element ref="obfl:block"/>
+      </xs:choice>
+      <xs:attributeGroup ref="obfl:attlist-item"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-item">
+    <xs:attribute name="id" use="required" type="xs:ID"/>
+    <xs:attribute name="break-before">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="auto"/>
+          <xs:enumeration value="page"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="first-line-indent"/>
+    <xs:attribute name="keep">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="auto"/>
+          <xs:enumeration value="all"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="keep-with-next">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="0"/>
+          <xs:enumeration value="1"/>
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+          <xs:enumeration value="4"/>
+          <xs:enumeration value="5"/>
+          <xs:enumeration value="6"/>
+          <xs:enumeration value="7"/>
+          <xs:enumeration value="8"/>
+          <xs:enumeration value="9"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="keep-with-previous-sheets">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="0"/>
+          <xs:enumeration value="1"/>
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+          <xs:enumeration value="4"/>
+          <xs:enumeration value="5"/>
+          <xs:enumeration value="6"/>
+          <xs:enumeration value="7"/>
+          <xs:enumeration value="8"/>
+          <xs:enumeration value="9"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="keep-with-next-sheets">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="0"/>
+          <xs:enumeration value="1"/>
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+          <xs:enumeration value="4"/>
+          <xs:enumeration value="5"/>
+          <xs:enumeration value="6"/>
+          <xs:enumeration value="7"/>
+          <xs:enumeration value="8"/>
+          <xs:enumeration value="9"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="list-type">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="none"/>
+          <xs:enumeration value="ol"/>
+          <xs:enumeration value="ul"/>
+          <xs:enumeration value="pl"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="margin-bottom"/>
+    <xs:attribute name="margin-left"/>
+    <xs:attribute name="margin-top"/>
+    <xs:attribute name="margin-right"/>
+    <xs:attribute name="padding-bottom"/>
+    <xs:attribute name="padding-left"/>
+    <xs:attribute name="padding-top"/>
+    <xs:attribute name="padding-right"/>
+    <xs:attribute name="text-indent"/>
+    <xs:attribute name="block-indent"/>
+    <xs:attribute name="align">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="left"/>
+          <xs:enumeration value="center"/>
+          <xs:enumeration value="right"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="vertical-align">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="before"/>
+          <xs:enumeration value="center"/>
+          <xs:enumeration value="after"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="vertical-position"/>
+    <xs:attributeGroup ref="obfl:row-spacing"/>
+    <xs:attributeGroup ref="obfl:border-atts"/>
+    <xs:attributeGroup ref="obfl:textAtts"/>
+  </xs:attributeGroup>
+  <xs:element name="span">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="obfl:style"/>
+        <xs:element ref="obfl:anchor"/>
+      </xs:choice>
+      <xs:attributeGroup ref="obfl:attlist-span"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-span">
+    <xs:attributeGroup ref="obfl:textAtts"/>
+  </xs:attributeGroup>
+  <xs:element name="style">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="obfl:style"/>
+        <xs:element ref="obfl:marker"/>
+        <xs:element ref="obfl:br"/>
+        <xs:element ref="obfl:anchor"/>
+      </xs:choice>
+      <xs:attributeGroup ref="obfl:attlist-style"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-style">
+    <xs:attribute name="name" use="required" type="xs:NMTOKEN"/>
+  </xs:attributeGroup>
+  <!-- A marker, use with headers/footers -->
+  <xs:element name="marker">
+    <xs:complexType>
+      <xs:attributeGroup ref="obfl:attlist-marker"/>
+    </xs:complexType>
+  </xs:element>
+  <!--
+    class, class name for this marker
+    value, value for this marker
+  -->
+  <xs:attributeGroup name="attlist-marker">
+    <xs:attribute name="class" use="required"/>
+    <xs:attribute name="value" use="required"/>
+  </xs:attributeGroup>
+  <!-- A leader, move to a specific location within the current row -->
+  <xs:element name="leader">
+    <xs:complexType>
+      <xs:attributeGroup ref="obfl:attlist-leader"/>
+    </xs:complexType>
+  </xs:element>
+  <!--
+    align, 	alignment of the text following the leader.
+    		    The leader can be aligned to the left, center or
+    		    right of the following text segment. Left is
+    		    default.
+    pattern, 	fill pattern to use up to the leader position, " "
+    		    is default.
+    position, position of the leader within the row. Can be
+    		    relative (percent) or absolute (column).
+  -->
+  <xs:attributeGroup name="attlist-leader">
+    <xs:attribute name="align">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="left"/>
+          <xs:enumeration value="center"/>
+          <xs:enumeration value="right"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="pattern"/>
+    <xs:attribute name="position" use="required"/>
+  </xs:attributeGroup>
+  <xs:element name="anchor">
+    <xs:complexType>
+      <xs:attributeGroup ref="obfl:attlist-anchor"/>
+    </xs:complexType>
+  </xs:element>
+  <!-- item, the achored collection item -->
+  <xs:attributeGroup name="attlist-anchor">
+    <xs:attribute name="item" use="required" type="xs:IDREF"/>
+  </xs:attributeGroup>
+  <!-- Break line -->
+  <xs:element name="br">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="page-number">
+    <xs:complexType>
+      <xs:attributeGroup ref="obfl:attlist-page-number"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-page-number">
+    <xs:attribute name="ref-id" use="required" type="xs:IDREF"/>
+    <xs:attribute name="number-format">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="default"/>
+          <xs:enumeration value="roman"/>
+          <xs:enumeration value="upper-roman"/>
+          <xs:enumeration value="lower-roman"/>
+          <xs:enumeration value="upper-alpha"/>
+          <xs:enumeration value="lower-alpha"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:complexType name="any" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:any namespace="##other" processContents="skip"/>
+      <xs:any namespace="##local" processContents="skip"/>
+    </xs:choice>
+  </xs:complexType>
+</xs:schema>

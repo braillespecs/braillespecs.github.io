@@ -1,0 +1,422 @@
+default namespace ns1 = "http://www.daisy.org/ns/2011/obfl"
+
+blockContents =
+  text | leader | marker | br | evaluate | page-number | span | style
+\namespace = empty
+row-spacing = attribute row-spacing { text }?
+# hyphenate, true to hyphenate, false otherwise
+textAtts =
+  attribute xml:lang { xsd:NMTOKEN }?,
+  attribute hyphenate { "true" | "false" | "" }?,
+  attribute translate {
+    "" | "pre-translated" | "grade0" | "grade1" | "grade2" | "grade3"
+  }?
+name-id = attribute name { xsd:ID }
+# none, no border (default)
+# solid, a solid line
+# dashed, a dashed line
+
+# Due to the limitations in expressiveness of text-only media, the meaning of the numbers are
+# open to interpretation. 1 should be the thinnest possible value, 2 should be the double width 
+# of 1, and so on. However, if it better matches the capabilities of the border characters, 2 
+# could also mean the second thinnest possible border, and 3 the third thinnest border, and so on. 
+# The default value is 1.
+
+# border-style, border style
+# border-bottom-style, border bottom style
+# border-left-style, border left style
+# border-top-style, border top style
+# border-right-style, border right style
+# border-width, border width (thin or wide)
+
+## 
+##       inner, align border to the inner edge of the character cell
+##       center, align borders in between the inner and outer edge of the character cell
+##       outer, align border to the outer edge of the character cell
+##     
+border-align-enum = "inner" | "center" | "outer"
+border-atts =
+  attribute border-style { "none" | "solid" }?,
+  attribute border-bottom-style { "none" | "solid" }?,
+  attribute border-left-style { "none" | "solid" }?,
+  attribute border-top-style { "none" | "solid" }?,
+  attribute border-right-style { "none" | "solid" }?,
+  attribute border-width {
+    "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+  }?,
+  attribute border-bottom-width {
+    "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+  }?,
+  attribute border-left-width {
+    "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+  }?,
+  attribute border-top-width {
+    "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+  }?,
+  attribute border-right-width {
+    "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+  }?,
+  attribute border-align { border-align-enum }?,
+  attribute border-bottom-align { border-align-enum }?,
+  attribute border-left-align { border-align-enum }?,
+  attribute border-top-align { border-align-enum }?,
+  attribute border-right-align { border-align-enum }?
+# break-before, if present, break before block begins
+# first-line-indent, indent (in chars) of first line block
+# keep, keep rows in this block
+# keep-with-next, keep the following block's first line(s) together with this block
+# list-type, the list type of this block
+# margin-bottom, bottom margin for this block (in rows)
+# margin-left, left margin for this block (in chars)
+# margin-top, top margin for this block (in rows)
+# margin-right, right margin for this block (in chars)
+# padding-bottom, bottom padding for this block (in rows)
+# padding-left, left padding for this block (in chars)
+# padding-top, top padding for this block (in rows)
+# padding-right, right padding for this block (in chars)
+# text-indent, indent (in chars) of every line in the block except the first one
+# block-indent, indent (in chars) of this block's block children
+blockAtts =
+  attribute break-before { "auto" | "page" }?,
+  attribute first-line-indent { text }?,
+  attribute keep { "auto" | "all" }?,
+  attribute keep-with-next {
+    "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+  }?,
+  
+  ## 
+  ##           The "orphans" property specifies the minimum number of lines of a paragraph that must be left at the bottom of a page.
+  ##         
+  attribute orphans {
+    xsd:integer { minInclusive = "1" maxInclusive = "9" }
+  }?,
+  
+  ## 
+  ##           The "widows" property specifies the minimum number of lines of a paragraph that must be left at the top of a page.
+  ##         
+  attribute widows {
+    xsd:integer { minInclusive = "1" maxInclusive = "9" }
+  }?,
+  attribute keep-with-previous-sheets {
+    "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+  }?,
+  attribute keep-with-next-sheets {
+    "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+  }?,
+  attribute list-type { "none" | "ol" | "ul" | "pl" }?,
+  attribute margin-bottom { text }?,
+  attribute margin-left { text }?,
+  attribute margin-top { text }?,
+  attribute margin-right { text }?,
+  attribute padding-bottom { text }?,
+  attribute padding-left { text }?,
+  attribute padding-top { text }?,
+  attribute padding-right { text }?,
+  attribute text-indent { text }?,
+  attribute block-indent { text }?,
+  attribute align { "left" | "center" | "right" }?,
+  attribute vertical-align { "before" | "center" | "after" }?,
+  attribute vertical-position { text }?,
+  attribute id { xsd:ID }?,
+  row-spacing,
+  border-atts,
+  textAtts
+# master, name of master to use for this sequence
+# initial-page-number, number of first page in the sequence
+sequenceAtts =
+  attribute master { xsd:IDREF },
+  attribute initial-page-number { text }?,
+  textAtts
+# Document root
+obfl =
+  element obfl {
+    attlist-obfl,
+    meta?,
+    layout-master+,
+    table-of-contents*,
+    volume-template*,
+    collection*,
+    sequence+
+  }
+attlist-obfl &=
+  \namespace,
+  attribute version { "2011-1" },
+  attribute xml:lang { xsd:NMTOKEN },
+  attribute hyphenate { "true" | "false" | "" }?,
+  attribute translate {
+    "" | "pre-translated" | "grade0" | "grade1" | "grade2" | "grade3"
+  }?
+#
+meta = element meta { attlist-meta, any }
+attlist-meta &= empty
+# Layout master
+layout-master =
+  element layout-master {
+    attlist-layout-master, template*, default-template, page-area?
+  }
+attlist-layout-master &=
+  name-id,
+  attribute page-width { text },
+  attribute page-height { text },
+  attribute inner-margin { text }?,
+  attribute outer-margin { text }?,
+  row-spacing,
+  attribute duplex { "true" | "false" }?,
+  attribute page-number-variable { text }?,
+  border-atts
+template = element template { attlist-template, template-children }
+attlist-template &= attribute use-when { text }
+default-template =
+  element default-template {
+    attlist-default-template, template-children
+  }
+attlist-default-template &= empty
+template-children = header+, footer+, margin-region*
+header = element header { attlist-header, field* }
+attlist-header &= row-spacing
+footer = element footer { attlist-footer, field* }
+attlist-footer &= row-spacing
+margin-region =
+  element margin-region { attlist-margin-region, indicators? }
+attlist-margin-region &=
+  attribute align { "left" | "right" },
+  attribute width { xsd:positiveInteger }?
+indicators = element indicators { marker-indicator* }
+marker-indicator =
+  element marker-indicator { empty, attlist-marker-indicator }
+attlist-marker-indicator =
+  attribute markers { xsd:NMTOKENS },
+  attribute indicator { xsd:normalizedString }
+field =
+  element field {
+    attlist-field,
+    (marker-reference | \string | current-page | evaluate)+
+  }
+attlist-field &= attribute text-style { xsd:NMTOKEN }?
+current-page = element current-page { attlist-current-page, empty }
+attlist-current-page &=
+  attribute number-format {
+    "default"
+    | "roman"
+    | "upper-roman"
+    | "lower-roman"
+    | "upper-alpha"
+    | "lower-alpha"
+  }?,
+  attribute text-style { xsd:NMTOKEN }?
+marker-reference =
+  element marker-reference { attlist-marker-reference, empty }
+attlist-marker-reference &=
+  attribute marker { xsd:NMTOKEN },
+  attribute direction {
+    
+    ## Defines the direction of the search
+    ("forward" | "backward")
+  },
+  
+  ## Defines the boundaries of the search
+  attribute scope {
+    "page-content"
+    | "page"
+    | "spread"
+    | "sheet"
+    | "sequence"
+    | "volume"
+    | "document"
+  },
+  
+  ## Offsets the start of the search by the specified number of pages
+  attribute start-offset { xsd:short }?,
+  attribute text-style { xsd:NMTOKEN }?
+\string = element string { attlist-string, empty }
+attlist-string &=
+  attribute value { text },
+  attribute text-style { xsd:NMTOKEN }?
+evaluate = element evaluate { attlist-evaluate, empty }
+attlist-evaluate &=
+  attribute expression { text },
+  attribute text-style { xsd:NMTOKEN }?
+table-of-contents =
+  element table-of-contents { attlist-table-of-contents, toc-entry+ }
+attlist-table-of-contents &= name-id
+toc-entry =
+  element toc-entry { attlist-toc-entry, (blockContents | toc-entry)* }
+attlist-toc-entry &=
+  attribute ref-id { xsd:IDREF },
+  blockAtts
+volume-template =
+  element volume-template {
+    attlist-volume-template, pre-content, post-content
+  }
+attlist-volume-template &=
+  attribute use-when { text }?,
+  attribute volume-number-variable { text }?,
+  attribute volume-count-variable { text }?,
+  attribute sheets-in-volume-max { text }
+pre-content =
+  element pre-content {
+    attlist-pre-content, (sequence | dynamic-sequence | toc-sequence)*
+  }
+attlist-pre-content &= empty
+post-content =
+  element post-content {
+    attlist-post-content, (sequence | dynamic-sequence)*
+  }
+attlist-post-content &= empty
+toc-sequence =
+  element toc-sequence {
+    attlist-toc-sequence,
+    on-toc-start*,
+    on-volume-start*,
+    on-volume-end*,
+    on-toc-end*
+  }
+attlist-toc-sequence &=
+  attribute toc { xsd:IDREF },
+  attribute range { "document" | "volume" },
+  sequenceAtts
+on-toc-start = element on-toc-start { attlist-on-toc-start, block+ }
+attlist-on-toc-start &= attribute use-when { text }?
+on-volume-start =
+  element on-volume-start { attlist-on-volume-start, block+ }
+attlist-on-volume-start &= attribute use-when { text }?
+on-volume-end = element on-volume-end { attlist-on-volume-end, block+ }
+attlist-on-volume-end &= attribute use-when { text }?
+on-toc-end = element on-toc-end { attlist-on-toc-end, block+ }
+attlist-on-toc-end &= attribute use-when { text }?
+list-of-references =
+  element list-of-references {
+    attlist-list-of-references,
+    on-collection-start?,
+    on-page-start?,
+    on-page-end?,
+    on-collection-end?
+  }
+attlist-list-of-references &=
+  attribute collection { xsd:IDREF },
+  attribute range { "document" | "volume" }
+on-collection-start =
+  element on-collection-start { attlist-on-collection-start, block+ }
+attlist-on-collection-start &= empty
+on-collection-end =
+  element on-collection-end { attlist-on-collection-end, block+ }
+attlist-on-collection-end &= empty
+on-page-start = element on-page-start { attlist-on-page-start, block+ }
+attlist-on-page-start &= empty
+on-page-end = element on-page-end { attlist-on-page-end, block+ }
+attlist-on-page-end &= empty
+dynamic-sequence =
+  element dynamic-sequence {
+    attlist-dynamic-sequence, (block | list-of-references)+
+  }
+attlist-dynamic-sequence &= sequenceAtts
+# A sequence of blocks
+sequence = element sequence { attlist-sequence, block+ }
+attlist-sequence &= sequenceAtts
+# fallback-scope (all|page) #IMPLIED
+page-area =
+  element page-area { attlist-page-area, fallback?, before?, after? }
+attlist-page-area &=
+  attribute align { "bottom" | "top" }?,
+  attribute collection { xsd:IDREF },
+  attribute max-height { text }
+fallback = element fallback { attlist-fallback, rename+ }
+attlist-fallback &= empty
+rename = element rename { attlist-rename, empty }
+attlist-rename &=
+  attribute collection { xsd:IDREF },
+  attribute to { xsd:ID }
+before = element before { attlist-before, (blockContents | block)* }
+attlist-before &= blockAtts
+after = element after { attlist-after, (blockContents | block)* }
+attlist-after &= blockAtts
+collection = element collection { attlist-collection, item+ }
+attlist-collection &= name-id
+# A block of text
+block =
+  element block { attlist-block, (blockContents | anchor | block)* }
+attlist-block &= blockAtts
+item = element item { attlist-item, (blockContents | block)* }
+attlist-item &=
+  attribute id { xsd:ID },
+  attribute break-before { "auto" | "page" }?,
+  attribute first-line-indent { text }?,
+  attribute keep { "auto" | "all" }?,
+  attribute keep-with-next {
+    "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+  }?,
+  attribute keep-with-previous-sheets {
+    "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+  }?,
+  attribute keep-with-next-sheets {
+    "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+  }?,
+  attribute list-type { "none" | "ol" | "ul" | "pl" }?,
+  attribute margin-bottom { text }?,
+  attribute margin-left { text }?,
+  attribute margin-top { text }?,
+  attribute margin-right { text }?,
+  attribute padding-bottom { text }?,
+  attribute padding-left { text }?,
+  attribute padding-top { text }?,
+  attribute padding-right { text }?,
+  attribute text-indent { text }?,
+  attribute block-indent { text }?,
+  attribute align { "left" | "center" | "right" }?,
+  attribute vertical-align { "before" | "center" | "after" }?,
+  attribute vertical-position { text }?,
+  row-spacing,
+  border-atts,
+  textAtts
+span = element span { attlist-span, (text | style | anchor)* }
+attlist-span &= textAtts
+style =
+  element style {
+    attlist-style, (text | style | marker | br | anchor)*
+  }
+attlist-style &= attribute name { xsd:NMTOKEN }
+# A marker, use with headers/footers
+marker = element marker { attlist-marker, empty }
+# class, class name for this marker
+# value, value for this marker
+attlist-marker &=
+  attribute class { text },
+  attribute value { text }
+# A leader, move to a specific location within the current row
+leader = element leader { attlist-leader, empty }
+# align, 	alignment of the text following the leader.
+#		    The leader can be aligned to the left, center or
+#		    right of the following text segment. Left is
+#		    default.
+# pattern, 	fill pattern to use up to the leader position, " "
+#		    is default.
+# position, position of the leader within the row. Can be
+#		    relative (percent) or absolute (column).
+attlist-leader &=
+  attribute align { "left" | "center" | "right" }?,
+  attribute pattern { text }?,
+  attribute position { text }
+anchor = element anchor { attlist-anchor, empty }
+# item, the achored collection item
+attlist-anchor &= attribute item { xsd:IDREF }
+# Break line
+br = element br { attlist-br, empty }
+attlist-br &= empty
+page-number = element page-number { attlist-page-number, empty }
+attlist-page-number &=
+  attribute ref-id { xsd:IDREF },
+  attribute number-format {
+    "default"
+    | "roman"
+    | "upper-roman"
+    | "lower-roman"
+    | "upper-alpha"
+    | "lower-alpha"
+  }?
+start = obfl
+any =
+  (element * - ns1:* {
+     attribute * { text }*,
+     any
+   }
+   | text)*
