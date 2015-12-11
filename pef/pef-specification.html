@@ -1,0 +1,831 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="SV" lang="SV">
+<head>
+  <meta http-equiv="Content-Type"
+  content="application/xhtml+xml; charset=UTF-8" />
+  <title>PEF 1.0 - Portable Embosser Format</title>
+  <meta name="dc:identifier" content="" />
+  <meta name="dc:Title" content="PEF Specification" />
+  <meta name="dc:Language" content="SV" />
+  <meta name="dc:Date" content="2007-02-21" />
+  <meta name="dc:Publisher" content="TPB" />
+  <meta name="wml2dtbook:version" content="1.4.1.1" />
+  <meta name="wml2dtbook:date" content="17 January 2007" />
+  <link rel="stylesheet" href="default.css" type="text/css" />
+</head>
+
+<body>
+<h1>PEF 1.0 - Portable Embosser Format</h1>
+
+<p>Public draft, revised 12 September 2011</p>
+<dl>
+  <dt><a id="thisVersion" name="thisVersion">This version</a>:</dt>
+    <dd><a
+      href="http://files.pef-format.org/specifications/pef-2008-1/pef-specification.html">http://files.pef-format.org/specifications/pef-2008-1/pef-specification.html</a>
+    </dd>
+  <dt>Author:</dt>
+    <dd>Joel Håkansson</dd>
+  <dt>Contributors:</dt>
+    <dd>Sean Brooks, Linus Ericson, Markus Gylling, Stefan Hofstetter, Robert
+      Jaquiss, Piotr Kiernicki, Fredrik Larsson, Rob Longstaff, Björn Nyqvist,
+      Stephen Phippen, Matthias Ragaz, Per Sennels, Richard Stones, Jennifer
+      Sutton, Björn Westling, Markus Wildi</dd>
+</dl>
+
+<h2 id="Abstract"><a class="mozTocH2" name="mozTocId823610"></a>Abstract</h2>
+
+<p>This document specifies the Portable Embosser Format (PEF), a data format
+for representing braille books. PEF is an <a href="#ref-xml">XML</a> 1.0
+application.</p>
+
+<h2 id="Status"><a class="mozTocH2" name="mozTocId427116"></a>Status of this
+Document</h2>
+
+<p>This document is a public draft.</p>
+
+<h2 id="Table"><a class="mozTocH2" name="mozTocId469583"></a>Table of
+Contents</h2>
+
+<div class="toc">
+<ul>
+  <li><a href="#Introducti">Introduction</a> 
+    <ul>
+      <li><a href="#What">What is PEF?</a></li>
+      <li><a href="#there">Why is PEF Necessary?</a></li>
+      <li><a href="#What1">What is Unicode?</a></li>
+      <li><a href="#Unicode">Why Use Unicode Braille Patterns?</a></li>
+      <li><a href="#What2">What is XML?</a></li>
+      <li><a href="#L249">Why Use XML?</a></li>
+      <li><a href="#What3">On Hardware Limitations</a></li>
+      <li><a href="#Scope">Scope Limitations</a></li>
+      <li><a href="#Future">Further Development</a></li>
+    </ul>
+  </li>
+  <li><a href="#Definition">Definitions</a> 
+    <ul>
+      <li><a href="#Terminolog">Terminology</a></li>
+      <li><a href="#General">General Terms</a></li>
+      <li><a href="#Relationsh">Axes and Node Types</a></li>
+      <li><a href="#Relationsh11">Relationship to Other Specifications</a></li>
+    </ul>
+  </li>
+  <li><a href="#Normative">Definition of PEF 1.0</a> 
+    <ul>
+      <li><a href="#Document">Document Conformance </a></li>
+      <li><a href="#User">User Agent Conformance</a> 
+        <ul>
+          <li><a href="#Processing">Processing Unknown Content</a></li>
+        </ul>
+      </li>
+      <li><a href="#Error">Rendering Definitions</a></li>
+      <li><a href="#Attributes">Attributes</a></li>
+      <li><a href="#Using">Using PEF with Other Namespaces</a></li>
+      <li><a href="#Internet">Internet Media Type and File Extension</a></li>
+    </ul>
+  </li>
+  <li><a href="#Elements">Elements</a> 
+    <ul>
+      <li><a href="#pef">pef</a></li>
+      <li><a href="#head">head</a></li>
+      <li><a href="#meta">meta</a></li>
+      <li><a href="#L13600">dc:format</a></li>
+      <li><a href="#body">body</a></li>
+      <li><a href="#volume">volume</a></li>
+      <li><a href="#section">section</a></li>
+      <li><a href="#page">page</a></li>
+      <li><a href="#row">row</a></li>
+    </ul>
+  </li>
+  <li><a href="#Error1">Metadata Extension</a></li>
+  <li><a href="#Error11">Error Handling</a></li>
+  <li><a href="#Rule">Rule Sets</a> 
+    <ul>
+      <li><a href="#Relax">Relax NG Rule Set</a></li>
+      <li><a href="#Schema1">DTD Rule Set</a></li>
+    </ul>
+  </li>
+  <li><a href="#References">References</a> 
+    <ul>
+      <li><a href="#Normative1">Normative References</a></li>
+      <li><a href="#Informativ">Informative References</a></li>
+    </ul>
+  </li>
+</ul>
+</div>
+
+<h2 id="Introducti">Introduction</h2>
+
+<p><strong>This section is informative.</strong> </p>
+
+<h3 id="What">What is PEF?</h3>
+
+<p>The Portable Embosser Format (PEF) is a document type that represents
+braille pages in digital form, accurately and unambiguously; regardless of
+language, location, embosser settings, braille code and computer environment.
+It can be used for braille embossing and archiving anywhere in the world, no
+matter where nor how it was produced. PEF allows new features to be added, such
+as ink overlay or tactile graphics, thus enabling a completely automated
+reproduction of advanced braille books.</p>
+
+<h3 id="there">Why is PEF Necessary?</h3>
+
+<p>PEF brings a number of things to braille production:</p>
+<ul>
+  <li>Metadata. A PEF file provides information about its contents.</li>
+  <li>A braille publishing standard. Since the PEF file format is defined in a
+    publicly available standard, there is never any doubt about how to
+    interpret or use the contents of a PEF file.</li>
+  <li>A proper file format for braille. Having a proper file format means,
+    among other things, that file integrity can be tested to detect errors.</li>
+  <li>World wide file sharing. Because PEF is specified and the braille
+    representation unambiguous, it can be shared with anyone in the world. For
+    example, braille music is very expensive to produce, but the braille code
+    used in musical notation is the same all over the world. With PEF, this
+    material can be shared in electronic form with anyone.</li>
+  <li>Archive safety. Because PEF is specified and the braille representation
+    unambiguous, PEF documents can be safely archived for the future.</li>
+  <li>Economy. Publishing and republishing of braille can be achieved quickly
+    and easily because files can be shared across the world, without worrying
+    about embosser settings. Users can become publishers and providers can
+    share resources and reduce costs.</li>
+</ul>
+
+<h3 id="What1">What is Unicode?</h3>
+
+<p>Unicode provides a unique number for every character, regardless of
+platform, software and language.</p>
+
+<p>Computers store letters and other characters by assigning a number for each
+one. Before Unicode was invented, there were hundreds of different encoding
+systems for assigning these numbers. No single encoding could contain enough
+characters: for example, the European Union alone requires several different
+encodings to cover all its languages. Even for a single language like English
+no single encoding was adequate for all the letters, punctuation, and technical
+symbols in common use.</p>
+
+<p>These encoding systems also conflict with one another. That is, two
+encodings can use the same number for two different characters, or use
+different numbers for the same character. Any given computer (especially
+servers) needs to support many different encodings; yet whenever data is passed
+between different encodings or platforms, that data always runs the risk of
+corruption. [<a class="nref" href="#ref-unicode">Unicode]</a></p>
+
+<h3 id="Unicode">Why Use Unicode Braille Patterns?</h3>
+
+<p>PEF uses Unicode braille patterns rather than ASCII characters for several
+reasons:</p>
+<ol>
+  <li>Unicode and the Unicode braille patterns are locale independent. The
+    translation between ASCII characters and braille patterns isn’t. For
+    example, common characters like .?()+$% and # render different braille
+    patterns depending on locale. It is impossible to send an ASCII file for
+    embossing on an embosser configured for another locale. This is a major
+    issue for the non English speaking part of the world and it is the main
+    reason for using Unicode braille patterns instead of ASCII characters.</li>
+  <li>Unicode braille patterns are unambiguous. Even if there were only one
+    braille pattern for each ASCII character, the interpretation would still be
+    ambiguous since ASCII braille - though depending on an alternate
+    interpretation of ASCII characters - provides no means of differentiating
+    ASCII braille from regular ASCII.</li>
+  <li>The Unicode braille patterns are part of the Unicode standard, a global
+    and widely accepted standard. ASCII braille does not follow any known
+    standard.</li>
+  <li>Translating Unicode braille patterns into any ASCII based braille format
+    is a simple one-to-one-mapping. However, the opposite is not true, unless
+    you know beforehand which locale it was produced for.</li>
+</ol>
+
+<h3 id="What2">What is XML?</h3>
+
+<p>The Extensible Markup Language (XML) describes a class of data objects
+called XML documents. XML was conceived as a means of retaining the power and
+flexibility of SGML, while reducing its complexity [<a class="nref"
+href="#ref-xml">XML</a>].</p>
+
+<h3 id="L249">Why Use XML?</h3>
+
+<p>PEF uses XML because:</p>
+<ol>
+  <li>It allows metadata. A PEF file can contain information about its
+  contents.</li>
+  <li>It is extensible. New features can easily be introduced in future
+    versions, such as ink overlay or tactile graphics. Third party custom
+    features such as heading or paragraph markers are also possible via
+    namespace additions.</li>
+  <li>XML tools are widely available and easy to use. No parsing or validating
+    tools need to be developed to implement PEF.</li>
+  <li>It allows structural markup. Following XML convention, PEF uses markup
+    rather than control characters for structural elements such as rows and
+    pages. Structural markup simplifies processing in an XML environment and
+    ensures compatibility with future extensions.</li>
+</ol>
+
+<h3 id="What3">On Hardware Limitations</h3>
+
+<p>Typically, embossers have very limited RAM and processing power, and might
+not be able to read and interpret PEF files natively. However, the PEF
+specification does not require that PEF support is implemented in the
+embosser's hardware. Alternatively, support for PEF can be added to the
+embosser print driver or other bundled software.</p>
+
+<h3 id="Scope">Scope Limitations</h3>
+
+<p>PEF is an delivery and archive format. There are many issues in braille
+production that PEF neither can nor should solve. For example, issues
+involving:</p>
+<ul>
+  <li>authoring</li>
+  <li>dynamic rendering, e.g. reflowing or reformatting</li>
+  <li>repurposing. While many XML based formats can be used to create other XML
+    formats, PEF is not intended to be one of these</li>
+  <li>reverse translation. Reverse translation is a special case of repurposing
+    sometimes used in braille production where a text is recreated from a
+    braille file to facilitate editing by a sighted person</li>
+</ul>
+
+<h3 id="Future">Further Development</h3>
+
+<p>Currently, there is very little common ground between embossers. Many
+aspects of page layout were impossible to include as requirements in this
+version of PEF because it would have limited the range of potentially
+compatible embossers too much. However, future versions will be more demanding
+since page layout is an important part of PEF.</p>
+
+<h2 id="Definition">Definitions</h2>
+
+<p><strong>This section is normative.</strong> </p>
+
+<p>The following terms and definitions are used within this document.</p>
+
+<h3 id="Terminolog">Terminology</h3>
+
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", SHOULD",
+"SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
+interpreted as described in <a href="#ref-rfc2119">RFC 2119</a>.</p>
+
+<h3 id="General">General Terms</h3>
+<dl>
+  <dt>6-dot braille</dt>
+    <dd>6-dot braille is a writing system that only utilizes braille patterns
+      consisting of a combination of the uppermost six dots. See also
+      <dfn>Unicode character range 2800-283F</dfn>.</dd>
+  <dt>8-dot braille</dt>
+    <dd>8-dot braille is a writing system that utilizes all possible braille
+      patterns. See also Unicode character range 2800-28FF.</dd>
+  <dt>Braille cell</dt>
+    <dd>A braille cell is a single braille unit or character. At least one
+      braille cell is needed to form a single print character.</dd>
+  <dt>Braille pattern</dt>
+    <dd>A braille pattern is a combination of dots that make up a <dfn>braille
+      cell</dfn>.</dd>
+  <dt>Document</dt>
+    <dd>A document is a stream of data that, after being combined with any
+      other streams it references, is structured such that it holds information
+      contained within <span class="term">elements</span>, that are organized
+      as defined in an associated <span class="term">schema</span>. See <a
+      href="#docconf">Document Conformance</a> for more information.</dd>
+  <dt><a name="facilities" id="facilities">Facilities</a></dt>
+    <dd>Facilities are <span class="term">elements</span>, <span
+      class="term">attributes</span>, and the semantics associated with those
+      <span class="term">elements</span> and <span
+      class="term">attributes</span>.</dd>
+  <dt>Implementation</dt>
+    <dd>See User agent.</dd>
+  <dt>Parsing</dt>
+    <dd>Parsing is the act whereby a <span class="term">document</span> is
+      read, and the information contained within the <span
+      class="term">document</span> is filtered into the context of the <span
+      class="term">elements</span> in which the information is structured.</dd>
+  <dt>Rendering</dt>
+    <dd>See <a
+      href="http://www.w3.org/TR/di-gloss/#def-rendering">definition</a> in
+      Device Independence Glossary document [<a href="#ref-digloss">DI
+      Glossary</a>].</dd>
+  <dt>Schema</dt>
+    <dd>A schema is a collection of markup rules that, as a collection, define
+      the legal structure, <span class="term">elements</span>, and <span
+      class="term">attributes</span> available for use in an XML document that
+      complies to the defined schema.</dd>
+  <dt>Unicode character range 2800-283F</dt>
+    <dd>The range of 6-dot braille patterns in Unicode. See also <dfn>6-dot
+      braille</dfn>.</dd>
+  <dt>Unicode character range 2800-28FF</dt>
+    <dd>The complete range of braille patterns in Unicode; the range of 8-dot
+      braille patterns in Unicode. See also <dfn>8-dot braille</dfn>.</dd>
+  <dt>Unicode character range 2840-28FF</dt>
+    <dd>The range of braille patterns in Unicode that are unique to 8-dot
+      braille, i.e. any 8-dot braille pattern that isn't in the 6-dot braille
+      pattern subset.</dd>
+  <dt>User agent</dt>
+    <dd>See <a
+      href="http://www.w3.org/TR/di-gloss/#def-user-agent">definition</a> in
+      Device Independence Glossary document [<a href="#ref-digloss">DI
+      Glossary</a>].</dd>
+  <dt>Validation</dt>
+    <dd>Validation is a process whereby <span class="term">documents</span> are
+      verified against the associated <span class="term">schema</span>,
+      ensuring that the structure, use of <span class="term">elements</span>,
+      and use of <span class="term">attributes</span> are consistent with the
+      definitions in the <span class="term">schema</span>.</dd>
+  <dt><a name="wellformed" id="wellformed">Well-formed</a> </dt>
+    <dd>A <span class="term">document</span> is well-formed when it is
+      structured according to the rules defined in <a
+      href="http://www.w3.org/TR/REC-xml#sec-well-formed">Section 2.1</a> of
+      the XML 1.0 Recommendation [<a class="nref" href="#ref-xml">XML</a>].</dd>
+</dl>
+
+<h3 id="Relationsh">Axes and Node Types</h3>
+
+<p>The use of <dfn>axes</dfn> in this document (such as "child", "parent",
+"ancestor", "descendant") is consistent with <a
+href="http://www.w3.org/TR/xpath#axes">Section 2.2</a> of the XPath 1.0
+Recommendation [<a class="nref" href="#ref-xpath">XPath</a>].</p>
+
+<p>The use of <dfn>node types</dfn> in this document (such as "root",
+"element", "text", "attribute") is consistent with <a
+href="http://www.w3.org/TR/xpath#data-model">Section 5</a> of the XPath 1.0
+Recommendation [<a class="nref" href="#ref-xpath">XPath</a>].</p>
+
+<h3 id="Relationsh11">Relationship to Other Specifications</h3>
+
+<p>This specification is based on the specific versions of the standards and
+specifications referenced herein, which are used as defined except as noted in
+this document. Any refinement or replacement of a referenced specification by a
+newer or different version is not directly applicable to this standard.
+Conformance to this standard is based on the versions of the standards and
+specifications in effect at the time of writing.</p>
+
+<h2 id="Normative">Definition of PEF 1.0</h2>
+
+<p><strong>This section is normative.</strong> </p>
+
+<h3 id="Document"><a name="docconf" id="docconf">Document Conformance</a> </h3>
+
+<p>A conforming PEF document is an XML document that requires only the
+facilities described as mandatory in this specification. Such a document must
+meet all of the following criteria:</p>
+<ol class="plain">
+  <li>It must conform to the constraints associated with the namespaces used in
+    it.<br />
+  </li>
+  <li>The local part of the root element of the document must be
+  <dfn>pef</dfn>.</li>
+  <li>The root element of the document must be in the PEF namespace.</li>
+  <li>The start tag of the root element of the document must contain an xmlns
+    declaration for the PEF namespace [<a href="#ref-xmlns">XMLNS</a>]. The
+    namespace URI for PEF 1.0 is defined to be
+    <dfn>http://www.daisy.org/ns/2008/pef</dfn>. An example root element might
+    look like: &lt;pef version="2008-1"
+    xmlns="http://www.daisy.org/ns/2008/pef"&gt;</li>
+  <li>It must be encoded with UTF-8 or UTF-16 encoding as per [<a class="nref"
+    href="#ref-unicode">Unicode</a>].</li>
+</ol>
+
+<h3 id="User"><a name="uaconf" id="uaconf">User Agent Conformance</a></h3>
+
+<p>A conforming user agent must meet all of the following criteria:</p>
+<ol class="plain">
+  <li>The user agent must support UTF-8 encoding as per [<a class="nref"
+    href="#ref-unicode">Unicode</a>].</li>
+  <li>The user agent must support Unicode character range 2800-283F.</li>
+  <li>When the user agent claims to support facilities defined within this
+    specification or required by this specification through normative
+    reference, it must do so in ways consistent with the facilities'
+  definition.</li>
+</ol>
+
+<p>A conforming user agent is recommended to meet the following criteria:</p>
+<ol>
+  <li>The user agent is recommended to support Unicode character range
+    2840-28FF.</li>
+  <li>The user agent is recommended to support UTF-16 encoding.</li>
+</ol>
+
+<h4 id="Processing">Processing Unknown Content</h4>
+
+<p>Since the PEF rule set allows content for which this specification has no
+definition, user agents must be prepared to process content whose semantics are
+unknown (apart from node type). The following applies when a user agent
+processes unknown content:</p>
+<ol>
+  <li>If the unknown contents is an element, all node children, except text
+    node children, must be processed. Using XPath in the context of the unknown
+    element, this can be expressed as: 
+    <p><code>node()[not(self::text())]</code></p>
+    <p>For example, a user agent should read</p>
+    <p><samp xml:space="preserve">...</samp><br />
+    <samp xml:space="preserve">&lt;pef:page xmlns:pef="http://www.daisy.org/ns/2008/pef"&gt;</samp><br
+    />
+    <samp xml:space="preserve">  &lt;ext:group xmlns:ext="http://www.example.org"&gt;</samp><br
+    />
+    <samp xml:space="preserve">  &lt;ext:annotation&gt;This is a row group annotation&lt;/ext:annotation&gt;</samp><br
+    />
+    <samp xml:space="preserve">    &lt;pef:row&gt;&amp;#x2800;&amp;#x2801;&lt;/pef:row&gt;</samp><br
+    />
+    <samp xml:space="preserve">    &lt;pef:row&gt;&amp;#x2800;&amp;#x2802;&lt;/pef:row&gt;</samp><br
+    />
+    <samp xml:space="preserve">    &lt;pef:row&gt;&amp;#x2800;&amp;#x2803;&lt;/pef:row&gt;</samp><br
+    />
+    <samp xml:space="preserve">  &lt;/ext:group&gt;</samp><br />
+    <samp xml:space="preserve">&lt;/pef:page&gt;</samp><br />
+    <samp xml:space="preserve">...</samp></p>
+    <p>as</p>
+    <p><samp xml:space="preserve">...</samp><br />
+    <samp xml:space="preserve">&lt;pef:page xmlns:pef="http://www.daisy.org/ns/2008/pef"&gt;</samp><br
+    />
+    <samp xml:space="preserve">  &lt;pef:row&gt;&amp;#x2800;&amp;#x2801;&lt;/pef:row&gt;</samp><br
+    />
+    <samp xml:space="preserve">  &lt;pef:row&gt;&amp;#x2800;&amp;#x2802;&lt;/pef:row&gt;</samp><br
+    />
+    <samp xml:space="preserve">  &lt;pef:row&gt;&amp;#x2800;&amp;#x2803;&lt;/pef:row&gt;</samp><br
+    />
+    <samp xml:space="preserve">&lt;/pef:page&gt;</samp><br />
+    <samp xml:space="preserve">...</samp></p>
+    <p>Note that the annotation text was not read since it is a text node child
+    to an unknown element.</p>
+  </li>
+  <li>If an attribute or its value is unknown, the entire attribute
+    specification (i.e., the attribute and its value) must be ignored.</li>
+</ol>
+
+<h3 id="Error">Rendering Definitions</h3>
+<dl>
+  <dt>Dot-to-dot height</dt>
+    <dd>The vertical distance between dot centers within a Braille cell. See
+      also <dfn>Figure 1</dfn>.</dd>
+  <dt>Page alignment</dt>
+    <dd>Pages align to the top-left corner of the embosseble area of a
+    sheet.</dd>
+  <dt>Row height</dt>
+    <dd>Row height, excluding row gap, is four times the dot-to-dot height,
+      regardless of whether the user agent supports Unicode character range
+      2840-28FF or not. See also <dfn>Figure 1</dfn>.</dd>
+  <dt>Row gap</dt>
+    <dd>Row gap is rendered below the row it is associated with. Row gap is
+      expressed as an integer multiple of the dot-to-dot height. See also
+      <dfn>Figure 1</dfn>.</dd>
+  <dt>Sections</dt>
+    <dd>A section always starts on a blank sheet of paper. The reason for this
+      is that a change from duplex to simplex or vice-versa can't be accurately
+      effectuated unless the sheet is blank.</dd>
+</dl>
+
+<p><img
+alt="Figure 1. Schematic illustration of dot-to-dot height, row height and row gap."
+src="images/rendering.jpg" width="381" height="356" /></p>
+
+<p><span class="image-caption">Figure 1. Schematic illustration of dot-to-dot
+height, row height and row gap.</span></p>
+
+<h3 id="Attributes">Attributes</h3>
+
+<p>The value specified by the attributes cols, rows, rowgap and duplex applies
+to the element where it is specified, and to its descendants unless overridden
+by another instance of these attributes.</p>
+
+<p>If the definition below should conflict with the <a href="#Relax1">Relax NG
+rule set</a>, the latter takes precedence.</p>
+<dl>
+  <dt>cols</dt>
+    <dd>Description: Defines the page width expressed as an integer multiple of
+      the braille cell width.</dd>
+    <dd>Occurence: Mandatory on volume elements and optional on section
+      elements.<br />
+      Value: A positive integer.</dd>
+  <dt>duplex</dt>
+    <dd>Description: Defines whether or not both sides of the sheet should be
+      embossed.</dd>
+    <dd>Occurence: Mandatory on volume elements and optional on section
+      elements.<br />
+      Value: The string "true" or "false".</dd>
+  <dt>rowgap</dt>
+    <dd>Description: Defines the size of the gap following a row.</dd>
+    <dd>Occurence: Mandatory on volume elements and optional on section, page
+      and row elements.<br />
+      Value: A non negative integer.</dd>
+  <dt>rows</dt>
+    <dd>Description: Defines the page height expressed as an integer multiple
+      of row height.</dd>
+    <dd>Occurence: Mandatory on volume elements and optional on section
+      elements.<br />
+      Value: A positive integer.</dd>
+  <dt>version</dt>
+    <dd>Description: Defines the pef version.<br />
+      Occurence: Mandatory on pef elements.<br />
+      Value: The string "2008-1".</dd>
+</dl>
+
+<p></p>
+
+<h3 id="Using"><a name="Using1" id="Using1">Using PEF with Other
+Namespaces</a></h3>
+
+<p>The PEF namespace may be used with other XML namespaces as per [<a
+href="#ref-xmlns">XMLNS</a>].</p>
+
+<h3 id="Internet">Internet Media Type and File Extension</h3>
+
+<p>The Internet media type for PEF is "application/x-pef+xml".</p>
+
+<p>It is recommended that PEF files have the extension ".pef" (all lowercase)
+on all platforms.</p>
+
+<h2 id="Elements">Elements</h2>
+
+<p><strong>This section is informative.</strong></p>
+
+<p>Elements are listed in document order. In this listing, unprefixed elements
+are in the PEF namespace and the prefix <dfn>dc</dfn> is used on elements in
+the [<a class="nref" href="#ref-dublincore">Dublin Core</a>] namespace.</p>
+
+<h3 id="pef">pef</h3>
+<dl>
+  <dt>Description</dt>
+    <dd>The pef element is the root element of a PEF document.</dd>
+  <dt>Child elements</dt>
+    <dd>head (mandatory)</dd>
+    <dd>body (mandatory)</dd>
+</dl>
+
+<h3 id="head">head</h3>
+<dl>
+  <dt>Description</dt>
+    <dd>The head element contains header information, such as metadata.</dd>
+  <dt>Parent element</dt>
+    <dd>pef</dd>
+  <dt>Child elements</dt>
+    <dd>meta (mandatory)</dd>
+</dl>
+
+<h3 id="meta">meta</h3>
+<dl>
+  <dt>Description</dt>
+    <dd>The meta element contains metadata information.</dd>
+  <dt>Parent element</dt>
+    <dd>head</dd>
+  <dt>Child elements</dt>
+    <dd>dc:format (mandatory)</dd>
+    <dd>dc:identifier (mandatory)</dd>
+    <dd>dc:title (optional)</dd>
+    <dd>dc:creator (zero or more)</dd>
+    <dd>dc:subject (zero or more)</dd>
+    <dd>dc:description (optional)</dd>
+    <dd>dc:publisher (zero or more)</dd>
+    <dd>dc:contributor (zero or more)</dd>
+    <dd>dc:date (optional)</dd>
+    <dd>dc:type (zero or more)</dd>
+    <dd>dc:source (zero or more)</dd>
+    <dd>dc:language (zero or more)</dd>
+    <dd>dc:relation (zero or more)</dd>
+    <dd>dc:coverage (zero or more)</dd>
+    <dd>dc:rights (zero or more)</dd>
+</dl>
+
+<h3 id="L13600">dc:format</h3>
+<dl>
+  <dt>Description</dt>
+    <dd>The file format, physical medium, or dimensions of the resource.</dd>
+  <dt>Parent element</dt>
+    <dd>meta</dd>
+  <dt>Value</dt>
+    <dd>The string "application/x-pef+xml".</dd>
+</dl>
+
+<h3 id="body">body</h3>
+<dl>
+  <dt>Description</dt>
+    <dd>The body element contains the body of the document, its contents.</dd>
+  <dt>Parent element</dt>
+    <dd>pef</dd>
+  <dt>Child elements</dt>
+    <dd>volume (at least one)</dd>
+</dl>
+
+<h3 id="volume">volume</h3>
+<dl>
+  <dt>Description</dt>
+    <dd>The volume element defines a volume of braille, i.e. a range of pages
+      that, once embossed, are to be joined together to form a physical
+    unit.</dd>
+  <dt>Parent element</dt>
+    <dd>body</dd>
+  <dt>Child elements</dt>
+    <dd>section (at least one)</dd>
+</dl>
+
+<h3 id="section">section</h3>
+<dl>
+  <dt>Description</dt>
+    <dd>The section element defines a range of pages in a volume that share
+      some common property, such as duplex or dimensions settings.</dd>
+  <dt>Parent element</dt>
+    <dd>volume</dd>
+  <dt>Child elements</dt>
+    <dd>page (at least one)</dd>
+</dl>
+
+<h3 id="page">page</h3>
+<dl>
+  <dt>Description</dt>
+    <dd>The page element defines a braille page.</dd>
+  <dt>Parent element</dt>
+    <dd>section</dd>
+  <dt>Child elements</dt>
+    <dd>row (zero or more)</dd>
+</dl>
+
+<h3 id="row">row</h3>
+<dl>
+  <dt>Description</dt>
+    <dd>The row element defines a row of braille.</dd>
+  <dt>Parent element</dt>
+    <dd>page</dd>
+  <dt>Value</dt>
+    <dd>A string containing Unicode braille patterns.</dd>
+</dl>
+
+<h2 id="Error1">Metadata Extension</h2>
+
+<p><strong>This section is informative.</strong></p>
+
+<p>PEF includes Dublin Core metadata elements for convenience, but the metadata
+section can easily be extended to include other elements. Here's an example of
+how to extend the metadata section.</p>
+
+<p><samp xml:space="preserve">&lt;head&gt;</samp><br />
+<samp xml:space="preserve">  &lt;meta xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:org="http://www.example.org"&gt;</samp><br
+/>
+<samp xml:space="preserve">    &lt;dc:title&gt;Butterfly Test Pattern&lt;/dc:title&gt;</samp><br
+/>
+<samp xml:space="preserve">    &lt;dc:creator&gt;Joel Håkansson&lt;/dc:creator&gt;</samp><br
+/>
+<samp xml:space="preserve">    &lt;dc:date&gt;2008-09-26&lt;/dc:date&gt;</samp><br
+/>
+<samp xml:space="preserve">    &lt;dc:format&gt;application/x-pef+xml&lt;/dc:format&gt;</samp><br
+/>
+<samp xml:space="preserve">    &lt;dc:identifier&gt;org.pef.00001&lt;/dc:identifier&gt;</samp><br
+/>
+<samp xml:space="preserve">    &lt;dc:description&gt;</samp><br />
+<samp>A PEF 1.0 example. The file contains a test pattern that is symmetric
+along the horizontal and vertical axis and uses all 6-dot patterns. In most
+cases, a faulty conversion will render an asymmetrical pattern.</samp><br />
+<samp xml:space="preserve">    &lt;/dc:description&gt;</samp><br />
+<samp xml:space="preserve">    &lt;org:paper-size value="A4"/&gt;</samp><br />
+<samp xml:space="preserve">    &lt;org:grade value="1"/&gt;</samp><br />
+<samp xml:space="preserve">    &lt;org:margin-top value="5cm"/&gt;</samp><br />
+<samp xml:space="preserve">    &lt;org:margin-left value="2cm"/&gt;</samp><br />
+<samp xml:space="preserve">    &lt;org:binding content="coil"/&gt;</samp><br />
+<samp xml:space="preserve">  &lt;/meta&gt;</samp><br />
+<samp xml:space="preserve">&lt;/head&gt;</samp></p>
+
+<h2 id="Error11">Error Handling</h2>
+
+<p><strong>This section is normative.</strong></p>
+
+<p>If a user agent encounters a document that it is unable to process the user
+agent must inform the user and abort. However, because of embosser limitations,
+fallback behaviour is acceptable under the following circumstances:</p>
+<dl>
+  <dt>The user agent cannot set row gap to the specified value</dt>
+    <dd>The user agent may choose the closest possible smaller or larger value
+      that it supports, as long as no exception is raised as a consequence. The
+      user agent may prompt the user before continuing.</dd>
+  <dt>The user agent cannot set specified duplex value</dt>
+    <dd>The user agent may choose a value that it supports and continue
+      processing. The user agent may prompt the user before continuing.</dd>
+  <dt>The user agent cannot produce volumes</dt>
+    <dd>The user agent may disregard volume information and continue
+      processing. The user agent may prompt the user before continuing.</dd>
+  <dt>The user agent cannot process braille patterns in range 2840-28FF</dt>
+    <dd>The user agent may prompt the user for one of the following actions: 
+      <ol>
+        <li>ignore unsupported braille patterns (rows will be shortened)</li>
+        <li>replace unsupported braille patterns with a fixed replacement, e.g.
+          2800 (empty cell) or 283F (full 6-dot cell)</li>
+        <li>trim unsupported braille patterns by ignoring dots 7 and 8, e.g. by
+          bit masking the code point with 283F.</li>
+      </ol>
+    </dd>
+  <dt>The paper width is at least one full cell wider than the specified
+  width</dt>
+    <dd>The user agent may provide rendering options or use a preferred
+    action.</dd>
+  <dt>The paper height differs from the specified height</dt>
+    <dd>The user agent may provide rendering options or use a preferred action,
+      as long as each page's content can be rendered within the paper
+    height.</dd>
+</dl>
+
+<p>A user agent that implements fallback behaviour must inform the user of the
+rendering implications.</p>
+
+<h2 id="Rule">Rule Sets</h2>
+
+<p>The rule sets mentioned below are included in the <a
+href="http://files.pef-format.org/specifications/pef-2008-1/pef-2008-1.zip">zip
+file</a> for this specification. Users looking for local copies of the rule
+sets to work with should download and use this archive rather than using the
+specific references below.</p>
+
+<h3 id="Relax"><a name="Relax1" id="Relax1">Relax NG Rule Set</a></h3>
+
+<p><strong>This section is normative.</strong></p>
+
+<p>The Relax NG rule set "<a
+href="validation/pef-2008-1.rng">validation/pef-2008-1.rng</a>" forms a
+normative part of this specification.</p>
+
+<h3 id="Schema1">DTD Rule Set</h3>
+
+<p><strong>This section is informative.</strong></p>
+
+<p>The DTD rule set "<a
+href="validation/pef-2008-1.dtd">validation/pef-2008-1.dtd</a>" forms an
+informative part of this specification. It is provided for compatibility
+reasons but do not include all the normative restrictions and features enforced
+by the Relax NG rule set.</p>
+
+<p>The Dublin Core specification is maintained by [<a class="nref"
+href="#ref-dublincore">Dublin Core</a>].</p>
+
+<h2 id="References">References</h2>
+
+<h3 id="Normative1">Normative References</h3>
+
+<p><strong>This section is normative.</strong> </p>
+<dl>
+  <dt><a name="ref-digloss" id="ref-digloss"><strong>[DI
+  Glossary]</strong></a></dt>
+    <dd>"<a href="http://www.w3.org/TR/2005/WD-di-gloss-20050118/">Glossary of
+      Terms for Device Independence</a>", Rhys Lewis, 18 January 2005.<br />
+      <a href="http://www.w3.org/TR/di-gloss/">Latest version</a> available at:
+      http://www.w3.org/TR/di-gloss/</dd>
+  <dt><a name="ref-dublincore" id="ref-dublincore"><strong>[Dublin
+  Core]</strong></a></dt>
+    <dd>"<a href="http://dublincore.org/documents/2008/01/14/dces/">Dublin Core
+      Metadata Element Set, Version 1.1</a>"<br />
+      <a href="http://dublincore.org/documents/dces/">Latest version</a>
+      available at: http://dublincore.org/documents/dces/</dd>
+  <dt><a name="ref-rfc21191"
+  id="ref-rfc21191"><strong>[RFC2119]</strong></a></dt>
+    <dd>"<a href="http://www.ietf.org/rfc/rfc2119.txt">RFC2119: Key words for
+      use in RFCs to Indicate Requirement Levels</a>", S. Bradner, March
+      1997.<br />
+      Available at: http://www.ietf.org/rfc/rfc2119.txt</dd>
+  <dt><a name="ref-unicode" id="ref-unicode"><strong>[Unicode]</strong></a></dt>
+    <dd>"<a href="http://www.unicode.org/versions/Unicode5.1.0/">Unicode
+      Standard, Version 5.1.0</a>", The Unicode Consortium. The Unicode
+      Standard, Version 5.1.0, defined by: The Unicode Standard, Version 5.0
+      (Boston, MA, Addison-Wesley, 2007. ISBN 0-321-48091-0), as amended by
+      Unicode 5.1.0.<br />
+      <a href="http://www.unicode.org/versions/latest/">Latest version</a>
+      available at: http://www.unicode.org/versions/latest/</dd>
+  <dt><a name="ref-xml" id="ref-xml"><strong>[XML]</strong></a></dt>
+    <dd>"<a href="http://www.w3.org/TR/2006/REC-xml-20060816">Extensible Markup
+      Language (XML) 1.0 (Fourth Edition)</a>", T. Bray, J. Paoli, C. M.
+      Sperberg-McQueen, E. Maler, F. Yergeau, 29 September 2006.<br />
+      <a href="http://www.w3.org/TR/xml">Latest version</a> available at:
+      http://www.w3.org/TR/xml</dd>
+  <dt><a name="ref-xmlns" id="ref-xmlns"><strong>[XMLNS]</strong></a></dt>
+    <dd>"<a href="http://www.w3.org/TR/2006/REC-xml-names-20060816">Namespaces
+      in XML 1.0 (Second Edition)</a>", T. Bray, D. Hollander, A. Layman, R.
+      Tobin, 16 August 2006.<br />
+      <a href="http://www.w3.org/TR/xml-names">Latest version</a> available at:
+      http://www.w3.org/TR/xml-names</dd>
+  <dt><a name="ref-xpath" id="ref-xpath"><strong>[XPath]</strong></a></dt>
+    <dd>"<a href="http://www.w3.org/TR/1999/REC-xpath-19991116">XML Path
+      Language (XPath) Version (1.0)"</a>, J. Clark, S. DeRose, 16 November
+      1999.<br />
+      <a href="http://www.w3.org/TR/xpath">Latest version</a> available at:
+      http://www.w3.org/TR/xpath</dd>
+</dl>
+
+<h3 id="Informativ">Informative References</h3>
+
+<p><strong>This section is informative.</strong></p>
+
+<p>Accessibility note: The Unicode braille patterns in the files below may not
+display with JAWS or braille display.</p>
+<dl>
+  <dt>[Example PEF document: Om våren]</dt>
+    <dd>"<a href="examples/poem.pef">examples/poem.pef</a>". A poem by the
+      Swedish poet Nils Ferlin called "Om våren" (the text is in Swedish).</dd>
+  <dt>[Example PEF document: Butterfly Test Pattern]</dt>
+    <dd>"<a href="examples/butterfly.pef">examples/butterfly.pef</a>". A test
+      pattern that uses all 6-dot braille patterns, rendering a butterfly
+      shape.<br />
+    </dd>
+  <dt>[Example PEF document: 6-dot Chart]</dt>
+    <dd>"<a href="examples/6-dot-chart.pef">examples/6-dot-chart.pef</a>". All
+      6-dot patterns in Unicode order with spaces in between.</dd>
+  <dt>[Example PEF document: 8-dot Chart]</dt>
+    <dd>"<a href="examples/8-dot-chart.pef">examples/8-dot-chart.pef</a>". All
+      braille patterns in Unicode order with spaces in between.</dd>
+  <dt>[Example PEF document: Extending PEF]</dt>
+    <dd>"<a href="examples/extended.pef">examples/extended.pef</a>".
+      Demonstrates how a PEF-file can be extended.</dd>
+</dl>
+</body>
+</html>
