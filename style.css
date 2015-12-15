@@ -1,0 +1,13 @@
+body {
+	font-family: sans-serif;
+	letter-spacing: 1pt;
+	margin-left:5em;
+	margin-right:5em;
+	margin-top:3em;
+	margin-bottom:1em;
+	color: #444;
+}
+
+a:VISITED, a {
+	color: #484;
+}
