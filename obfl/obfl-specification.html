@@ -9,7 +9,7 @@
   <meta name="dc:identifier" content="" />
   <meta name="dc:Title" content="OBFL Specification" />
   <meta name="dc:Language" content="en" />
-  <meta name="dc:Date" content="2016-01-08" />
+  <meta name="dc:Date" content="2016-01-12" />
   <link rel="stylesheet" href="styles/w3c-unofficial.css" type="text/css" />
   <link rel="stylesheet" href="styles/style.css" type="text/css" />
 </head>
@@ -17,7 +17,7 @@
 <body>
 <h1>OBFL - Open Braille Formatting Language</h1>
 
-<p>Working draft, revised January 8, 2016</p>
+<p>Working draft, revised January 12, 2016</p>
 <dl>
   <dt>This version:</dt>
     <dd><a
@@ -76,79 +76,127 @@ Contents</h2>
   </li>
   <li><a href="#L558">Elements</a>
     <ul>
-      <li><a href="#L565">obfl</a></li>
-      <li><a href="#L587">meta</a></li>
-      <li><a href="#L5871">layout-master</a></li>
-      <li><a href="#L608">template</a></li>
-      <li><a href="#L608-2">default-template</a></li>
-      <li><a href="#L647">page-area</a></li>
-      <li><a href="#L20904">fallback</a></li>
-      <li><a href="#L20925">rename</a></li>
-      <li><a href="#L629">before</a></li>
-      <li><a href="#L6291">after</a></li>
-      <li><a href="#L62911">header</a></li>
-      <li><a href="#L6471">footer</a></li>
-      <li><a href="#L1296">margin-region</a></li>
-      <li><a href="#L1328">indicators</a></li>
-      <li><a href="#L1329">marker-indicator</a>
+      <li><a href="#L856">The Root Element</a>
         <ul>
-          <li><a href="#L1365">Example</a></li>
+          <li><a href="#L565">obfl</a></li>
         </ul>
       </li>
-      <li><a href="#L665">field</a></li>
-      <li><a href="#L683">marker-reference</a>
+      <li><a href="#L949">Document Metadata</a>
         <ul>
-          <li><a href="#L1333">start-offset</a></li>
+          <li><a href="#L587">meta</a></li>
         </ul>
       </li>
-      <li><a href="#L696">string</a></li>
-      <li><a href="#L709">current-page</a></li>
-      <li><a href="#L722">evaluate</a>
+      <li><a href="#L967">Page Templates</a>
         <ul>
-          <li><a href="#L1033">Example</a></li>
+          <li><a href="#L5871">layout-master</a></li>
+          <li><a href="#L608">template</a></li>
+          <li><a href="#L608-2">default-template</a></li>
+          <li><a href="#L647">page-area</a></li>
+          <li><a href="#L20904">fallback</a></li>
+          <li><a href="#L20925">rename</a></li>
+          <li><a href="#L629">before</a></li>
+          <li><a href="#L6291">after</a></li>
+          <li><a href="#L62911">header</a></li>
+          <li><a href="#L6471">footer</a></li>
+          <li><a href="#L1296">margin-region</a></li>
+          <li><a href="#L1328">indicators</a></li>
+          <li><a href="#L1329">marker-indicator</a>
+            <ul>
+              <li><a href="#L1365">Example</a></li>
+            </ul>
+          </li>
+          <li><a href="#L665">field</a></li>
+          <li><a href="#L683">marker-reference</a>
+            <ul>
+              <li><a href="#L1333">start-offset</a></li>
+            </ul>
+          </li>
+          <li><a href="#L696">string</a></li>
+          <li><a href="#L709">current-page</a></li>
         </ul>
       </li>
-      <li><a href="#L735">table-of-contents</a></li>
-      <li><a href="#L1105">toc-entry</a></li>
-      <li><a href="#L1207">leader</a></li>
-      <li><a href="#L1353">marker</a></li>
-      <li><a href="#L1438">br</a></li>
-      <li><a href="#L836">page-number</a></li>
-      <li><a href="#L849">span</a></li>
-      <li><a href="#L8491">style</a></li>
-      <li><a href="#L84911">volume-template</a></li>
-      <li><a href="#L870">pre-content</a></li>
-      <li><a href="#L888">post-content</a></li>
-      <li><a href="#L906">sequence</a></li>
-      <li><a href="#L11470">dynamic-sequence</a></li>
-      <li><a href="#L1023">block</a></li>
-      <li><a href="#L2248">xml-data</a>
+      <li><a href="#L1631">Sequences</a>
         <ul>
-          <li><a href="#L2273">Example</a></li>
+          <li><a href="#L906">sequence</a></li>
+          <li><a href="#L11470">dynamic-sequence</a></li>
         </ul>
       </li>
-      <li><a href="#L924">anchor</a></li>
-      <li><a href="#L9242">list-of-references</a></li>
-      <li><a href="#L951">on-collection-start</a></li>
-      <li><a href="#L9511">on-page-start</a></li>
-      <li><a href="#L9512">on-page-end</a></li>
-      <li><a href="#L9513">on-collection-end</a></li>
-      <li><a href="#L9241">toc-sequence</a></li>
-      <li><a href="#L9514">on-toc-start</a></li>
-      <li><a href="#L969">on-volume-start</a></li>
-      <li><a href="#L987">on-volume-end</a></li>
-      <li><a href="#L1005">on-toc-end</a></li>
-      <li><a href="#L1194">collection</a></li>
-      <li><a href="#L1210">item</a></li>
-      <li><a href="#L2690">xml-processor</a>
+      <li><a href="#L1765">Blocks</a>
         <ul>
-          <li><a href="#L2720">Example</a></li>
+          <li><a href="#L1023">block</a></li>
         </ul>
       </li>
-      <li><a href="#L2724">renderer</a></li>
-      <li><a href="#L2749">rendering-scenario</a>
+      <li><a href="#L1894">Inline Content</a>
         <ul>
-          <li><a href="#L2793">Example</a></li>
+          <li><a href="#L722">evaluate</a>
+            <ul>
+              <li><a href="#L1033">Example</a></li>
+            </ul>
+          </li>
+          <li><a href="#L1207">leader</a></li>
+          <li><a href="#L1353">marker</a></li>
+          <li><a href="#L924">anchor</a></li>
+          <li><a href="#L1438">br</a></li>
+          <li><a href="#L836">page-number</a></li>
+          <li><a href="#L849">span</a></li>
+          <li><a href="#L8491">style</a></li>
+        </ul>
+      </li>
+      <li><a href="#L2227">Tabular Data</a>
+        <ul>
+          <li><a href="#L2229">table</a></li>
+          <li><a href="#L2253">tr</a></li>
+          <li><a href="#L2277">td</a></li>
+          <li><a href="#L2304">th</a></li>
+        </ul>
+      </li>
+      <li><a href="#L2167">Table of Contents</a>
+        <ul>
+          <li><a href="#L735">table-of-contents</a></li>
+          <li><a href="#L1105">toc-entry</a></li>
+          <li><a href="#L9241">toc-sequence</a></li>
+          <li><a href="#L9514">on-toc-start</a></li>
+          <li><a href="#L969">on-volume-start</a></li>
+          <li><a href="#L987">on-volume-end</a></li>
+          <li><a href="#L1005">on-toc-end</a></li>
+        </ul>
+      </li>
+      <li><a href="#L2433">Volume Templates</a>
+        <ul>
+          <li><a href="#L84911">volume-template</a></li>
+          <li><a href="#L870">pre-content</a></li>
+          <li><a href="#L888">post-content</a></li>
+        </ul>
+      </li>
+      <li><a href="#L2529">Achored Data</a>
+        <ul>
+          <li><a href="#L1194">collection</a></li>
+          <li><a href="#L1210">item</a></li>
+          <li><a href="#L9242">list-of-references</a></li>
+          <li><a href="#L951">on-collection-start</a></li>
+          <li><a href="#L9511">on-page-start</a></li>
+          <li><a href="#L9512">on-page-end</a></li>
+          <li><a href="#L9513">on-collection-end</a></li>
+        </ul>
+      </li>
+      <li><a href="#L2715">Dynamic Source Data Processing</a>
+        <ul>
+          <li><a href="#L2248">xml-data</a>
+            <ul>
+              <li><a href="#L2273">Example</a></li>
+            </ul>
+          </li>
+          <li><a href="#L2724">renderer</a></li>
+          <li><a href="#L2749">rendering-scenario</a>
+            <ul>
+              <li><a href="#L2793">Example</a></li>
+            </ul>
+          </li>
+          <li><a href="#L2690">xml-processor</a>
+            <ul>
+              <li><a href="#L2720">Example</a></li>
+            </ul>
+          </li>
         </ul>
       </li>
     </ul>
@@ -462,22 +510,11 @@ in the rendering process.</p>
 
 <p><strong>This section is informative.</strong></p>
 
-<p>Elements are listed in document order. In this listing, unprefixed elements
-are in the OBFL namespace.</p>
+<p>In this listing, unprefixed elements are in the OBFL namespace.</p>
 
-<p>The top level element structure of an OBFL document is as follows:</p>
-<pre>&lt;obfl&gt;
-  &lt;meta&gt;...&lt;/meta&gt;
-  &lt;layout-master&gt;...&lt;/layout-master&gt;
-  &lt;table-of-contents&gt;...&lt;/table-of-contents&gt;
-  &lt;volume-template&gt;...&lt;/volume-template&gt;
-  &lt;collection&gt;...&lt;/collection&gt;
-  &lt;xml-processor&gt;...&lt;/xml-processor&gt;
-  &lt;renderer&gt;...&lt;/renderer&gt;
-  &lt;sequence&gt;...&lt;/sequence&gt;
-&lt;/obfl&gt;</pre>
+<h3 id="L856">The Root Element</h3>
 
-<h3 id="L565" class="include">obfl</h3>
+<h4 id="L565" class="include">obfl</h4>
 
 <p>The obfl element is the root element of an OBFL document.</p>
 
@@ -520,8 +557,23 @@ are in the OBFL namespace.</p>
     </dd>
 </dl>
 </div>
+<p>The top level element structure of an OBFL document is as follows:</p>
+<div class="example">
+<pre>&lt;obfl&gt;
+&lt;meta&gt;...&lt;/meta&gt;
+&lt;layout-master&gt;...&lt;/layout-master&gt;
+&lt;table-of-contents&gt;...&lt;/table-of-contents&gt;
+&lt;volume-template&gt;...&lt;/volume-template&gt;
+&lt;collection&gt;...&lt;/collection&gt;
+&lt;xml-processor&gt;...&lt;/xml-processor&gt;
+&lt;renderer&gt;...&lt;/renderer&gt;
+&lt;sequence&gt;...&lt;/sequence&gt;
+&lt;/obfl&gt;</pre>
+</div>
 
-<h3 id="L587" class="include">meta</h3>
+<h3 id="L949">Document Metadata</h3>
+
+<h4 id="L587" class="include">meta</h4>
 
 <p>The meta element contains meta data, e.g. Dublin Core. Currently, any
 element is allowed, however a stricter set of elements might be more useful.</p>
@@ -535,7 +587,9 @@ element is allowed, however a stricter set of elements might be more useful.</p>
 </dl>
 </div>
 
-<h3 id="L5871" class="include">layout-master</h3>
+<h3 id="L967">Page Templates</h3>
+
+<h4 id="L5871" class="include">layout-master</h4>
 
 <p>The layout-master element defines the appearence of pages in the sequences
 where the layout-master is applied. It contains page template information, such
@@ -585,7 +639,7 @@ as the width and height of pages.</p>
 </dl>
 </div>
 
-<h3 id="L608" class="include">template</h3>
+<h4 id="L608" class="include">template</h4>
 
 <p>The template element contains template information that applies under
 specific conditions. The template conditions are tested in document order, and
@@ -615,7 +669,7 @@ text flow area is reduced by the combined width of the margin-regions.</p>
 </dl>
 </div>
 
-<h3 id="L608-2" class="include">default-template</h3>
+<h4 id="L608-2" class="include">default-template</h4>
 
 <p>The default-template element contains the same type of information as the
 template element and acts as a fallback when no previous template element
@@ -636,7 +690,7 @@ applies.</p>
 </dl>
 </div>
 
-<h3 id="L647" class="include">page-area</h3>
+<h4 id="L647" class="include">page-area</h4>
 
 <p>The page-area element is a page anchored place-holder for items in a
 collection.</p>
@@ -667,7 +721,7 @@ collection.</p>
 </dl>
 </div>
 
-<h3 class="include" id="L20904">fallback</h3>
+<h4 class="include" id="L20904">fallback</h4>
 
 <p>The fallback element is used to determine what should happen if rendering of
 the collection fails. The fallback element must include an instruction for the
@@ -685,7 +739,7 @@ for other collections.</p>
 </dl>
 </div>
 
-<h3 class="include" id="L20925">rename</h3>
+<h4 class="include" id="L20925">rename</h4>
 
 <p>The rename element is used within the fallback element to specify a
 collection that should be renamed. The new name must not be in use as an
@@ -710,7 +764,7 @@ identifier elsewhere (but it should be referenced).</p>
 
 <p></p>
 
-<h3 id="L629" class="include">before</h3>
+<h4 id="L629" class="include">before</h4>
 
 <p>The before element contains blocks to insert before the contents of the page
 area.</p>
@@ -731,7 +785,7 @@ area.</p>
 </dl>
 </div>
 
-<h3 id="L6291" class="include">after</h3>
+<h4 id="L6291" class="include">after</h4>
 
 <p>The after element contains blocks to insert after the contents of the page
 area.</p>
@@ -752,7 +806,7 @@ area.</p>
 </dl>
 </div>
 
-<h3 id="L62911" class="include">header</h3>
+<h4 id="L62911" class="include">header</h4>
 
 <p>The header element contains the page header information. The chunks of text
 created when resolving each child elements contents are distributed in an equal
@@ -776,7 +830,7 @@ spaced cell grid over a single row.</p>
 </dl>
 </div>
 
-<h3 id="L6471" class="include">footer</h3>
+<h4 id="L6471" class="include">footer</h4>
 
 <p>The footer element contains the page footer information. The chunks of text
 created when resolving each child elements contents are distributed in an equal
@@ -800,7 +854,7 @@ spaced cell grid over a single row.</p>
 </dl>
 </div>
 
-<h3 class="include" id="L1296">margin-region</h3>
+<h4 class="include" id="L1296">margin-region</h4>
 
 <p>Adds a margin region.</p>
 
@@ -822,7 +876,7 @@ spaced cell grid over a single row.</p>
 </dl>
 </div>
 
-<h3 class="include" id="L1328">indicators</h3>
+<h4 class="include" id="L1328">indicators</h4>
 
 <p>The indicators element uses the full height of the margin-region to indicate
 rows where one of the specified conditions are met.</p>
@@ -842,7 +896,7 @@ applies to a given row.</p>
 </dl>
 </div>
 
-<h3 class="include" id="L1329">marker-indicator</h3>
+<h4 class="include" id="L1329">marker-indicator</h4>
 
 <p>The marker-indicator element indicates that one or more of the specified
 markers are present on the indicated row.</p>
@@ -867,7 +921,7 @@ markers are present on the indicated row.</p>
 </dl>
 </div>
 
-<h4 id="L1365">Example</h4>
+<h5 id="L1365">Example</h5>
 <p>Given the following input:</p>
 <div class="example">
 <pre>
@@ -898,7 +952,7 @@ markers are present on the indicated row.</p>
 </pre>
 </div>
 
-<h3 id="L665" class="include">field</h3>
+<h4 id="L665" class="include">field</h4>
 
 <p>The field element contains data.</p>
 
@@ -918,7 +972,7 @@ markers are present on the indicated row.</p>
 </dl>
 </div>
 
-<h3 id="L683" class="include">marker-reference</h3>
+<h4 id="L683" class="include">marker-reference</h4>
 
 <p>The marker-reference element indicates that it should resolve to the value
 of a marker of the same class in the direction and scope specified by this
@@ -949,7 +1003,7 @@ element. If no reference is found, the empty string is returned.</p>
 </dl>
 </div>
 
-<h4 id="L1333">start-offset</h4>
+<h5 id="L1333">start-offset</h5>
 
 <p>The start-offset attribute offsets the start of the search by the specified
 number of pages. This applies irrespectively of the scope of the search.</p>
@@ -982,7 +1036,7 @@ the search could eventually hit an existing page. Depending on the scope,
     <dd>start the search on the first existing page in the search direction</dd>
 </dl>
 
-<h3 id="L696" class="include">string</h3>
+<h4 id="L696" class="include">string</h4>
 
 <p>The string element indicates that it should resolve to the contents of its
 value attribute.</p>
@@ -1004,7 +1058,7 @@ value attribute.</p>
 </dl>
 </div>
 
-<h3 id="L709" class="include">current-page</h3>
+<h4 id="L709" class="include">current-page</h4>
 
 <p>The current-page element indicates that it should resolve to the value of
 the current page, using the number format specified by this element.</p>
@@ -1028,299 +1082,9 @@ the current page, using the number format specified by this element.</p>
 </dl>
 </div>
 
-<h3 id="L722" class="include">evaluate</h3>
+<h3 id="L1631">Sequences</h3>
 
-<p>The evaluate element inserts the result of evaluating an expression, see the
-<a href="obfl-evaluation-language.html">OBFL evaluation language</a> for more
-information.</p>
-
-<div class="sidebar">
-<dl>
-  <dt>Usage</dt>
-    <dd class="markup">before, after, field, toc-entry, block, item</dd>
-  <dt>Attributes</dt>
-    <dd><dl>
-        <dt>expression [required]</dt>
-          <dd>A valid <a href="obfl-evaluation-language.html">OBFL Evaluation
-            Language</a> expression.</dd>
-        <dt>text-style [optional]</dt>
-          <dd class="">A text style, e.g. emphasis or strong</dd>
-      </dl>
-    </dd>
-  <dt>Content Model</dt>
-    <dd>Emtpy.</dd>
-</dl>
-</div>
-
-<h4 id="L1033">Example</h4>
-
-<div class="example">
-<p><code>&lt;evaluate expression="(= 0 1)"/&gt;</code></p>
-</div>
-
-<h3 id="L735" class="include">table-of-contents</h3>
-
-<p>The table-of-contents element defines the entries in a table of contents.
-Note that this element specifies formatting of data in a table of contents, it
-does not by it self specify that a table of contents should be inserted. It is
-required that the order of the toc-entries is consistent with the blocks it
-references.</p>
-
-<div class="sidebar markup">
-<dl>
-  <dt>Usage</dt>
-    <dd>obfl</dd>
-  <dt>Attributes</dt>
-    <dd><dl>
-        <dt>name [required]</dt>
-          <dd>An id.</dd>
-      </dl>
-    </dd>
-  <dt>Content Model</dt>
-    <dd>toc-entry [1 or more]</dd>
-</dl>
-</div>
-
-<h3 id="L1105" class="include">toc-entry</h3>
-
-<p>The toc-entry element defines an entry in a table of contents.</p>
-
-<div class="sidebar markup">
-<dl>
-  <dt>Usage</dt>
-    <dd>table-of-contents</dd>
-  <dt>Attributes</dt>
-    <dd><dl>
-        <dt>ref-id [required]</dt>
-          <dd>The id of the block this entry is connected with.</dd>
-      </dl>
-      <p>This element supports the <a href="#block-atts">Block</a> attribute
-      group.</p>
-      <p>This element supports the <a href="#borders">Borders</a> attribute
-      group.</p>
-    </dd>
-  <dt>Content Model</dt>
-    <dd>text(), leader, marker, br, evaluate, toc-entry, page-number, span,
-      style [0 or more]</dd>
-</dl>
-</div>
-
-<h3 id="L1207" class="include">leader</h3>
-
-<p>The leader element moves the location of the following piece of text within
-the current row.</p>
-
-<div class="sidebar markup">
-<dl>
-  <dt>Usage</dt>
-    <dd>before, after, toc-entry, block, item</dd>
-  <dt>Attributes</dt>
-    <dd><dl>
-        <dt>align [optional]</dt>
-          <dd>Alignment of the text following the leader.</dd>
-          <dd>The leader can be aligned to the left, center or right of the
-            following text segment.</dd>
-          <dd>One of 'left' (default), 'center' or 'right'.</dd>
-        <dt>pattern [optional]</dt>
-          <dd>Fill pattern to use up to the leader position.</dd>
-          <dd>Default is ' '.</dd>
-        <dt>position [required]</dt>
-          <dd>Position of the leader within the row. Can be relative (percent)
-            or absolute (column). For example: 50% or 12.</dd>
-      </dl>
-    </dd>
-  <dt>Content Model</dt>
-    <dd>Empty.</dd>
-</dl>
-</div>
-
-<h3 id="L1353" class="include">marker</h3>
-
-<p>The marker element provides locations for classes of values that may be
-refered to in headers and footers.</p>
-
-<div class="sidebar markup">
-<dl>
-  <dt>Usage</dt>
-    <dd>before, after, toc-entry, block, item</dd>
-  <dt>Attributes</dt>
-    <dd><dl>
-        <dt>class [required]</dt>
-          <dd>A class name for this marker, to be used when searching for
-            markers.</dd>
-        <dt>value [required]</dt>
-          <dd>value for this marker</dd>
-      </dl>
-    </dd>
-  <dt>Content Model</dt>
-    <dd>Empty.</dd>
-</dl>
-</div>
-
-<h3 id="L1438" class="include">br</h3>
-
-<p>The br element provides a line break within a block of text (i.e. a
-paragraph).</p>
-
-<div class="sidebar markup">
-<dl>
-  <dt>Usage</dt>
-    <dd>before, after, toc-entry, block, item</dd>
-  <dt>Content Model</dt>
-    <dd>Empty.</dd>
-</dl>
-</div>
-
-<h3 id="L836" class="include">page-number</h3>
-
-<p>The page-number element inserts the page number of the referenced
-element.</p>
-
-<div class="sidebar markup">
-<dl>
-  <dt>Usage</dt>
-    <dd>before, after, toc-entry, block, item</dd>
-  <dt>Attributes</dt>
-    <dd><dl>
-        <dt>ref-id [required]</dt>
-          <dd></dd>
-        <dt><del class="2015-10-13">style [optional]</del></dt>
-        <dt>number-format [optional]</dt>
-          <dd>One of 'default', 'roman', 'upper-roman', 'lower-roman',
-            'upper-alpha', 'lower-alpha'.</dd>
-      </dl>
-    </dd>
-  <dt>Content Model</dt>
-    <dd>Empty.</dd>
-</dl>
-</div>
-
-<h3 id="L849" class="include">span</h3>
-
-<p>The span element represents a segment of text whose hyphenation policy or
-language is different from the surrounding text.</p>
-
-<div class="sidebar markup">
-<dl>
-  <dt>Usage</dt>
-    <dd>before, after, toc-entry, block, item</dd>
-  <dt>Attributes</dt>
-    <dd><dl>
-        <dt>xml:lang [optional]</dt>
-          <dd>A language as defined in <a
-            href="http://www.w3.org/TR/REC-xml/#sec-lang-tag">Section 2.12</a>
-            of the XML 1.0 Recommendation [<a class="nref"
-            href="#ref-xml">XML</a>].</dd>
-        <dt>hyphenate [optional]</dt>
-          <dd>Whether or not to hyphenate text descendants. </dd>
-          <dd>One of 'true' or 'false'.</dd>
-          <dd>See the <a href="#L21839">attribute description</a> for more
-            information.</dd>
-        <dt>translate [optional]</dt>
-          <dd>Specifies a translation policy.</dd>
-          <dd>See the <a href="#L2462">attribute description</a> for more
-            information.</dd>
-      </dl>
-    </dd>
-  <dt>Content Model</dt>
-    <dd>text(), style, anchor [0 or more]</dd>
-</dl>
-</div>
-
-<h3 id="L8491" class="include">style</h3>
-
-<p>The style element represents a segment of text with a specific style, e.g.
-emphasis or strong.</p>
-
-<div class="sidebar markup">
-<dl>
-  <dt>Usage</dt>
-    <dd>before, after, toc-entry, block, item, span, style</dd>
-  <dt>Attributes</dt>
-    <dd><dl>
-        <dt>name [required]</dt>
-          <dd>The name of the style.</dd>
-      </dl>
-    </dd>
-  <dt>Content Model</dt>
-    <dd>text(), style, marker, br, anchor [0 or more]</dd>
-</dl>
-</div>
-
-<p></p>
-
-<h3 id="L84911" class="include">volume-template</h3>
-
-<p>The volume-template element contains static contents that is to be inserted
-before or after a braille volume's body of pages. In additional to the normal
-sequences that can be used to create static contents such as information about
-the author and title of the book, there is a special sequence called
-toc-sequence.</p>
-
-<div class="sidebar markup">
-<dl>
-  <dt>Usage</dt>
-    <dd>obfl</dd>
-  <dt>Attributes</dt>
-    <dd><dl>
-        <dt>volume-count-variable [optional]</dt>
-          <dd>Definition of the name of the variable holding the number of
-            volumes. It can be used in an expression, e.g. <code>(= $volumes
-            1)</code>.</dd>
-          <dd>Default is 'volumes'.</dd>
-        <dt>volume-number-variable [optional]</dt>
-          <dd>Definition of the name of the variable holding the current volume
-            number. It can be used in an expression, e.g. <code>(= $volume
-            1)</code>.</dd>
-          <dd>Default is 'volume'.</dd>
-        <dt>use-when [optional]</dt>
-          <dd>A condition for applying the volume-template, expressed using the
-            <a href="obfl-evaluation-language.html">OBFL Evaluation
-            Language</a>.</dd>
-        <dt>sheets-in-volume-max [required]</dt>
-          <dd>Defines the maximum number of sheets in a volume using this
-            volume-template.</dd>
-      </dl>
-    </dd>
-  <dt>Content Model</dt>
-    <dd>In this order: 
-      <ul>
-        <li>pre-content [required]</li>
-        <li>post-content [required]</li>
-      </ul>
-    </dd>
-</dl>
-</div>
-
-<h3 id="L870" class="include">pre-content</h3>
-
-<p>The pre-content element defines contents that should preceed a braille
-volume's body of pages.</p>
-
-<div class="sidebar markup">
-<dl>
-  <dt>Usage</dt>
-    <dd>volume-template</dd>
-  <dt>Content Model</dt>
-    <dd>sequence, dynamic-sequence, toc-sequence [0 or more]</dd>
-</dl>
-</div>
-
-<h3 id="L888" class="include">post-content</h3>
-
-<p>The post-content element defines contents that should follow a braille
-volume's body of pages.</p>
-
-<div class="sidebar markup">
-<dl>
-  <dt>Usage</dt>
-    <dd>volume-template</dd>
-  <dt>Content Model</dt>
-    <dd>sequence, dynamic-sequence [0 or more]</dd>
-</dl>
-</div>
-
-<h3 id="L906" class="include">sequence</h3>
+<h4 id="L906" class="include">sequence</h4>
 
 <p>The sequence element contains the text body.</p>
 
@@ -1355,7 +1119,7 @@ volume's body of pages.</p>
 </dl>
 </div>
 
-<h3 class="include" id="L11470">dynamic-sequence</h3>
+<h4 class="include" id="L11470">dynamic-sequence</h4>
 
 <p>The dynamic-sequence is similar to a regular sequence. The main difference
 is that it can contain elements that are generated based on the placement of
@@ -1394,7 +1158,9 @@ should be excluded entierly.</p>
 </dl>
 </div>
 
-<h3 id="L1023" class="include">block</h3>
+<h3 id="L1765">Blocks</h3>
+
+<h4 id="L1023" class="include">block</h4>
 
 <p>The block element defines a block of text.</p>
 
@@ -1471,44 +1237,91 @@ should be excluded entierly.</p>
 </dl>
 </div>
 
-<h3 class="include" id="L2248">xml-data</h3>
+<h3 id="L1894">Inline Content</h3>
 
-<div class="note">
-<p>This feature is incubating (2016-01-12). This means that the feature is currently a work-in-progress and may change at any time.</p>
+<h4 id="L722" class="include">evaluate</h4>
+
+<p>The evaluate element inserts the result of evaluating an expression, see the
+<a href="obfl-evaluation-language.html">OBFL evaluation language</a> for more
+information.</p>
+
+<div class="sidebar">
+<dl>
+  <dt>Usage</dt>
+    <dd class="markup">before, after, field, toc-entry, block, item</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>expression [required]</dt>
+          <dd>A valid <a href="obfl-evaluation-language.html">OBFL Evaluation
+            Language</a> expression.</dd>
+        <dt>text-style [optional]</dt>
+          <dd class="">A text style, e.g. emphasis or strong</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>Emtpy.</dd>
+</dl>
 </div>
 
-<p>xml-data is unprocessed xml in any namespace that may be represented in more
-than one way, depending on some aspect of the rendered result.</p>
+<h5 id="L1033">Example</h5>
+
+<div class="example">
+<p><code>&lt;evaluate expression="(= 0 1)"/&gt;</code></p>
+</div>
+
+<h4 id="L1207" class="include">leader</h4>
+
+<p>The leader element moves the location of the following piece of text within
+the current row.</p>
 
 <div class="sidebar markup">
 <dl>
   <dt>Usage</dt>
-    <dd>sequence, block</dd>
+    <dd>before, after, toc-entry, block, item</dd>
   <dt>Attributes</dt>
     <dd><dl>
-        <dt>renderer [required]</dt>
-          <dd>Name of the renderer to use.</dd>
+        <dt>align [optional]</dt>
+          <dd>Alignment of the text following the leader.</dd>
+          <dd>The leader can be aligned to the left, center or right of the
+            following text segment.</dd>
+          <dd>One of 'left' (default), 'center' or 'right'.</dd>
+        <dt>pattern [optional]</dt>
+          <dd>Fill pattern to use up to the leader position.</dd>
+          <dd>Default is ' '.</dd>
+        <dt>position [required]</dt>
+          <dd>Position of the leader within the row. Can be relative (percent)
+            or absolute (column). For example: 50% or 12.</dd>
       </dl>
     </dd>
   <dt>Content Model</dt>
-    <dd>Any element [required]</dd>
+    <dd>Empty.</dd>
 </dl>
 </div>
 
-<h4 id="L2273">Example</h4>
-<div class="example">
-<pre>
-&lt;xml-data xmlns:html="http://www.w3.org/1999/xhtml">
-	&lt;html:table>
-		&lt;html:tr>
-			&lt;html:td>table cell&lt;/html:td>
-		&lt;/html:tr>
-	&lt;/html:table>
-&lt;/xml-data>
-</pre>
+<h4 id="L1353" class="include">marker</h4>
+
+<p>The marker element provides locations for classes of values that may be
+refered to in headers and footers.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>before, after, toc-entry, block, item</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>class [required]</dt>
+          <dd>A class name for this marker, to be used when searching for
+            markers.</dd>
+        <dt>value [required]</dt>
+          <dd>value for this marker</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>Empty.</dd>
+</dl>
 </div>
 
-<h3 id="L924" class="include">anchor</h3>
+<h4 id="L924" class="include">anchor</h4>
 
 <p>The anchor element references an item in a collection, suggesting that the
 item has a connection to the text near the location of the anchor.</p>
@@ -1528,105 +1341,239 @@ item has a connection to the text near the location of the anchor.</p>
 </dl>
 </div>
 
-<h3 id="L9242" class="include">list-of-references</h3>
+<h4 id="L1438" class="include">br</h4>
 
-<p>The list-of-references element contains instructions needed to render a
-collection of items ordered by page of reference. Note that a
-list-of-references only contains static contents inserted while generating the
-sequence (on-collection-start, on-page-start, on-page-end, on-collection-end).
-The actual items are collected from the referenced collection.</p>
+<p>The br element provides a line break within a block of text (i.e. a
+paragraph).</p>
 
 <div class="sidebar markup">
 <dl>
   <dt>Usage</dt>
-    <dd>dynamic-sequence</dd>
+    <dd>before, after, toc-entry, block, item</dd>
+  <dt>Content Model</dt>
+    <dd>Empty.</dd>
+</dl>
+</div>
+
+<h4 id="L836" class="include">page-number</h4>
+
+<p>The page-number element inserts the page number of the referenced
+element.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>before, after, toc-entry, block, item</dd>
   <dt>Attributes</dt>
     <dd><dl>
-        <dt>collection [required]</dt>
-          <dd>A reference to a collection, either an explicitly defined
-            collection or one defined as a fallback for another group.</dd>
-        <dt>range [required]</dt>
-          <dd>A data selection property.</dd>
-          <dd>One of 'document' or 'volume'.</dd>
+        <dt>ref-id [required]</dt>
+          <dd></dd>
+        <dt><del class="2015-10-13">style [optional]</del></dt>
+        <dt>number-format [optional]</dt>
+          <dd>One of 'default', 'roman', 'upper-roman', 'lower-roman',
+            'upper-alpha', 'lower-alpha'.</dd>
       </dl>
     </dd>
   <dt>Content Model</dt>
-    <dd>In this order: 
-      <ul>
-        <li>on-collection-start [optional]</li>
-        <li>on-page-start [optional]</li>
-        <li>on-page-end [optional]</li>
-        <li>on-collection-end [optional]</li>
-      </ul>
+    <dd>Empty.</dd>
+</dl>
+</div>
+
+<h4 id="L849" class="include">span</h4>
+
+<p>The span element represents a segment of text whose hyphenation policy or
+language is different from the surrounding text.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>before, after, toc-entry, block, item</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>xml:lang [optional]</dt>
+          <dd>A language as defined in <a
+            href="http://www.w3.org/TR/REC-xml/#sec-lang-tag">Section 2.12</a>
+            of the XML 1.0 Recommendation [<a class="nref"
+            href="#ref-xml">XML</a>].</dd>
+        <dt>hyphenate [optional]</dt>
+          <dd>Whether or not to hyphenate text descendants. </dd>
+          <dd>One of 'true' or 'false'.</dd>
+          <dd>See the <a href="#L21839">attribute description</a> for more
+            information.</dd>
+        <dt>translate [optional]</dt>
+          <dd>Specifies a translation policy.</dd>
+          <dd>See the <a href="#L2462">attribute description</a> for more
+            information.</dd>
+      </dl>
     </dd>
+  <dt>Content Model</dt>
+    <dd>text(), style, anchor [0 or more]</dd>
 </dl>
 </div>
 
-<h3 id="L951" class="include">on-collection-start</h3>
+<h4 id="L8491" class="include">style</h4>
 
-<p>The on-collection-start element defines blocks of text to insert before the
-collection items.</p>
+<p>The style element represents a segment of text with a specific style, e.g.
+emphasis or strong.</p>
 
 <div class="sidebar markup">
 <dl>
   <dt>Usage</dt>
-    <dd>list-of-references</dd>
+    <dd>before, after, toc-entry, block, item, span, style</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>name [required]</dt>
+          <dd>The name of the style.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>text(), style, marker, br, anchor [0 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L2227">Tabular Data</h3>
+
+<h4 id="L2229">table</h4>
+
+<div class="note">
+<p>This feature is incubating (2016-01-12). This means that the feature is
+currently a work-in-progress and may change at any time.</p>
+</div>
+
+<p>The table element represents data with more than one dimension, in the form
+of a table.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>sequence</dd>
   <dt>Attributes</dt>
     <dd>None</dd>
+  <dt>Content Model</dt>
+    <dd>tr [1 or more]</dd>
+</dl>
+</div>
+
+<h4 id="L2253">tr</h4>
+
+<div class="note">
+<p>This feature is incubating (2016-01-12). This means that the feature is
+currently a work-in-progress and may change at any time.</p>
+</div>
+
+<p>The tr element represents a row of cells in a table.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>table</dd>
+  <dt>Attributes</dt>
+    <dd>None</dd>
+  <dt>Content Model</dt>
+    <dd>td, th [1 or more]</dd>
+</dl>
+</div>
+
+<h4 id="L2277">td</h4>
+
+<div class="note">
+<p>This feature is incubating (2016-01-12). This means that the feature is
+currently a work-in-progress and may change at any time.</p>
+</div>
+
+<p>The td element represents a data cell in a table.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>tr</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>rowspan</dt>
+        <dt>colspan</dt>
+      </dl>
+    </dd>
   <dt>Content Model</dt>
     <dd>block [1 or more]</dd>
 </dl>
 </div>
 
-<h3 id="L9511" class="include">on-page-start</h3>
+<h4 id="L2304">th</h4>
 
-<p>The on-page-start element defines blocks of text to insert before the
-collection items on a page.</p>
+<div class="note">
+<p>This feature is incubating (2016-01-12). This means that the feature is
+currently a work-in-progress and may change at any time.</p>
+</div>
+
+<p>The th element represents a header cell in a table.</p>
 
 <div class="sidebar markup">
 <dl>
   <dt>Usage</dt>
-    <dd>list-of-references</dd>
+    <dd>tr</dd>
   <dt>Attributes</dt>
-    <dd>None</dd>
+    <dd><dl>
+        <dt>rowspan</dt>
+        <dt>colspan</dt>
+        <dt>scope</dt>
+          <dd>One of 'row' or 'col'.</dd>
+      </dl>
+    </dd>
   <dt>Content Model</dt>
     <dd>block [1 or more]</dd>
 </dl>
 </div>
 
-<h3 id="L9512" class="include">on-page-end</h3>
+<h3 id="L2167">Table of Contents</h3>
 
-<p>The on-page-end element defines blocks of text to insert after the
-collection items on a page.</p>
+<h4 id="L735" class="include">table-of-contents</h4>
 
-<div class="sidebar markup">
-<dl>
-  <dt>Usage</dt>
-    <dd>list-of-references</dd>
-  <dt>Attributes</dt>
-    <dd>None</dd>
-  <dt>Content Model</dt>
-    <dd>block [1 or more]</dd>
-</dl>
-</div>
-
-<h3 id="L9513" class="include">on-collection-end</h3>
-
-<p>The on-collection-end element defines blocks of text to insert after the
-collection items.</p>
+<p>The table-of-contents element defines the entries in a table of contents.
+Note that this element specifies formatting of data in a table of contents, it
+does not by it self specify that a table of contents should be inserted. It is
+required that the order of the toc-entries is consistent with the blocks it
+references.</p>
 
 <div class="sidebar markup">
 <dl>
   <dt>Usage</dt>
-    <dd>list-of-references</dd>
+    <dd>obfl</dd>
   <dt>Attributes</dt>
-    <dd>None</dd>
+    <dd><dl>
+        <dt>name [required]</dt>
+          <dd>An id.</dd>
+      </dl>
+    </dd>
   <dt>Content Model</dt>
-    <dd>block [1 or more]</dd>
+    <dd>toc-entry [1 or more]</dd>
 </dl>
 </div>
 
-<h3 id="L9241" class="include">toc-sequence</h3>
+<h4 id="L1105" class="include">toc-entry</h4>
+
+<p>The toc-entry element defines an entry in a table of contents.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>table-of-contents</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>ref-id [required]</dt>
+          <dd>The id of the block this entry is connected with.</dd>
+      </dl>
+      <p>This element supports the <a href="#block-atts">Block</a> attribute
+      group.</p>
+      <p>This element supports the <a href="#borders">Borders</a> attribute
+      group.</p>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>text(), leader, marker, br, evaluate, toc-entry, page-number, span,
+      style [0 or more]</dd>
+</dl>
+</div>
+
+<h4 id="L9241" class="include">toc-sequence</h4>
 
 <p>The toc-sequence element contains instructions needed to generate a TOC's
 for braille books. Since the number of volumes and their contents is unknown
@@ -1683,7 +1630,7 @@ data.</p>
 </dl>
 </div>
 
-<h3 id="L9514" class="include">on-toc-start</h3>
+<h4 id="L9514" class="include">on-toc-start</h4>
 
 <p>The on-toc-start element defines blocks of text to insert before the TOC
 data.</p>
@@ -1705,7 +1652,7 @@ data.</p>
 </dl>
 </div>
 
-<h3 id="L969" class="include">on-volume-start</h3>
+<h4 id="L969" class="include">on-volume-start</h4>
 
 <p>The on-volume-start element defines blocks of text to insert before the TOC
 data of a volume. Note that this element only applies to document range
@@ -1728,7 +1675,7 @@ TOC's.</p>
 </dl>
 </div>
 
-<h3 id="L987" class="include">on-volume-end</h3>
+<h4 id="L987" class="include">on-volume-end</h4>
 
 <p>The on-volume-end element defines blocks of text to insert after the TOC
 data of a volume. Note that this element only applies to document range
@@ -1751,7 +1698,7 @@ TOC's.</p>
 </dl>
 </div>
 
-<h3 id="L1005" class="include">on-toc-end</h3>
+<h4 id="L1005" class="include">on-toc-end</h4>
 
 <p>The on-toc-end element defines blocks of text to insert after the TOC
 data.</p>
@@ -1773,7 +1720,82 @@ data.</p>
 </dl>
 </div>
 
-<h3 id="L1194" class="include">collection</h3>
+<h3 id="L2433">Volume Templates</h3>
+
+<h4 id="L84911" class="include">volume-template</h4>
+
+<p>The volume-template element contains static contents that is to be inserted
+before or after a braille volume's body of pages. In additional to the normal
+sequences that can be used to create static contents such as information about
+the author and title of the book, there is a special sequence called
+toc-sequence.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>obfl</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>volume-count-variable [optional]</dt>
+          <dd>Definition of the name of the variable holding the number of
+            volumes. It can be used in an expression, e.g. <code>(= $volumes
+            1)</code>.</dd>
+          <dd>Default is 'volumes'.</dd>
+        <dt>volume-number-variable [optional]</dt>
+          <dd>Definition of the name of the variable holding the current volume
+            number. It can be used in an expression, e.g. <code>(= $volume
+            1)</code>.</dd>
+          <dd>Default is 'volume'.</dd>
+        <dt>use-when [optional]</dt>
+          <dd>A condition for applying the volume-template, expressed using the
+            <a href="obfl-evaluation-language.html">OBFL Evaluation
+            Language</a>.</dd>
+        <dt>sheets-in-volume-max [required]</dt>
+          <dd>Defines the maximum number of sheets in a volume using this
+            volume-template.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>In this order: 
+      <ul>
+        <li>pre-content [required]</li>
+        <li>post-content [required]</li>
+      </ul>
+    </dd>
+</dl>
+</div>
+
+<h4 id="L870" class="include">pre-content</h4>
+
+<p>The pre-content element defines contents that should preceed a braille
+volume's body of pages.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>volume-template</dd>
+  <dt>Content Model</dt>
+    <dd>sequence, dynamic-sequence, toc-sequence [0 or more]</dd>
+</dl>
+</div>
+
+<h4 id="L888" class="include">post-content</h4>
+
+<p>The post-content element defines contents that should follow a braille
+volume's body of pages.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>volume-template</dd>
+  <dt>Content Model</dt>
+    <dd>sequence, dynamic-sequence [0 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L2529">Achored Data</h3>
+
+<h4 id="L1194" class="include">collection</h4>
 
 <p>Defines items to be placed somewhere within the flow, typically as page
 positioned elements, such as footnotes.</p>
@@ -1793,7 +1815,7 @@ positioned elements, such as footnotes.</p>
 </dl>
 </div>
 
-<h3 id="L1210" class="include">item</h3>
+<h4 id="L1210" class="include">item</h4>
 
 <p>Defines the formatting of an item that should be inserted somewhere in the
 flow. The behavior of this element is similar to the toc-entry element, except
@@ -1815,15 +1837,233 @@ that nesting of items is not allowed.</p>
 </dl>
 </div>
 
-<h3 class="include" id="L2690">xml-processor</h3>
+<h4 id="L9242" class="include">list-of-references</h4>
+
+<p>The list-of-references element contains instructions needed to render a
+collection of items ordered by page of reference. Note that a
+list-of-references only contains static contents inserted while generating the
+sequence (on-collection-start, on-page-start, on-page-end, on-collection-end).
+The actual items are collected from the referenced collection.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>dynamic-sequence</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>collection [required]</dt>
+          <dd>A reference to a collection, either an explicitly defined
+            collection or one defined as a fallback for another group.</dd>
+        <dt>range [required]</dt>
+          <dd>A data selection property.</dd>
+          <dd>One of 'document' or 'volume'.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>In this order: 
+      <ul>
+        <li>on-collection-start [optional]</li>
+        <li>on-page-start [optional]</li>
+        <li>on-page-end [optional]</li>
+        <li>on-collection-end [optional]</li>
+      </ul>
+    </dd>
+</dl>
+</div>
+
+<h4 id="L951" class="include">on-collection-start</h4>
+
+<p>The on-collection-start element defines blocks of text to insert before the
+collection items.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>list-of-references</dd>
+  <dt>Attributes</dt>
+    <dd>None</dd>
+  <dt>Content Model</dt>
+    <dd>block [1 or more]</dd>
+</dl>
+</div>
+
+<h4 id="L9511" class="include">on-page-start</h4>
+
+<p>The on-page-start element defines blocks of text to insert before the
+collection items on a page.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>list-of-references</dd>
+  <dt>Attributes</dt>
+    <dd>None</dd>
+  <dt>Content Model</dt>
+    <dd>block [1 or more]</dd>
+</dl>
+</div>
+
+<h4 id="L9512" class="include">on-page-end</h4>
+
+<p>The on-page-end element defines blocks of text to insert after the
+collection items on a page.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>list-of-references</dd>
+  <dt>Attributes</dt>
+    <dd>None</dd>
+  <dt>Content Model</dt>
+    <dd>block [1 or more]</dd>
+</dl>
+</div>
+
+<h4 id="L9513" class="include">on-collection-end</h4>
+
+<p>The on-collection-end element defines blocks of text to insert after the
+collection items.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>list-of-references</dd>
+  <dt>Attributes</dt>
+    <dd>None</dd>
+  <dt>Content Model</dt>
+    <dd>block [1 or more]</dd>
+</dl>
+</div>
+
+<h3 id="L2715">Dynamic Source Data Processing</h3>
+
+<h4 class="include" id="L2248">xml-data</h4>
 
 <div class="note">
-<p>This feature is incubating (2016-01-12). This means that the feature is currently a work-in-progress and may change at any time.</p>
+<p>This feature is incubating (2016-01-12). This means that the feature is
+currently a work-in-progress and may change at any time.</p>
+</div>
+
+<p>xml-data is unprocessed xml in any namespace that may be represented in more
+than one way, depending on some aspect of the rendered result.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>sequence, block</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>renderer [required]</dt>
+          <dd>Name of the renderer to use.</dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>Any element [required]</dd>
+</dl>
+</div>
+
+<h5 id="L2273">Example</h5>
+<div class="example">
+<pre>
+&lt;xml-data xmlns:html="http://www.w3.org/1999/xhtml">
+	&lt;html:table>
+		&lt;html:tr>
+			&lt;html:td>table cell&lt;/html:td>
+		&lt;/html:tr>
+	&lt;/html:table>
+&lt;/xml-data>
+</pre>
+</div>
+
+<h4 class="include" id="L2724">renderer</h4>
+
+<div class="note">
+<p>This feature is incubating (2016-01-12). This means that the feature is
+currently a work-in-progress and may change at any time.</p>
+</div>
+
+<p>Defines rendering options for unprocessed xml-data.</p>
+
+<p>All scenarios that qualify will be rendered, and the scenario with the
+lowest cost will be selected. If a scenario cannot be rendered for some reason,
+it is assumed to have an infinite cost. It is an error if no scenario can be
+applied to a given xml-data.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>obfl</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>name [required]</dt>
+          <dd>An identifier for the renderer.</dd>
+      </dl>
+    </dd>
+  <dt>Content model</dt>
+    <dd>rendering-scenario [1 or more]</dd>
+</dl>
+</div>
+
+<h4 class="include" id="L2749">rendering-scenario</h4>
+
+<div class="note">
+<p>This feature is incubating (2016-01-12). This means that the feature is
+currently a work-in-progress and may change at any time.</p>
+</div>
+
+<p>Defines a rendering scenario.</p>
+
+<div class="sidebar markup">
+<dl>
+  <dt>Usage</dt>
+    <dd>renderer</dd>
+  <dt>Attributes</dt>
+    <dd><dl>
+        <dt>processor [required]</dt>
+          <dd>The identifier of the xml-processor to use in this scenario.</dd>
+        <dt>cost [required]</dt>
+          <dd>Specifies the cost of using the rendered result.</dd>
+          <dd class="no-markup">An <a href="obfl-evaluation-language.html">OBFL
+            Evaluation Language</a> expression that evaluates to a number.</dd>
+        <dt>qualifier [optional]</dt>
+          <dd>Specifies an XPath expression to be used to qualify a scenario
+            for rendering. If a scenario doesn't qualify on a given xml-data,
+            it is excluded from rendering and subsequent cost evaluation.</dd>
+          <dd class="no-markup">The XPath expression must: 
+            <ul>
+              <li>use namespace prefixes bound in the context of this element
+                (the default namespace cannot be used)</li>
+              <li>evaluate to a boolean</li>
+            </ul>
+          </dd>
+      </dl>
+    </dd>
+  <dt>Content Model</dt>
+    <dd>Empty.</dd>
+</dl>
+</div>
+<h5 id="L2793">Example</h5>
+<div class="example">
+<pre>
+&lt;renderer name="table-renderer">
+	&lt;rendering-scenario xmlns:html="http://www.w3.org/1999/xhtml"
+			qualifier="/html:table/max(html:tr/sum(html:td/(if (@colspan) then @colspan else 1)))&lt;=2"
+			processor="simple-table-processor" 
+			cost="(+ (- 30 $min-block-width) $total-height)"/>
+&lt;/renderer>
+</pre>
+</div>
+
+<h4 class="include" id="L2690">xml-processor</h4>
+
+<div class="note">
+<p>This feature is incubating (2016-01-12). This means that the feature is
+currently a work-in-progress and may change at any time.</p>
 </div>
 
 <p>Defines a pre-processor for xml-data. The output of the processor must be
-elements in the obfl namespace and the elements must be valid in
-the context where they are inserted.</p>
+elements in the obfl namespace and the elements must be valid in the context
+where they are inserted.</p>
 
 <p>Currently, the only defined processor is xsl:stylesheet, i.e. an XSLT
 document as specified in the XSL Transformations Recommendation [<a
@@ -1845,97 +2085,23 @@ supported in future versions.</p>
 </dl>
 </div>
 
-<h4 id="L2720">Example</h4>
+<h5 id="L2720">Example</h5>
 <div class="example">
-<pre>
+  <pre>
 &lt;xml-processor name="simple-table-processor">
-	&lt;xsl:stylesheet version="2.0"
-			xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-			xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-			xmlns:fn="http://www.w3.org/2005/xpath-functions">
-		&lt;xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
-		&lt;!-- Makes a verbatim copy of the input, which is assumed to be in obfl namespace -->
-		&lt;xsl:template match="/">
-			&lt;xsl:copy-of select="*"/>
-		&lt;/xsl:template>
-	&lt;/xsl:stylesheet>
+&lt;xsl:stylesheet version="2.0"
+		xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+		xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		xmlns:fn="http://www.w3.org/2005/xpath-functions">
+	&lt;xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
+	&lt;!-- Makes a verbatim copy of the input, which is assumed to be in obfl namespace -->
+	&lt;xsl:template match="/">
+		&lt;xsl:copy-of select="*"/>
+	&lt;/xsl:template>
+&lt;/xsl:stylesheet>
 &lt;/xml-processor>
 </pre>
 </div>
-
-<h3 class="include" id="L2724">renderer</h3>
-
-<div class="note">
-<p>This feature is incubating (2016-01-12). This means that the feature is currently a work-in-progress and may change at any time.</p>
-</div>
-
-<p>Defines rendering options for unprocessed xml-data.</p>
-<p>All scenarios that qualify will be rendered, and the
-scenario with the lowest cost will be selected. If a scenario cannot be
-rendered for some reason, it is assumed to have an infinite cost. It is an
-error if no scenario can be applied to a given xml-data.</p>
-<div class="sidebar markup">
-<dl>
-  <dt>Usage</dt>
-    <dd>obfl</dd>
-  <dt>Attributes</dt>
-    <dd><dl>
-        <dt>name [required]</dt>
-          <dd>An identifier for the renderer.</dd>
-      </dl>
-    </dd>
-  <dt>Content model</dt>
-    <dd>rendering-scenario [1 or more]</dd>
-</dl>
-</div>
-
-<h3 class="include" id="L2749">rendering-scenario</h3>
-
-<div class="note">
-<p>This feature is incubating (2016-01-12). This means that the feature is currently a work-in-progress and may change at any time.</p>
-</div>
-
-<p>Defines a rendering scenario.</p>
-
-<div class="sidebar markup">
-<dl>
-  <dt>Usage</dt>
-    <dd>renderer</dd>
-  <dt>Attributes</dt>
-    <dd><dl>
-        <dt>processor [required]</dt>
-          <dd>The identifier of the xml-processor to use in this scenario.</dd>
-        <dt>cost [required]</dt>
-          <dd>Specifies the cost of using the rendered result.</dd>
-          <dd class="no-markup">An <a href="obfl-evaluation-language.html">OBFL
-            Evaluation Language</a> expression that evaluates to a number.</dd>
-        <dt>qualifier [optional]</dt>
-          <dd>Specifies an XPath expression to be used to qualify a scenario
-            for rendering. If a scenario doesn't qualify on a given xml-data,
-            it is excluded from rendering and subsequent cost evaluation.</dd>
-          <dd class="no-markup">The XPath expression must:<ul>
-          	<li>use namespace prefixes bound in the context of this element 
-          	(the default namespace cannot be used)</li>
-          	<li>evaluate to a boolean</li>
-          </ul></dd>
-      </dl>
-    </dd>
-  <dt>Content Model</dt>
-    <dd>Empty.</dd>
-</dl>
-</div>
-<h4 id="L2793">Example</h4>
-<div class="example">
-<pre>
-&lt;renderer name="table-renderer">
-	&lt;rendering-scenario xmlns:html="http://www.w3.org/1999/xhtml"
-			qualifier="/html:table/max(html:tr/sum(html:td/(if (@colspan) then @colspan else 1)))&lt;=2"
-			processor="simple-table-processor" 
-			cost="(+ (- 30 $min-block-width) $total-height)"/>
-&lt;/renderer>
-</pre>
-</div>
-
 <h2 id="L1608">Attribute Definitions</h2>
 
 <h3 id="L21839">hyphenate</h3>
