@@ -1,27 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <meta http-equiv="Content-Type"
-  content="application/xhtml+xml; charset=UTF-8" />
+  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8"/>
   <title>OBFL Evaluation Language</title>
-  <meta name="dc:identifier" content="" />
-  <meta name="dc:Title" content="OBFL Evaluation Language" />
-  <meta name="dc:Language" content="en" />
-  <meta name="dc:Date" content="2015-11-30" />
-  <link rel="stylesheet" href="styles/w3c-unofficial.css" type="text/css" />
-  <link rel="stylesheet" href="styles/style.css" type="text/css" />
+  <meta name="dc:identifier" content=""/>
+  <meta name="dc:Title" content="OBFL Evaluation Language"/>
+  <meta name="dc:Language" content="en"/>
+  <meta name="dc:Date" content="2015-11-30"/>
+  <link rel="stylesheet" href="styles/w3c-unofficial.css" type="text/css"/>
+  <link rel="stylesheet" href="styles/style.css" type="text/css"/>
 </head>
 
 <body>
-<h1>OBFL Evaluation Language</h1>
+<h1 id="N65581">OBFL Evaluation Language</h1>
 
 <p>Working draft, revised November 30, 2015</p>
 <dl>
   <dt>This version:</dt>
-    <dd><a
-      href="http://files.pef-format.org/drafts/obfl/obfl-specification.html">http://files.pef-format.org/drafts/obfl/obfl-evaluation-language.html</a></dd>
+    <dd><a href="http://files.pef-format.org/drafts/obfl/obfl-specification.html">http://files.pef-format.org/drafts/obfl/obfl-evaluation-language.html</a></dd>
   <dt>Author:</dt>
     <dd>Joel Håkansson</dd>
   <!--
@@ -29,65 +25,26 @@
               <dd></dd>-->
 </dl>
 
-<h2 id="L62"><a class="mozTocH2" name="mozTocId823610"></a>Abstract</h2>
+<h2 id="L62"><a class="mozTocH2" name="mozTocId823610"/>Abstract</h2>
 
 <p>This document specifies the OBFL Evaluation Language, a interpreted
 evaluation language.</p>
 
-<h2 id="L71"><a class="mozTocH2" name="mozTocId427116"></a>Status of this
+<h2 id="L71"><a class="mozTocH2" name="mozTocId427116"/>Status of this
 Document</h2>
 
 <p>This document is a working draft.</p>
 
-<h2 id="L77"><a class="mozTocH2" name="mozTocId469583"></a>Table of
+<h2 id="L77"><a class="mozTocH2" name="mozTocId469583"/>Table of
 Contents</h2>
 
-<div class="toc">
-<ul>
-  <li><a href="#L255">Introduction</a>
-    <ul>
-      <li><a href="#L261">What is OBFL Evaluation Language?</a></li>
-    </ul>
-  </li>
-  <li><a href="#L287">Definitions</a>
-    <ul>
-      <li><a href="#L295">Terminology</a></li>
-      <li><a href="#L449">Relationship to Other Specifications</a></li>
-    </ul>
-  </li>
-  <li><a href="#L520">Definition of OBFL Evaluation Language</a>
-    <ul>
-      <li><a href="#L195">Syntax</a>
-        <ul>
-          <li><a href="#L199">Parenthesis</a></li>
-          <li><a href="#L203">Whitespace</a></li>
-          <li><a href="#L14889">Variables</a></li>
-        </ul>
-      </li>
-      <li><a href="#L216">Operators</a>
-        <ul>
-          <li><a href="#L3791">Arithmetic Operators</a></li>
-          <li><a href="#L3791">Comparison Operators</a></li>
-          <li><a href="#L3791">Logical Operators</a></li>
-        </ul>
-      </li>
-      <li><a href="#L3682">Functions</a></li>
-    </ul>
-  </li>
-  <li><a href="#L784">References</a>
-    <ul>
-      <li><a href="#L786">Normative References</a></li>
-    </ul>
-  </li>
-</ul>
-</div>
+<ul><li><a href="#L255">Introduction</a><ul><li><a href="#L261">What is OBFL Evaluation Language?</a></li></ul></li><li><a href="#L287">Definitions</a><ul><li><a href="#L295">Terminology</a></li><li><a href="#L449">Relationship to Other Specifications</a></li></ul></li><li><a href="#L520">Definition of OBFL Evaluation Language</a><ul><li><a href="#L195">Syntax</a><ul><li><a href="#L199">Parenthesis</a></li><li><a href="#L203">Whitespace</a></li><li><a href="#L14889">Variables</a></li></ul></li><li><a href="#L216">Operators</a><ul><li><a href="#L3791">Arithmetic Operators</a></li><li><a href="#L3791">Comparison Operators</a></li><li><a href="#L3791">Logical Operators</a></li></ul></li><li><a href="#L3682">Functions</a></li></ul></li><li><a href="#L784">References</a><ul><li><a href="#L786">Normative References</a></li></ul></li></ul><?toc?>
 
 <h2 id="L255">Introduction</h2>
 
 <p><strong>This section is informative.</strong> </p>
 
-<p>An evaluation language was needed for the formatting process defined by <a
-href="obfl-specification.html">OBFL</a>. The reason being that some decisions
+<p>An evaluation language was needed for the formatting process defined by <a href="obfl-specification.html">OBFL</a>. The reason being that some decisions
 have to be made based on the result of the formatting, such as the volume or
 page number of an element.</p>
 
@@ -151,7 +108,7 @@ these variables and their values are supplied to the evaluation engine at the
 time of the evaluation of the expression that uses them. A variable be accessed
 by its name prefixed by a $. For example, given that a variable with the name
 'volume' exists in the evaluation context, it can be used in an expression such
-as <code>(= $volume 1)</code>. <code></code></p>
+as <code>(= $volume 1)</code>. <code/></p>
 
 <h3 id="L216">Operators</h3>
 
@@ -244,14 +201,13 @@ unspecified number of arguments.</p>
   <dt><a name="ref-digloss" id="ref-digloss"><strong>[DI
   Glossary]</strong></a></dt>
     <dd>"<a href="http://www.w3.org/TR/2005/WD-di-gloss-20050118/">Glossary of
-      Terms for Device Independence</a>", Rhys Lewis, 18 January 2005.<br />
+      Terms for Device Independence</a>", Rhys Lewis, 18 January 2005.<br/>
       <a href="http://www.w3.org/TR/di-gloss/">Latest version</a> available at:
       http://www.w3.org/TR/di-gloss/</dd>
-  <dt><a name="ref-rfc21191"
-  id="ref-rfc21191"><strong>[RFC2119]</strong></a></dt>
+  <dt><a name="ref-rfc21191" id="ref-rfc21191"><strong>[RFC2119]</strong></a></dt>
     <dd>"<a href="http://www.ietf.org/rfc/rfc2119.txt">RFC2119: Key words for
       use in RFCs to Indicate Requirement Levels</a>", S. Bradner, March
-      1997.<br />
+      1997.<br/>
       Available at: http://www.ietf.org/rfc/rfc2119.txt</dd>
 </dl>
 </body>
