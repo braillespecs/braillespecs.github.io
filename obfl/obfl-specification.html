@@ -37,7 +37,7 @@ format for representing text formatting layout. OBFL is an <a href="#ref-xml">XM
 <h2 id="L77">Table of Contents</h2>
 
 <ul><li><a href="#L255">Introduction</a><ul><li><a href="#L261">What is OBFL?</a></li><li><a href="#L265">Why is OBFL Necessary?</a></li><li><a href="#L279">Scope Limitations</a></li></ul></li><li><a href="#L287">Definitions</a><ul><li><a href="#L295">Terminology</a></li><li><a href="#L302">General Terms</a></li><li><a href="#L425">Axes and Node Types</a></li><li><a href="#L449">Relationship to Other Specifications</a></li></ul></li><li><a href="#L453">Definition of OBFL</a><ul><li><a href="#L459">Document Conformance </a></li><li><a href="#L493">Using OBFL with Other
-Namespaces</a></li><li><a href="#L501">Internet Media Type and File Extension</a></li></ul></li><li><a href="#L502">White Space Processing</a><ul><li><a href="#L632">Problems with White Space</a></li><li><a href="#L657">Implications of Incorrect White Space</a></li><li><a href="#L671">Default White Space Processing</a></li></ul></li><li><a href="#L558">Elements</a><ul><li><a href="#L856">The Root Element</a><ul><li><a href="#L565">obfl</a></li></ul></li><li><a href="#L949">Document Metadata</a><ul><li><a href="#L587">meta</a></li></ul></li><li><a href="#L967">Page Templates</a><ul><li><a href="#L5871">layout-master</a></li><li><a href="#L608">template</a></li><li><a href="#L608-2">default-template</a></li><li><a href="#L647">page-area</a></li><li><a href="#L20904">fallback</a></li><li><a href="#L20925">rename</a></li><li><a href="#L629">before</a></li><li><a href="#L6291">after</a></li><li><a href="#L62911">header</a></li><li><a href="#L6471">footer</a></li><li><a href="#L1296">margin-region</a></li><li><a href="#L1328">indicators</a></li><li><a href="#L1329">marker-indicator</a><ul><li><a href="#L1365">Example</a></li></ul></li><li><a href="#L665">field</a></li><li><a href="#L683">marker-reference</a><ul><li><a href="#L1333">start-offset</a></li></ul></li><li><a href="#L696">string</a></li><li><a href="#L709">current-page</a></li></ul></li><li><a href="#L1631">Sequences</a><ul><li><a href="#L906">sequence</a></li><li><a href="#L11470">dynamic-sequence</a></li></ul></li><li><a href="#L1765">Blocks</a><ul><li><a href="#L1023">block</a></li></ul></li><li><a href="#L1894">Inline Content</a><ul><li><a href="#L722">evaluate</a><ul><li><a href="#L1033">Example</a></li></ul></li><li><a href="#L1207">leader</a></li><li><a href="#L1353">marker</a></li><li><a href="#L924">anchor</a></li><li><a href="#L1438">br</a></li><li><a href="#L836">page-number</a></li><li><a href="#L849">span</a></li><li><a href="#L8491">style</a></li></ul></li><li><a href="#L2227">Tabular Data</a><ul><li><a href="#L2229">table</a></li><li><a href="#L2253">tr</a></li><li><a href="#L2277">td</a></li><li><a href="#L2304">th</a></li></ul></li><li><a href="#L2167">Table of Contents</a><ul><li><a href="#L735">table-of-contents</a></li><li><a href="#L1105">toc-entry</a></li><li><a href="#L9241">toc-sequence</a></li><li><a href="#L9514">on-toc-start</a></li><li><a href="#L969">on-volume-start</a></li><li><a href="#L987">on-volume-end</a></li><li><a href="#L1005">on-toc-end</a></li></ul></li><li><a href="#L2433">Volume Templates</a><ul><li><a href="#L84911">volume-template</a></li><li><a href="#L870">pre-content</a></li><li><a href="#L888">post-content</a></li></ul></li><li><a href="#L2529">Achored Data</a><ul><li><a href="#L1194">collection</a></li><li><a href="#L1210">item</a></li><li><a href="#L9242">list-of-references</a></li><li><a href="#L951">on-collection-start</a></li><li><a href="#L9511">on-page-start</a></li><li><a href="#L9512">on-page-end</a></li><li><a href="#L9513">on-collection-end</a></li></ul></li><li><a href="#L2715">Dynamic Source Data Processing</a><ul><li><a href="#L2248">xml-data</a><ul><li><a href="#L2273">Example</a></li></ul></li><li><a href="#L2724">renderer</a></li><li><a href="#L2749">rendering-scenario</a><ul><li><a href="#L2793">Example</a></li></ul></li><li><a href="#L2690">xml-processor</a><ul><li><a href="#L2720">Example</a></li></ul></li></ul></li></ul></li><li><a href="#L1608">Attribute Definitions</a><ul><li><a href="#L21839">hyphenate</a><ul><li><a href="#L21851">Example</a></li></ul></li><li><a href="#rowspacing">row-spacing</a></li><li><a href="#L2462">translate</a><ul><li><a href="#L2475">pre-translated</a></li></ul></li></ul></li><li><a href="#L16081">Attribute Groups</a><ul><li><a href="#block-atts">Block</a><ul><li><a href="#L2519">Collapsing Margins</a></li><li><a href="#L2536">Example</a></li></ul></li><li><a href="#borders">Borders</a></li></ul></li><li><a href="#L756">Rule Sets</a><ul><li><a href="#L763">Relax NG Rule Set</a></li><li><a href="#L774">Other Rule Sets</a></li></ul></li><li><a href="#L784">References</a><ul><li><a href="#L786">Normative References</a></li><li><a href="#L881">Informative References</a></li></ul></li></ul><?toc?>
+Namespaces</a></li><li><a href="#L501">Internet Media Type and File Extension</a></li></ul></li><li><a href="#L502">White Space Processing</a><ul><li><a href="#L632">Problems with White Space</a></li><li><a href="#L657">Implications of Incorrect White Space</a></li><li><a href="#L671">Default White Space Processing</a></li></ul></li><li><a href="#L558">Elements</a><ul><li><a href="#L856">The Root Element</a><ul><li><a href="#L565">obfl</a></li></ul></li><li><a href="#L949">Document Metadata</a><ul><li><a href="#L587">meta</a></li></ul></li><li><a href="#L967">Page Templates</a><ul><li><a href="#L5871">layout-master</a></li><li><a href="#L608">template</a></li><li><a href="#L608-2">default-template</a></li><li><a href="#L647">page-area</a></li><li><a href="#L20904">fallback</a></li><li><a href="#L20925">rename</a></li><li><a href="#L629">before</a></li><li><a href="#L6291">after</a></li><li><a href="#L62911">header</a></li><li><a href="#L6471">footer</a></li><li><a href="#L1296">margin-region</a></li><li><a href="#L1328">indicators</a></li><li><a href="#L1329">marker-indicator</a><ul><li><a href="#L1365">Example</a></li></ul></li><li><a href="#L665">field</a></li><li><a href="#L683">marker-reference</a><ul><li><a href="#L1333">start-offset</a></li></ul></li><li><a href="#L696">string</a></li><li><a href="#L709">current-page</a></li></ul></li><li><a href="#L1631">Sequences</a><ul><li><a href="#L906">sequence</a></li><li><a href="#L11470">dynamic-sequence</a></li></ul></li><li><a href="#L1765">Blocks</a><ul><li><a href="#L1023">block</a></li></ul></li><li><a href="#L1894">Inline Content</a><ul><li><a href="#L722">evaluate</a><ul><li><a href="#L1033">Example</a></li></ul></li><li><a href="#L1207">leader</a></li><li><a href="#L1353">marker</a></li><li><a href="#L924">anchor</a></li><li><a href="#L1438">br</a></li><li><a href="#L836">page-number</a></li><li><a href="#L849">span</a></li><li><a href="#L8491">style</a></li></ul></li><li><a href="#L2227">Tabular Data</a><ul><li><a href="#L2229">table</a><ul><li><a href="#table-margins">Table Borders</a></li></ul></li><li><a href="#thead">thead</a></li><li><a href="#tbody">tbody</a></li><li><a href="#L2253">tr</a></li><li><a href="#L2277">td</a></li></ul></li><li><a href="#L2167">Table of Contents</a><ul><li><a href="#L735">table-of-contents</a></li><li><a href="#L1105">toc-entry</a></li><li><a href="#L9241">toc-sequence</a></li><li><a href="#L9514">on-toc-start</a></li><li><a href="#L969">on-volume-start</a></li><li><a href="#L987">on-volume-end</a></li><li><a href="#L1005">on-toc-end</a></li></ul></li><li><a href="#L2433">Volume Templates</a><ul><li><a href="#L84911">volume-template</a></li><li><a href="#L870">pre-content</a></li><li><a href="#L888">post-content</a></li></ul></li><li><a href="#L2529">Achored Data</a><ul><li><a href="#L1194">collection</a></li><li><a href="#L1210">item</a></li><li><a href="#L9242">list-of-references</a></li><li><a href="#L951">on-collection-start</a></li><li><a href="#L9511">on-page-start</a></li><li><a href="#L9512">on-page-end</a></li><li><a href="#L9513">on-collection-end</a></li></ul></li><li><a href="#L2715">Dynamic Source Data Processing</a><ul><li><a href="#L2248">xml-data</a><ul><li><a href="#L2273">Example</a></li></ul></li><li><a href="#L2724">renderer</a></li><li><a href="#L2749">rendering-scenario</a><ul><li><a href="#L2793">Example</a></li></ul></li><li><a href="#L2690">xml-processor</a><ul><li><a href="#L2720">Example</a></li></ul></li></ul></li></ul></li><li><a href="#L1608">Attribute Definitions</a><ul><li><a href="#L21839">hyphenate</a><ul><li><a href="#L21851">Example</a></li></ul></li><li><a href="#rowspacing">row-spacing</a></li><li><a href="#L2462">translate</a><ul><li><a href="#L2475">pre-translated</a></li></ul></li></ul></li><li><a href="#L16081">Attribute Groups</a><ul><li><a href="#block-atts">Block</a><ul><li><a href="#L2519">Collapsing Margins</a></li><li><a href="#L2536">Example</a></li></ul></li><li><a href="#borders">Borders</a></li><li><a href="#margin-atts">Margin</a></li><li><a href="#padding-atts">Padding</a></li></ul></li><li><a href="#L756">Rule Sets</a><ul><li><a href="#L763">Relax NG Rule Set</a></li><li><a href="#L774">Other Rule Sets</a></li></ul></li><li><a href="#L784">References</a><ul><li><a href="#L786">Normative References</a></li><li><a href="#L881">Informative References</a></li></ul></li></ul><?toc?>
 
 <h2 id="L255">Introduction</h2>
 
@@ -556,8 +556,9 @@ area.</p>
   <dt>Usage</dt>
     <dd>page-area</dd>
   <dt>Attributes</dt>
-    <dd>This element supports the <a href="#block-atts">Block</a> attribute
-      group. 
+    <dd>
+      <p>This element supports the <a href="#block-atts">Block</a>, <a href="#margin-atts">Margin</a>
+        and <a href="#padding-atts">Padding</a> attributes groups.</p>
       <p>This element supports the <a href="#borders">Borders</a> attribute
       group.</p>
     </dd>
@@ -577,8 +578,9 @@ area.</p>
   <dt>Usage</dt>
     <dd>page-area</dd>
   <dt>Attributes</dt>
-    <dd>This element supports the <a href="#block-atts">Block</a> attribute
-      group. 
+  <dd>
+    <p>This element supports the <a href="#block-atts">Block</a>, <a href="#margin-atts">Margin</a>
+    and <a href="#padding-atts">Padding</a> attributes groups.</p>
       <p>This element supports the <a href="#borders">Borders</a> attribute
       group.</p>
     </dd>
@@ -947,10 +949,10 @@ should be excluded entierly.</p>
   <dt>Usage</dt>
     <dd>before, after, sequence, dynamic-sequence, on-collection-start,
       on-page-start, on-page-end, on-collection-end, on-toc-start,
-      on-volume-start, on-volume-end, on-toc-end, item</dd>
+      on-volume-start, on-volume-end, on-toc-end, item, td</dd>
   <dt>General Attributes</dt>
-    <dd><p>This element supports the <a href="#block-atts">Block</a> attribute
-      group.</p>
+  <dd><p>This element supports the <a href="#block-atts">Block</a>, <a href="#margin-atts">Margin</a>
+    and <a href="#padding-atts">Padding</a> attributes groups.</p>
       <p>This element supports the <a href="#borders">Borders</a> attribute
       group.</p>
     </dd>
@@ -1208,13 +1210,12 @@ emphasis or strong.</p>
 </div>
 
 <h3 id="L2227">Tabular Data</h3>
+  <div class="note">
+    <p>Note that the entire tablular data feature is incubating (2016-01-14). This means that the feature is
+      currently a work-in-progress and may change at any time.</p>
+  </div>
 
-<h4 id="L2229">table</h4>
-
-<div class="note">
-<p>This feature is incubating (2016-01-12). This means that the feature is
-currently a work-in-progress and may change at any time.</p>
-</div>
+  <h4 id="L2229" class="include">table</h4>
 
 <p>The table element represents data with more than one dimension, in the form
 of a table.</p>
@@ -1224,18 +1225,100 @@ of a table.</p>
   <dt>Usage</dt>
     <dd>sequence</dd>
   <dt>Attributes</dt>
-    <dd>None</dd>
+    <dd>
+       <dl>
+         <dt>col-spacing</dt>
+          <dd class="no-markup">The number of braille cells to separate each table column pair by.</dd>
+          <dd>A positive integer.</dd>
+          <dd>Default is 0.</dd>
+         <dt>row-spacing</dt>
+         <dd class="no-markup">The number of braille cells to separate each table row pair by.</dd>
+         <dd>A positive integer.</dd>
+         <dd>Default is 0.</dd>
+       </dl>
+      <p>This element supports the <a href="#borders">Borders</a>, <a href="#margin-atts">Margin</a> and <a href="#padding-atts">Padding</a> attributes groups.</p>
+  </dd>
   <dt>Content Model</dt>
-    <dd>tr [1 or more]</dd>
+    <dd>Either:<ul>
+    	<li>In this order:
+    		<ul><li>thead [required]</li><li>tbody [required]</li></ul>
+    		<em>or</em>
+    		</li>
+    	<li>tr [1 or more]</li>
+    </ul></dd>
 </dl>
 </div>
+  
+  <h5 id="table-margins">Table Borders</h5>
+  <p>Table cell borders collapse unless col-spacing &gt; 0 or row-spacing &gt; 0.</p>
+  <div class="example">
+    <ul>
+      <li>If col-spacing is 0, left and right borders will collapse.</li>
+      <li>If row-spacing is 0, top and bottom borders will collapse.</li>
+    </ul>
+  </div>
+  <p>Table borders will collapse with cell borders, if not separated by padding.
+    Table borders takes precedence over cell borders, unless the table's border 
+    style is 'none'.</p>
+  <div class="example">
+  <p>Algorithm for selecting a border between a cell and the table border:</p>
+  <ul>
+    <li>if the table and cell are separated by padding (on the table), render both borders</li>
+    <li>else if the table's border-style is 'none', select the cell's border</li>
+    <li>else use the table's border</li>
+  </ul>
+  </div>
+  <p>Table cell borders will combine to a form a single border, that is a mix between the 
+    two borders.</p>
+  <div class="example">
+    <p>Algorithm for selecting a shared border for cells A and B:</p>
+    <ul>
+      <li>if the border-style of both A and B are 'none', don't add any border</li>
+      <li>else if the border-style of one of A and B is 'none', select the border whose border-style isn't 'none'</li>
+      <li>else <ul>
+         <li>set border-width to the maximum border-width of A and B</li>
+        <li>if both borders' border-align is 'center', set border-align to 'center'</li>
+        <li>else set border-align to the value that isn't 'center'</li>
+      </ul></li>
+    </ul>
+  </div>
+  <h4 id="thead" class="include">thead</h4>
 
-<h4 id="L2253">tr</h4>
-
-<div class="note">
-<p>This feature is incubating (2016-01-12). This means that the feature is
-currently a work-in-progress and may change at any time.</p>
+<p>The thead element represents a row of repeating header cells in a table.
+The cells in the header will repeat at the start of each page that the
+table spans.</p>
+  
+<div class="sidebar markup">
+  <dl>
+    <dt>Usage</dt>
+    <dd>table</dd>
+    <dt>Attributes</dt>
+    <dd>None</dd>
+    <dt>Content Model</dt>
+    <dd>tr [1 or more]</dd>
+  </dl>
 </div>
+
+  <div class="note">
+    <p>Note that the identifier attribute will be disregarded for all descendant elements of thead.</p>
+  </div>
+  
+  <h4 id="tbody" class="include">tbody</h4>
+
+<p>The tbody element represents the body cells in a table.</p>
+
+<div class="sidebar markup">
+  <dl>
+    <dt>Usage</dt>
+    <dd>table</dd>
+    <dt>Attributes</dt>
+    <dd>None</dd>
+    <dt>Content Model</dt>
+    <dd>tr [1 or more]</dd>
+  </dl>
+</div>
+
+  <h4 id="L2253" class="include">tr</h4>
 
 <p>The tr element represents a row of cells in a table.</p>
 
@@ -1246,16 +1329,11 @@ currently a work-in-progress and may change at any time.</p>
   <dt>Attributes</dt>
     <dd>None</dd>
   <dt>Content Model</dt>
-    <dd>td, th [1 or more]</dd>
+    <dd>td [1 or more]</dd>
 </dl>
 </div>
 
-<h4 id="L2277">td</h4>
-
-<div class="note">
-<p>This feature is incubating (2016-01-12). This means that the feature is
-currently a work-in-progress and may change at any time.</p>
-</div>
+  <h4 id="L2277" class="include">td</h4>
 
 <p>The td element represents a data cell in a table.</p>
 
@@ -1265,38 +1343,20 @@ currently a work-in-progress and may change at any time.</p>
     <dd>tr</dd>
   <dt>Attributes</dt>
     <dd><dl>
-        <dt>rowspan</dt>
-        <dt>colspan</dt>
+        <dt>row-span</dt>
+        <dd class="no-markup">The number of rows that this cell spans.</dd>
+        <dd>A positive integer.</dd>
+        <dd>Default is 1.</dd>
+        <dt>col-span</dt>
+        <dd class="no-markup">The number of columns that this cell spans.</dd>
+        <dd>A positive integer.</dd>
+        <dd>Default is 1.</dd>
       </dl>
+      <p>This element supports the <a href="#block-atts">Block</a>, <a href="#borders">Borders</a>
+        and <a href="#padding-atts">Padding</a> attributes groups.</p>
     </dd>
   <dt>Content Model</dt>
-    <dd>block [1 or more]</dd>
-</dl>
-</div>
-
-<h4 id="L2304">th</h4>
-
-<div class="note">
-<p>This feature is incubating (2016-01-12). This means that the feature is
-currently a work-in-progress and may change at any time.</p>
-</div>
-
-<p>The th element represents a header cell in a table.</p>
-
-<div class="sidebar markup">
-<dl>
-  <dt>Usage</dt>
-    <dd>tr</dd>
-  <dt>Attributes</dt>
-    <dd><dl>
-        <dt>rowspan</dt>
-        <dt>colspan</dt>
-        <dt>scope</dt>
-          <dd>One of 'row' or 'col'.</dd>
-      </dl>
-    </dd>
-  <dt>Content Model</dt>
-    <dd>block [1 or more]</dd>
+  <dd>text(), leader, marker, br, evaluate, page-number, span, style, anchor, block, xml-data [0 or more]</dd>
 </dl>
 </div>
 
@@ -1338,8 +1398,8 @@ references.</p>
         <dt>ref-id [required]</dt>
           <dd>The id of the block this entry is connected with.</dd>
       </dl>
-      <p>This element supports the <a href="#block-atts">Block</a> attribute
-      group.</p>
+      <p>This element supports the <a href="#block-atts">Block</a>, <a href="#margin-atts">Margin</a>
+        and <a href="#padding-atts">Padding</a> attributes groups.</p>
       <p>This element supports the <a href="#borders">Borders</a> attribute
       group.</p>
     </dd>
@@ -1595,8 +1655,8 @@ that nesting of items is not allowed.</p>
   <dt>Usage</dt>
     <dd>collection</dd>
   <dt>Attributes</dt>
-    <dd><p>This element supports the <a href="#block-atts">Block</a> attribute
-      group.</p>
+  <dd><p>This element supports the <a href="#block-atts">Block</a>, <a href="#margin-atts">Margin</a>
+    and <a href="#padding-atts">Padding</a> attributes groups.</p>
       <p>This element supports the <a href="#borders">Borders</a> attribute
       group.</p>
     </dd>
@@ -1719,7 +1779,7 @@ than one way, depending on some aspect of the rendered result.</p>
 <div class="sidebar markup">
 <dl>
   <dt>Usage</dt>
-    <dd>sequence, block</dd>
+    <dd>sequence, block, td</dd>
   <dt>Attributes</dt>
     <dd><dl>
         <dt>renderer [required]</dt>
@@ -2032,30 +2092,6 @@ combination of braille characters [U+2800-U+28FF] and the following:</p>
   <dt>list-type [optional]</dt>
     <dd>The type of list for this block.</dd>
     <dd>One of 'none' (default), 'ol', 'ul', 'pl'.</dd>
-  <dt>margin-bottom [optional]</dt>
-    <dd>Bottom margin for this block (in rows).</dd>
-    <dd>A number.</dd>
-  <dt>margin-left [optional]</dt>
-    <dd>Left margin for this block (in characters).</dd>
-    <dd>A number.</dd>
-  <dt>margin-top [optional]</dt>
-    <dd>Top margin for this block (in rows).</dd>
-    <dd>A number.</dd>
-  <dt>margin-right [optional]</dt>
-    <dd>Right margin for this block (in characters).</dd>
-    <dd>A number.</dd>
-  <dt>padding-bottom [optional]</dt>
-    <dd>Bottom padding for this block (in rows).</dd>
-    <dd>A number.</dd>
-  <dt>padding-left [optional]</dt>
-    <dd>Left padding for this block (in characters).</dd>
-    <dd>A number.</dd>
-  <dt>padding-top [optional]</dt>
-    <dd>Top padding for this block (in rows).</dd>
-    <dd>A number.</dd>
-  <dt>padding-right [optional]</dt>
-    <dd>Right padding for this block (in characters).</dd>
-    <dd>A number.</dd>
   <dt>align [optional]</dt>
     <dd>Specifies the text alignment.</dd>
     <dd>One of 'left' (default), 'center' or 'right'.</dd>
@@ -2244,6 +2280,42 @@ block-indent="2"</pre>
     <dd>One of 'inner', 'center', 'outer'.</dd>
 </dl>
 </div>
+  
+  <h3 id="margin-atts">Margin</h3>
+  <div class="sidebar">
+    <dl>
+      <dt>margin-bottom [optional]</dt>
+      <dd>Bottom margin for this block (in rows).</dd>
+      <dd>A number.</dd>
+      <dt>margin-left [optional]</dt>
+      <dd>Left margin for this block (in characters).</dd>
+      <dd>A number.</dd>
+      <dt>margin-top [optional]</dt>
+      <dd>Top margin for this block (in rows).</dd>
+      <dd>A number.</dd>
+      <dt>margin-right [optional]</dt>
+      <dd>Right margin for this block (in characters).</dd>
+      <dd>A number.</dd>
+    </dl>
+  </div>
+  
+  <h3 id="padding-atts">Padding</h3>
+  <div class="sidebar">
+    <dl>
+      <dt>padding-bottom [optional]</dt>
+      <dd>Bottom padding for this block (in rows).</dd>
+      <dd>A number.</dd>
+      <dt>padding-left [optional]</dt>
+      <dd>Left padding for this block (in characters).</dd>
+      <dd>A number.</dd>
+      <dt>padding-top [optional]</dt>
+      <dd>Top padding for this block (in rows).</dd>
+      <dd>A number.</dd>
+      <dt>padding-right [optional]</dt>
+      <dd>Right padding for this block (in characters).</dd>
+      <dd>A number.</dd>
+    </dl>
+  </div>
 
 <h2 id="L756">Rule Sets</h2>
 
