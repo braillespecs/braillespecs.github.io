@@ -61,24 +61,44 @@ border-atts =
   attribute border-left-align { border-align-enum }?,
   attribute border-top-align { border-align-enum }?,
   attribute border-right-align { border-align-enum }?
-# break-before, if present, break before block begins
-# first-line-indent, indent (in chars) of first line block
-# keep, keep rows in this block
-# keep-with-next, keep the following block's first line(s) together with this block
-# list-type, the list type of this block
 # margin-bottom, bottom margin for this block (in rows)
 # margin-left, left margin for this block (in chars)
 # margin-top, top margin for this block (in rows)
 # margin-right, right margin for this block (in chars)
+margin-atts =
+  attribute margin-bottom { text }?,
+  attribute margin-left { text }?,
+  attribute margin-top { text }?,
+  attribute margin-right { text }?
 # padding-bottom, bottom padding for this block (in rows)
 # padding-left, left padding for this block (in chars)
 # padding-top, top padding for this block (in rows)
 # padding-right, right padding for this block (in chars)
+padding-atts =
+  attribute padding-bottom { text }?,
+  attribute padding-left { text }?,
+  attribute padding-top { text }?,
+  attribute padding-right { text }?
 # text-indent, indent (in chars) of every line in the block except the first one
 # block-indent, indent (in chars) of this block's block children
+block-atts-except-list-type-and-row-spacing =
+  attribute first-line-indent { text }?,
+  attribute text-indent { text }?,
+  attribute block-indent { text }?,
+  attribute align { "left" | "center" | "right" }?,
+  attribute id { xsd:ID }?,
+  textAtts
+# list-type, the list type of this block
+block-atts =
+  attribute list-type { "none" | "ol" | "ul" | "pl" }?,
+  row-spacing,
+  block-atts-except-list-type-and-row-spacing
+# break-before, if present, break before block begins
+# first-line-indent, indent (in chars) of first line block
+# keep, keep rows in this block
+# keep-with-next, keep the following block's first line(s) together with this block
 blockAtts =
   attribute break-before { "auto" | "page" }?,
-  attribute first-line-indent { text }?,
   attribute keep { "auto" | "all" }?,
   attribute keep-with-next {
     "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
@@ -103,24 +123,12 @@ blockAtts =
   attribute keep-with-next-sheets {
     "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
   }?,
-  attribute list-type { "none" | "ol" | "ul" | "pl" }?,
-  attribute margin-bottom { text }?,
-  attribute margin-left { text }?,
-  attribute margin-top { text }?,
-  attribute margin-right { text }?,
-  attribute padding-bottom { text }?,
-  attribute padding-left { text }?,
-  attribute padding-top { text }?,
-  attribute padding-right { text }?,
-  attribute text-indent { text }?,
-  attribute block-indent { text }?,
-  attribute align { "left" | "center" | "right" }?,
   attribute vertical-align { "before" | "center" | "after" }?,
   attribute vertical-position { text }?,
-  attribute id { xsd:ID }?,
-  row-spacing,
   border-atts,
-  textAtts
+  margin-atts,
+  padding-atts,
+  block-atts
 # master, name of master to use for this sequence
 # initial-page-number, number of first page in the sequence
 sequenceAtts =
@@ -311,7 +319,7 @@ dynamic-sequence =
   }
 attlist-dynamic-sequence &= sequenceAtts
 # A sequence of blocks
-sequence = element sequence { attlist-sequence, block+ }
+sequence = element sequence { attlist-sequence, (block | table)+ }
 attlist-sequence &= sequenceAtts
 # fallback-scope (all|page) #IMPLIED
 page-area =
@@ -413,6 +421,29 @@ attlist-page-number &=
     | "upper-alpha"
     | "lower-alpha"
   }?
+# Tabular data
+table =
+  element table {
+    attlist-table,
+    ((element thead { tr+ },
+      element tbody { tr+ })
+     | tr+)
+  }
+attlist-table &=
+  attribute table-col-spacing { xsd:nonNegativeInteger }?,
+  attribute table-row-spacing { xsd:nonNegativeInteger }?,
+  row-spacing,
+  border-atts,
+  margin-atts,
+  padding-atts
+tr = element tr { td+ }
+td = element td { attlist-td, (blockContents | anchor | block)* }
+attlist-td &=
+  attribute row-span { xsd:positiveInteger }?,
+  attribute col-span { xsd:positiveInteger }?,
+  border-atts,
+  padding-atts,
+  block-atts-except-list-type-and-row-spacing
 start = obfl
 any =
   (element * - ns1:* {

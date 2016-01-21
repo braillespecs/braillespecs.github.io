@@ -202,21 +202,69 @@
     <xs:attribute name="border-right-align" type="obfl:border-align-enum"/>
   </xs:attributeGroup>
   <!--
-    break-before, if present, break before block begins
-    first-line-indent, indent (in chars) of first line block
-    keep, keep rows in this block
-    keep-with-next, keep the following block's first line(s) together with this block
-    list-type, the list type of this block
     margin-bottom, bottom margin for this block (in rows)
     margin-left, left margin for this block (in chars)
     margin-top, top margin for this block (in rows)
     margin-right, right margin for this block (in chars)
+  -->
+  <xs:attributeGroup name="margin-atts">
+    <xs:attribute name="margin-bottom"/>
+    <xs:attribute name="margin-left"/>
+    <xs:attribute name="margin-top"/>
+    <xs:attribute name="margin-right"/>
+  </xs:attributeGroup>
+  <!--
     padding-bottom, bottom padding for this block (in rows)
     padding-left, left padding for this block (in chars)
     padding-top, top padding for this block (in rows)
     padding-right, right padding for this block (in chars)
+  -->
+  <xs:attributeGroup name="padding-atts">
+    <xs:attribute name="padding-bottom"/>
+    <xs:attribute name="padding-left"/>
+    <xs:attribute name="padding-top"/>
+    <xs:attribute name="padding-right"/>
+  </xs:attributeGroup>
+  <!--
     text-indent, indent (in chars) of every line in the block except the first one
     block-indent, indent (in chars) of this block's block children
+  -->
+  <xs:attributeGroup name="block-atts-except-list-type-and-row-spacing">
+    <xs:attribute name="first-line-indent"/>
+    <xs:attribute name="text-indent"/>
+    <xs:attribute name="block-indent"/>
+    <xs:attribute name="align">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="left"/>
+          <xs:enumeration value="center"/>
+          <xs:enumeration value="right"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="id" type="xs:ID"/>
+    <xs:attributeGroup ref="obfl:textAtts"/>
+  </xs:attributeGroup>
+  <!-- list-type, the list type of this block -->
+  <xs:attributeGroup name="block-atts">
+    <xs:attribute name="list-type">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="none"/>
+          <xs:enumeration value="ol"/>
+          <xs:enumeration value="ul"/>
+          <xs:enumeration value="pl"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attributeGroup ref="obfl:row-spacing"/>
+    <xs:attributeGroup ref="obfl:block-atts-except-list-type-and-row-spacing"/>
+  </xs:attributeGroup>
+  <!--
+    break-before, if present, break before block begins
+    first-line-indent, indent (in chars) of first line block
+    keep, keep rows in this block
+    keep-with-next, keep the following block's first line(s) together with this block
   -->
   <xs:attributeGroup name="blockAtts">
     <xs:attribute name="break-before">
@@ -227,7 +275,6 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute name="first-line-indent"/>
     <xs:attribute name="keep">
       <xs:simpleType>
         <xs:restriction base="xs:token">
@@ -310,35 +357,6 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute name="list-type">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="none"/>
-          <xs:enumeration value="ol"/>
-          <xs:enumeration value="ul"/>
-          <xs:enumeration value="pl"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="margin-bottom"/>
-    <xs:attribute name="margin-left"/>
-    <xs:attribute name="margin-top"/>
-    <xs:attribute name="margin-right"/>
-    <xs:attribute name="padding-bottom"/>
-    <xs:attribute name="padding-left"/>
-    <xs:attribute name="padding-top"/>
-    <xs:attribute name="padding-right"/>
-    <xs:attribute name="text-indent"/>
-    <xs:attribute name="block-indent"/>
-    <xs:attribute name="align">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="left"/>
-          <xs:enumeration value="center"/>
-          <xs:enumeration value="right"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
     <xs:attribute name="vertical-align">
       <xs:simpleType>
         <xs:restriction base="xs:token">
@@ -349,10 +367,10 @@
       </xs:simpleType>
     </xs:attribute>
     <xs:attribute name="vertical-position"/>
-    <xs:attribute name="id" type="xs:ID"/>
-    <xs:attributeGroup ref="obfl:row-spacing"/>
     <xs:attributeGroup ref="obfl:border-atts"/>
-    <xs:attributeGroup ref="obfl:textAtts"/>
+    <xs:attributeGroup ref="obfl:margin-atts"/>
+    <xs:attributeGroup ref="obfl:padding-atts"/>
+    <xs:attributeGroup ref="obfl:block-atts"/>
   </xs:attributeGroup>
   <!--
     master, name of master to use for this sequence
@@ -794,9 +812,10 @@
   <!-- A sequence of blocks -->
   <xs:element name="sequence">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="obfl:block"/>
-      </xs:sequence>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element ref="obfl:block"/>
+        <xs:element ref="obfl:table"/>
+      </xs:choice>
       <xs:attributeGroup ref="obfl:attlist-sequence"/>
     </xs:complexType>
   </xs:element>
@@ -1111,6 +1130,65 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
+  </xs:attributeGroup>
+  <!-- Tabular data -->
+  <xs:element name="table">
+    <xs:complexType>
+      <xs:choice>
+        <xs:sequence>
+          <xs:element ref="obfl:thead"/>
+          <xs:element ref="obfl:tbody"/>
+        </xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="obfl:tr"/>
+      </xs:choice>
+      <xs:attributeGroup ref="obfl:attlist-table"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="thead">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="obfl:tr"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="tbody">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="obfl:tr"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-table">
+    <xs:attribute name="table-col-spacing" type="xs:nonNegativeInteger"/>
+    <xs:attribute name="table-row-spacing" type="xs:nonNegativeInteger"/>
+    <xs:attributeGroup ref="obfl:row-spacing"/>
+    <xs:attributeGroup ref="obfl:border-atts"/>
+    <xs:attributeGroup ref="obfl:margin-atts"/>
+    <xs:attributeGroup ref="obfl:padding-atts"/>
+  </xs:attributeGroup>
+  <xs:element name="tr">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="obfl:td"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="td">
+    <xs:complexType mixed="true">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="obfl:blockContents"/>
+        <xs:element ref="obfl:anchor"/>
+        <xs:element ref="obfl:block"/>
+      </xs:choice>
+      <xs:attributeGroup ref="obfl:attlist-td"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-td">
+    <xs:attribute name="row-span" type="xs:positiveInteger"/>
+    <xs:attribute name="col-span" type="xs:positiveInteger"/>
+    <xs:attributeGroup ref="obfl:border-atts"/>
+    <xs:attributeGroup ref="obfl:padding-atts"/>
+    <xs:attributeGroup ref="obfl:block-atts-except-list-type-and-row-spacing"/>
   </xs:attributeGroup>
   <xs:complexType name="any" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
