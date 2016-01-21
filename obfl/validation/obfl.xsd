@@ -1161,6 +1161,7 @@
   <xs:attributeGroup name="attlist-table">
     <xs:attribute name="table-col-spacing" type="xs:nonNegativeInteger"/>
     <xs:attribute name="table-row-spacing" type="xs:nonNegativeInteger"/>
+    <xs:attribute name="preferred-empty-space" type="xs:nonNegativeInteger"/>
     <xs:attributeGroup ref="obfl:row-spacing"/>
     <xs:attributeGroup ref="obfl:border-atts"/>
     <xs:attributeGroup ref="obfl:margin-atts"/>

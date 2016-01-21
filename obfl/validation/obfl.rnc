@@ -432,6 +432,7 @@ table =
 attlist-table &=
   attribute table-col-spacing { xsd:nonNegativeInteger }?,
   attribute table-row-spacing { xsd:nonNegativeInteger }?,
+  attribute preferred-empty-space { xsd:nonNegativeInteger }?,
   row-spacing,
   border-atts,
   margin-atts,
