@@ -8,7 +8,7 @@
         <xs:element ref="obfl:marker"/>
         <xs:element ref="obfl:br"/>
         <xs:element ref="obfl:evaluate"/>
-        <xs:element ref="obfl:page-number"/>
+        <xs:group ref="obfl:page-number"/>
         <xs:element ref="obfl:span"/>
         <xs:element ref="obfl:style"/>
       </xs:choice>
@@ -386,11 +386,13 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" ref="obfl:meta"/>
-        <xs:element maxOccurs="unbounded" ref="obfl:layout-master"/>
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:table-of-contents"/>
+        <xs:group maxOccurs="unbounded" ref="obfl:layout-master"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:xml-processor"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:renderer"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:table-of-contents"/>
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:volume-template"/>
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:collection"/>
-        <xs:element maxOccurs="unbounded" ref="obfl:sequence"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:collection"/>
+        <xs:group maxOccurs="unbounded" ref="obfl:sequence"/>
       </xs:sequence>
       <xs:attributeGroup ref="obfl:attlist-obfl"/>
     </xs:complexType>
@@ -427,18 +429,26 @@
     </xs:attribute>
   </xs:attributeGroup>
   <!---->
-  <xs:element name="meta" type="obfl:any"/>
-  <!-- Layout master -->
-  <xs:element name="layout-master">
+  <xs:element name="meta">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:template"/>
-        <xs:element ref="obfl:default-template"/>
-        <xs:element minOccurs="0" ref="obfl:page-area"/>
-      </xs:sequence>
-      <xs:attributeGroup ref="obfl:attlist-layout-master"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_element_except_obfl"/>
     </xs:complexType>
   </xs:element>
+  <!-- Layout master -->
+  <xs:group name="layout-master">
+    <xs:sequence>
+      <xs:element name="layout-master">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:template"/>
+            <xs:element ref="obfl:default-template"/>
+            <xs:group minOccurs="0" ref="obfl:page-area"/>
+          </xs:sequence>
+          <xs:attributeGroup ref="obfl:attlist-layout-master"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
   <xs:attributeGroup name="attlist-layout-master">
     <xs:attributeGroup ref="obfl:name-id"/>
     <xs:attribute name="page-width" use="required"/>
@@ -624,26 +634,32 @@
     <xs:attribute name="expression" use="required"/>
     <xs:attribute name="text-style" type="xs:NMTOKEN"/>
   </xs:attributeGroup>
-  <xs:element name="table-of-contents">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="obfl:toc-entry"/>
-      </xs:sequence>
-      <xs:attributeGroup ref="obfl:attlist-table-of-contents"/>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="table-of-contents">
+    <xs:sequence>
+      <xs:element name="table-of-contents">
+        <xs:complexType>
+          <xs:group maxOccurs="unbounded" ref="obfl:toc-entry"/>
+          <xs:attributeGroup ref="obfl:attlist-table-of-contents"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
   <xs:attributeGroup name="attlist-table-of-contents">
     <xs:attributeGroup ref="obfl:name-id"/>
   </xs:attributeGroup>
-  <xs:element name="toc-entry">
-    <xs:complexType mixed="true">
-      <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:group ref="obfl:blockContents"/>
-        <xs:element ref="obfl:toc-entry"/>
-      </xs:choice>
-      <xs:attributeGroup ref="obfl:attlist-toc-entry"/>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="toc-entry">
+    <xs:sequence>
+      <xs:element name="toc-entry">
+        <xs:complexType mixed="true">
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:group ref="obfl:blockContents"/>
+            <xs:group ref="obfl:toc-entry"/>
+          </xs:choice>
+          <xs:attributeGroup ref="obfl:attlist-toc-entry"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
   <xs:attributeGroup name="attlist-toc-entry">
     <xs:attribute name="ref-id" use="required" type="xs:IDREF"/>
     <xs:attributeGroup ref="obfl:blockAtts"/>
@@ -666,31 +682,35 @@
   <xs:element name="pre-content">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element ref="obfl:sequence"/>
-        <xs:element ref="obfl:dynamic-sequence"/>
-        <xs:element ref="obfl:toc-sequence"/>
+        <xs:group ref="obfl:sequence"/>
+        <xs:group ref="obfl:dynamic-sequence"/>
+        <xs:group ref="obfl:toc-sequence"/>
       </xs:choice>
     </xs:complexType>
   </xs:element>
   <xs:element name="post-content">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element ref="obfl:sequence"/>
-        <xs:element ref="obfl:dynamic-sequence"/>
+        <xs:group ref="obfl:sequence"/>
+        <xs:group ref="obfl:dynamic-sequence"/>
       </xs:choice>
     </xs:complexType>
   </xs:element>
-  <xs:element name="toc-sequence">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:on-toc-start"/>
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:on-volume-start"/>
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:on-volume-end"/>
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:on-toc-end"/>
-      </xs:sequence>
-      <xs:attributeGroup ref="obfl:attlist-toc-sequence"/>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="toc-sequence">
+    <xs:sequence>
+      <xs:element name="toc-sequence">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:on-toc-start"/>
+            <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:on-volume-start"/>
+            <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:on-volume-end"/>
+            <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:on-toc-end"/>
+          </xs:sequence>
+          <xs:attributeGroup ref="obfl:attlist-toc-sequence"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
   <xs:attributeGroup name="attlist-toc-sequence">
     <xs:attribute name="toc" use="required" type="xs:IDREF"/>
     <xs:attribute name="range" use="required">
@@ -705,9 +725,7 @@
   </xs:attributeGroup>
   <xs:element name="on-toc-start">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="obfl:block"/>
-      </xs:sequence>
+      <xs:group maxOccurs="unbounded" ref="obfl:block"/>
       <xs:attributeGroup ref="obfl:attlist-on-toc-start"/>
     </xs:complexType>
   </xs:element>
@@ -716,9 +734,7 @@
   </xs:attributeGroup>
   <xs:element name="on-volume-start">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="obfl:block"/>
-      </xs:sequence>
+      <xs:group maxOccurs="unbounded" ref="obfl:block"/>
       <xs:attributeGroup ref="obfl:attlist-on-volume-start"/>
     </xs:complexType>
   </xs:element>
@@ -727,9 +743,7 @@
   </xs:attributeGroup>
   <xs:element name="on-volume-end">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="obfl:block"/>
-      </xs:sequence>
+      <xs:group maxOccurs="unbounded" ref="obfl:block"/>
       <xs:attributeGroup ref="obfl:attlist-on-volume-end"/>
     </xs:complexType>
   </xs:element>
@@ -738,26 +752,28 @@
   </xs:attributeGroup>
   <xs:element name="on-toc-end">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="obfl:block"/>
-      </xs:sequence>
+      <xs:group maxOccurs="unbounded" ref="obfl:block"/>
       <xs:attributeGroup ref="obfl:attlist-on-toc-end"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist-on-toc-end">
     <xs:attribute name="use-when"/>
   </xs:attributeGroup>
-  <xs:element name="list-of-references">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" ref="obfl:on-collection-start"/>
-        <xs:element minOccurs="0" ref="obfl:on-page-start"/>
-        <xs:element minOccurs="0" ref="obfl:on-page-end"/>
-        <xs:element minOccurs="0" ref="obfl:on-collection-end"/>
-      </xs:sequence>
-      <xs:attributeGroup ref="obfl:attlist-list-of-references"/>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="list-of-references">
+    <xs:sequence>
+      <xs:element name="list-of-references">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" ref="obfl:on-collection-start"/>
+            <xs:element minOccurs="0" ref="obfl:on-page-start"/>
+            <xs:element minOccurs="0" ref="obfl:on-page-end"/>
+            <xs:element minOccurs="0" ref="obfl:on-collection-end"/>
+          </xs:sequence>
+          <xs:attributeGroup ref="obfl:attlist-list-of-references"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
   <xs:attributeGroup name="attlist-list-of-references">
     <xs:attribute name="collection" use="required" type="xs:IDREF"/>
     <xs:attribute name="range" use="required">
@@ -771,68 +787,73 @@
   </xs:attributeGroup>
   <xs:element name="on-collection-start">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="obfl:block"/>
-      </xs:sequence>
+      <xs:group maxOccurs="unbounded" ref="obfl:block"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="on-collection-end">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="obfl:block"/>
-      </xs:sequence>
+      <xs:group maxOccurs="unbounded" ref="obfl:block"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="on-page-start">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="obfl:block"/>
-      </xs:sequence>
+      <xs:group maxOccurs="unbounded" ref="obfl:block"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="on-page-end">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="obfl:block"/>
-      </xs:sequence>
+      <xs:group maxOccurs="unbounded" ref="obfl:block"/>
     </xs:complexType>
   </xs:element>
-  <xs:element name="dynamic-sequence">
-    <xs:complexType>
-      <xs:choice maxOccurs="unbounded">
-        <xs:element ref="obfl:block"/>
-        <xs:element ref="obfl:list-of-references"/>
-      </xs:choice>
-      <xs:attributeGroup ref="obfl:attlist-dynamic-sequence"/>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="dynamic-sequence">
+    <xs:sequence>
+      <xs:element name="dynamic-sequence">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:group ref="obfl:block"/>
+            <xs:group ref="obfl:list-of-references"/>
+          </xs:choice>
+          <xs:attributeGroup ref="obfl:attlist-dynamic-sequence"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
   <xs:attributeGroup name="attlist-dynamic-sequence">
     <xs:attributeGroup ref="obfl:sequenceAtts"/>
   </xs:attributeGroup>
   <!-- A sequence of blocks -->
-  <xs:element name="sequence">
-    <xs:complexType>
-      <xs:choice maxOccurs="unbounded">
-        <xs:element ref="obfl:block"/>
-        <xs:element ref="obfl:table"/>
-      </xs:choice>
-      <xs:attributeGroup ref="obfl:attlist-sequence"/>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="sequence">
+    <xs:sequence>
+      <xs:element name="sequence">
+        <xs:complexType>
+          <xs:choice maxOccurs="unbounded">
+            <xs:group ref="obfl:block"/>
+            <xs:element ref="obfl:table"/>
+            <xs:group ref="obfl:xml-data"/>
+          </xs:choice>
+          <xs:attributeGroup ref="obfl:attlist-sequence"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
   <xs:attributeGroup name="attlist-sequence">
     <xs:attributeGroup ref="obfl:sequenceAtts"/>
   </xs:attributeGroup>
   <!-- fallback-scope (all|page) #IMPLIED -->
-  <xs:element name="page-area">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" ref="obfl:fallback"/>
-        <xs:element minOccurs="0" ref="obfl:before"/>
-        <xs:element minOccurs="0" ref="obfl:after"/>
-      </xs:sequence>
-      <xs:attributeGroup ref="obfl:attlist-page-area"/>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="page-area">
+    <xs:sequence>
+      <xs:element name="page-area">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" ref="obfl:fallback"/>
+            <xs:group minOccurs="0" ref="obfl:before"/>
+            <xs:group minOccurs="0" ref="obfl:after"/>
+          </xs:sequence>
+          <xs:attributeGroup ref="obfl:attlist-page-area"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
   <xs:attributeGroup name="attlist-page-area">
     <xs:attribute name="align">
       <xs:simpleType>
@@ -847,78 +868,98 @@
   </xs:attributeGroup>
   <xs:element name="fallback">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="obfl:rename"/>
-      </xs:sequence>
+      <xs:group maxOccurs="unbounded" ref="obfl:rename"/>
     </xs:complexType>
   </xs:element>
-  <xs:element name="rename">
-    <xs:complexType>
-      <xs:attributeGroup ref="obfl:attlist-rename"/>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="rename">
+    <xs:sequence>
+      <xs:element name="rename">
+        <xs:complexType>
+          <xs:attributeGroup ref="obfl:attlist-rename"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
   <xs:attributeGroup name="attlist-rename">
     <xs:attribute name="collection" use="required" type="xs:IDREF"/>
     <xs:attribute name="to" use="required" type="xs:ID"/>
   </xs:attributeGroup>
-  <xs:element name="before">
-    <xs:complexType mixed="true">
-      <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:group ref="obfl:blockContents"/>
-        <xs:element ref="obfl:block"/>
-      </xs:choice>
-      <xs:attributeGroup ref="obfl:attlist-before"/>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="before">
+    <xs:sequence>
+      <xs:element name="before">
+        <xs:complexType mixed="true">
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:group ref="obfl:blockContents"/>
+            <xs:group ref="obfl:block"/>
+          </xs:choice>
+          <xs:attributeGroup ref="obfl:attlist-before"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
   <xs:attributeGroup name="attlist-before">
     <xs:attributeGroup ref="obfl:blockAtts"/>
   </xs:attributeGroup>
-  <xs:element name="after">
-    <xs:complexType mixed="true">
-      <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:group ref="obfl:blockContents"/>
-        <xs:element ref="obfl:block"/>
-      </xs:choice>
-      <xs:attributeGroup ref="obfl:attlist-after"/>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="after">
+    <xs:sequence>
+      <xs:element name="after">
+        <xs:complexType mixed="true">
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:group ref="obfl:blockContents"/>
+            <xs:group ref="obfl:block"/>
+          </xs:choice>
+          <xs:attributeGroup ref="obfl:attlist-after"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
   <xs:attributeGroup name="attlist-after">
     <xs:attributeGroup ref="obfl:blockAtts"/>
   </xs:attributeGroup>
-  <xs:element name="collection">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="obfl:item"/>
-      </xs:sequence>
-      <xs:attributeGroup ref="obfl:attlist-collection"/>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="collection">
+    <xs:sequence>
+      <xs:element name="collection">
+        <xs:complexType>
+          <xs:group maxOccurs="unbounded" ref="obfl:item"/>
+          <xs:attributeGroup ref="obfl:attlist-collection"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
   <xs:attributeGroup name="attlist-collection">
     <xs:attributeGroup ref="obfl:name-id"/>
   </xs:attributeGroup>
   <!-- A block of text -->
-  <xs:element name="block">
-    <xs:complexType mixed="true">
-      <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:group ref="obfl:blockContents"/>
-        <xs:element ref="obfl:anchor"/>
-        <xs:element ref="obfl:block"/>
-      </xs:choice>
-      <xs:attributeGroup ref="obfl:attlist-block"/>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="block">
+    <xs:sequence>
+      <xs:element name="block">
+        <xs:complexType mixed="true">
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:group ref="obfl:blockContents"/>
+            <xs:group ref="obfl:anchor"/>
+            <xs:group ref="obfl:block"/>
+          </xs:choice>
+          <xs:attributeGroup ref="obfl:attlist-block"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
   <xs:attributeGroup name="attlist-block">
     <xs:attributeGroup ref="obfl:blockAtts"/>
   </xs:attributeGroup>
-  <xs:element name="item">
-    <xs:complexType mixed="true">
-      <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:group ref="obfl:blockContents"/>
-        <xs:element ref="obfl:block"/>
-      </xs:choice>
-      <xs:attributeGroup ref="obfl:attlist-item"/>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="item">
+    <xs:sequence>
+      <xs:element name="item">
+        <xs:complexType mixed="true">
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:group ref="obfl:blockContents"/>
+            <xs:group ref="obfl:block"/>
+          </xs:choice>
+          <xs:attributeGroup ref="obfl:attlist-item"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
   <xs:attributeGroup name="attlist-item">
     <xs:attribute name="id" use="required" type="xs:ID"/>
     <xs:attribute name="break-before">
@@ -1033,7 +1074,7 @@
     <xs:complexType mixed="true">
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element ref="obfl:style"/>
-        <xs:element ref="obfl:anchor"/>
+        <xs:group ref="obfl:anchor"/>
       </xs:choice>
       <xs:attributeGroup ref="obfl:attlist-span"/>
     </xs:complexType>
@@ -1047,7 +1088,7 @@
         <xs:element ref="obfl:style"/>
         <xs:element ref="obfl:marker"/>
         <xs:element ref="obfl:br"/>
-        <xs:element ref="obfl:anchor"/>
+        <xs:group ref="obfl:anchor"/>
       </xs:choice>
       <xs:attributeGroup ref="obfl:attlist-style"/>
     </xs:complexType>
@@ -1098,11 +1139,15 @@
     <xs:attribute name="pattern"/>
     <xs:attribute name="position" use="required"/>
   </xs:attributeGroup>
-  <xs:element name="anchor">
-    <xs:complexType>
-      <xs:attributeGroup ref="obfl:attlist-anchor"/>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="anchor">
+    <xs:sequence>
+      <xs:element name="anchor">
+        <xs:complexType>
+          <xs:attributeGroup ref="obfl:attlist-anchor"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
   <!-- item, the achored collection item -->
   <xs:attributeGroup name="attlist-anchor">
     <xs:attribute name="item" use="required" type="xs:IDREF"/>
@@ -1111,11 +1156,15 @@
   <xs:element name="br">
     <xs:complexType/>
   </xs:element>
-  <xs:element name="page-number">
-    <xs:complexType>
-      <xs:attributeGroup ref="obfl:attlist-page-number"/>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="page-number">
+    <xs:sequence>
+      <xs:element name="page-number">
+        <xs:complexType>
+          <xs:attributeGroup ref="obfl:attlist-page-number"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
   <xs:attributeGroup name="attlist-page-number">
     <xs:attribute name="ref-id" use="required" type="xs:IDREF"/>
     <xs:attribute name="number-format">
@@ -1169,21 +1218,23 @@
   </xs:attributeGroup>
   <xs:element name="tr">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="obfl:td"/>
-      </xs:sequence>
+      <xs:group maxOccurs="unbounded" ref="obfl:td"/>
     </xs:complexType>
   </xs:element>
-  <xs:element name="td">
-    <xs:complexType mixed="true">
-      <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:group ref="obfl:blockContents"/>
-        <xs:element ref="obfl:anchor"/>
-        <xs:element ref="obfl:block"/>
-      </xs:choice>
-      <xs:attributeGroup ref="obfl:attlist-td"/>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="td">
+    <xs:sequence>
+      <xs:element name="td">
+        <xs:complexType mixed="true">
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:group ref="obfl:blockContents"/>
+            <xs:group ref="obfl:anchor"/>
+            <xs:group ref="obfl:block"/>
+          </xs:choice>
+          <xs:attributeGroup ref="obfl:attlist-td"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
   <xs:attributeGroup name="attlist-td">
     <xs:attribute name="row-span" type="xs:positiveInteger"/>
     <xs:attribute name="col-span" type="xs:positiveInteger"/>
@@ -1191,10 +1242,434 @@
     <xs:attributeGroup ref="obfl:padding-atts"/>
     <xs:attributeGroup ref="obfl:block-atts-except-list-type-and-row-spacing"/>
   </xs:attributeGroup>
-  <xs:complexType name="any" mixed="true">
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
+  <!-- XML Data -->
+  <xs:group name="xml-data">
+    <xs:sequence>
+      <xs:element name="xml-data">
+        <xs:complexType mixed="true">
+          <xs:group ref="obfl:any_content"/>
+          <xs:attributeGroup ref="obfl:attlist-xml-data"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:attributeGroup name="attlist-xml-data">
+    <xs:attribute name="renderer" use="required" type="xs:IDREF"/>
+  </xs:attributeGroup>
+  <xs:group name="renderer">
+    <xs:sequence>
+      <xs:element name="renderer">
+        <xs:complexType>
+          <xs:group maxOccurs="unbounded" ref="obfl:rendering-scenario"/>
+          <xs:attributeGroup ref="obfl:attlist-renderer"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:attributeGroup name="attlist-renderer">
+    <xs:attribute name="name" use="required" type="xs:ID"/>
+  </xs:attributeGroup>
+  <xs:group name="rendering-scenario">
+    <xs:sequence>
+      <xs:element name="rendering-scenario">
+        <xs:complexType>
+          <xs:attributeGroup ref="obfl:attlist-rendering-scenario"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:attributeGroup name="attlist-rendering-scenario">
+    <xs:attribute name="processor" use="required" type="xs:IDREF"/>
+    <xs:attribute name="cost" use="required" type="xs:string"/>
+    <xs:attribute name="qualifier" type="xs:string"/>
+  </xs:attributeGroup>
+  <xs:group name="xml-processor">
+    <xs:sequence>
+      <xs:element name="xml-processor">
+        <xs:complexType mixed="true">
+          <xs:group ref="obfl:any_content"/>
+          <xs:attributeGroup ref="obfl:attlist-xml-processor"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:attributeGroup name="attlist-xml-processor">
+    <xs:attribute name="name" use="required" type="xs:ID"/>
+  </xs:attributeGroup>
+  <xs:group name="any">
+    <xs:sequence>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_element_except_obfl"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="any_element_except_obfl">
+    <xs:choice>
       <xs:any namespace="##other" processContents="skip"/>
       <xs:any namespace="##local" processContents="skip"/>
     </xs:choice>
-  </xs:complexType>
+  </xs:group>
+  <xs:group name="any_content">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="obfl:any_element"/>
+        <xs:group ref="obfl:any_obfl"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="any_obfl">
+    <xs:annotation>
+      <xs:documentation>
+      This definition is complex because any id/idref values defined in obfl needs to be retained using an enumerated list.
+      For these elements, the id/idref attributes are retained as optional. This will work for many situations, but it will
+      fail in some cases, for example if the same id is used on two obfl elements inside different branches of an xslt choice 
+      statement.
+    </xs:documentation>
+    </xs:annotation>
+    <xs:choice>
+      <xs:any namespace="##targetNamespace" processContents="skip"/>
+      <xs:choice>
+        <xs:element name="table-of-contents">
+          <xs:complexType mixed="true">
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_content"/>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="collection" type="xs:IDREF"/>
+            <xs:attribute name="ref-id" type="xs:IDREF"/>
+            <xs:attribute name="renderer" type="xs:IDREF"/>
+            <xs:attribute name="name" type="xs:ID"/>
+            <xs:attribute name="master" type="xs:IDREF"/>
+            <xs:attribute name="item" type="xs:IDREF"/>
+            <xs:attribute name="to" type="xs:ID"/>
+            <xs:attribute name="toc" type="xs:IDREF"/>
+            <xs:attribute name="processor" type="xs:IDREF"/>
+            <xs:anyAttribute processContents="skip"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="collection">
+          <xs:complexType mixed="true">
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_content"/>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="collection" type="xs:IDREF"/>
+            <xs:attribute name="ref-id" type="xs:IDREF"/>
+            <xs:attribute name="renderer" type="xs:IDREF"/>
+            <xs:attribute name="name" type="xs:ID"/>
+            <xs:attribute name="master" type="xs:IDREF"/>
+            <xs:attribute name="item" type="xs:IDREF"/>
+            <xs:attribute name="to" type="xs:ID"/>
+            <xs:attribute name="toc" type="xs:IDREF"/>
+            <xs:attribute name="processor" type="xs:IDREF"/>
+            <xs:anyAttribute processContents="skip"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="xml-processor">
+          <xs:complexType mixed="true">
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_content"/>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="collection" type="xs:IDREF"/>
+            <xs:attribute name="ref-id" type="xs:IDREF"/>
+            <xs:attribute name="renderer" type="xs:IDREF"/>
+            <xs:attribute name="name" type="xs:ID"/>
+            <xs:attribute name="master" type="xs:IDREF"/>
+            <xs:attribute name="item" type="xs:IDREF"/>
+            <xs:attribute name="to" type="xs:ID"/>
+            <xs:attribute name="toc" type="xs:IDREF"/>
+            <xs:attribute name="processor" type="xs:IDREF"/>
+            <xs:anyAttribute processContents="skip"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="layout-master">
+          <xs:complexType mixed="true">
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_content"/>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="collection" type="xs:IDREF"/>
+            <xs:attribute name="ref-id" type="xs:IDREF"/>
+            <xs:attribute name="renderer" type="xs:IDREF"/>
+            <xs:attribute name="name" type="xs:ID"/>
+            <xs:attribute name="master" type="xs:IDREF"/>
+            <xs:attribute name="item" type="xs:IDREF"/>
+            <xs:attribute name="to" type="xs:ID"/>
+            <xs:attribute name="toc" type="xs:IDREF"/>
+            <xs:attribute name="processor" type="xs:IDREF"/>
+            <xs:anyAttribute processContents="skip"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="renderer">
+          <xs:complexType mixed="true">
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_content"/>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="collection" type="xs:IDREF"/>
+            <xs:attribute name="ref-id" type="xs:IDREF"/>
+            <xs:attribute name="renderer" type="xs:IDREF"/>
+            <xs:attribute name="name" type="xs:ID"/>
+            <xs:attribute name="master" type="xs:IDREF"/>
+            <xs:attribute name="item" type="xs:IDREF"/>
+            <xs:attribute name="to" type="xs:ID"/>
+            <xs:attribute name="toc" type="xs:IDREF"/>
+            <xs:attribute name="processor" type="xs:IDREF"/>
+            <xs:anyAttribute processContents="skip"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="rendering-scenario">
+          <xs:complexType mixed="true">
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_content"/>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="collection" type="xs:IDREF"/>
+            <xs:attribute name="ref-id" type="xs:IDREF"/>
+            <xs:attribute name="renderer" type="xs:IDREF"/>
+            <xs:attribute name="name" type="xs:ID"/>
+            <xs:attribute name="master" type="xs:IDREF"/>
+            <xs:attribute name="item" type="xs:IDREF"/>
+            <xs:attribute name="to" type="xs:ID"/>
+            <xs:attribute name="toc" type="xs:IDREF"/>
+            <xs:attribute name="processor" type="xs:IDREF"/>
+            <xs:anyAttribute processContents="skip"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="toc-sequence">
+          <xs:complexType mixed="true">
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_content"/>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="collection" type="xs:IDREF"/>
+            <xs:attribute name="ref-id" type="xs:IDREF"/>
+            <xs:attribute name="renderer" type="xs:IDREF"/>
+            <xs:attribute name="name" type="xs:ID"/>
+            <xs:attribute name="master" type="xs:IDREF"/>
+            <xs:attribute name="item" type="xs:IDREF"/>
+            <xs:attribute name="to" type="xs:ID"/>
+            <xs:attribute name="toc" type="xs:IDREF"/>
+            <xs:attribute name="processor" type="xs:IDREF"/>
+            <xs:anyAttribute processContents="skip"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="rename">
+          <xs:complexType mixed="true">
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_content"/>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="collection" type="xs:IDREF"/>
+            <xs:attribute name="ref-id" type="xs:IDREF"/>
+            <xs:attribute name="renderer" type="xs:IDREF"/>
+            <xs:attribute name="name" type="xs:ID"/>
+            <xs:attribute name="master" type="xs:IDREF"/>
+            <xs:attribute name="item" type="xs:IDREF"/>
+            <xs:attribute name="to" type="xs:ID"/>
+            <xs:attribute name="toc" type="xs:IDREF"/>
+            <xs:attribute name="processor" type="xs:IDREF"/>
+            <xs:anyAttribute processContents="skip"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="anchor">
+          <xs:complexType mixed="true">
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_content"/>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="collection" type="xs:IDREF"/>
+            <xs:attribute name="ref-id" type="xs:IDREF"/>
+            <xs:attribute name="renderer" type="xs:IDREF"/>
+            <xs:attribute name="name" type="xs:ID"/>
+            <xs:attribute name="master" type="xs:IDREF"/>
+            <xs:attribute name="item" type="xs:IDREF"/>
+            <xs:attribute name="to" type="xs:ID"/>
+            <xs:attribute name="toc" type="xs:IDREF"/>
+            <xs:attribute name="processor" type="xs:IDREF"/>
+            <xs:anyAttribute processContents="skip"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="sequence">
+          <xs:complexType mixed="true">
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_content"/>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="collection" type="xs:IDREF"/>
+            <xs:attribute name="ref-id" type="xs:IDREF"/>
+            <xs:attribute name="renderer" type="xs:IDREF"/>
+            <xs:attribute name="name" type="xs:ID"/>
+            <xs:attribute name="master" type="xs:IDREF"/>
+            <xs:attribute name="item" type="xs:IDREF"/>
+            <xs:attribute name="to" type="xs:ID"/>
+            <xs:attribute name="toc" type="xs:IDREF"/>
+            <xs:attribute name="processor" type="xs:IDREF"/>
+            <xs:anyAttribute processContents="skip"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="dynamic-sequence">
+          <xs:complexType mixed="true">
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_content"/>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="collection" type="xs:IDREF"/>
+            <xs:attribute name="ref-id" type="xs:IDREF"/>
+            <xs:attribute name="renderer" type="xs:IDREF"/>
+            <xs:attribute name="name" type="xs:ID"/>
+            <xs:attribute name="master" type="xs:IDREF"/>
+            <xs:attribute name="item" type="xs:IDREF"/>
+            <xs:attribute name="to" type="xs:ID"/>
+            <xs:attribute name="toc" type="xs:IDREF"/>
+            <xs:attribute name="processor" type="xs:IDREF"/>
+            <xs:anyAttribute processContents="skip"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="xml-data">
+          <xs:complexType mixed="true">
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_content"/>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="collection" type="xs:IDREF"/>
+            <xs:attribute name="ref-id" type="xs:IDREF"/>
+            <xs:attribute name="renderer" type="xs:IDREF"/>
+            <xs:attribute name="name" type="xs:ID"/>
+            <xs:attribute name="master" type="xs:IDREF"/>
+            <xs:attribute name="item" type="xs:IDREF"/>
+            <xs:attribute name="to" type="xs:ID"/>
+            <xs:attribute name="toc" type="xs:IDREF"/>
+            <xs:attribute name="processor" type="xs:IDREF"/>
+            <xs:anyAttribute processContents="skip"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="toc-entry">
+          <xs:complexType mixed="true">
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_content"/>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="collection" type="xs:IDREF"/>
+            <xs:attribute name="ref-id" type="xs:IDREF"/>
+            <xs:attribute name="renderer" type="xs:IDREF"/>
+            <xs:attribute name="name" type="xs:ID"/>
+            <xs:attribute name="master" type="xs:IDREF"/>
+            <xs:attribute name="item" type="xs:IDREF"/>
+            <xs:attribute name="to" type="xs:ID"/>
+            <xs:attribute name="toc" type="xs:IDREF"/>
+            <xs:attribute name="processor" type="xs:IDREF"/>
+            <xs:anyAttribute processContents="skip"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="page-number">
+          <xs:complexType mixed="true">
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_content"/>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="collection" type="xs:IDREF"/>
+            <xs:attribute name="ref-id" type="xs:IDREF"/>
+            <xs:attribute name="renderer" type="xs:IDREF"/>
+            <xs:attribute name="name" type="xs:ID"/>
+            <xs:attribute name="master" type="xs:IDREF"/>
+            <xs:attribute name="item" type="xs:IDREF"/>
+            <xs:attribute name="to" type="xs:ID"/>
+            <xs:attribute name="toc" type="xs:IDREF"/>
+            <xs:attribute name="processor" type="xs:IDREF"/>
+            <xs:anyAttribute processContents="skip"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="list-of-references">
+          <xs:complexType mixed="true">
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_content"/>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="collection" type="xs:IDREF"/>
+            <xs:attribute name="ref-id" type="xs:IDREF"/>
+            <xs:attribute name="renderer" type="xs:IDREF"/>
+            <xs:attribute name="name" type="xs:ID"/>
+            <xs:attribute name="master" type="xs:IDREF"/>
+            <xs:attribute name="item" type="xs:IDREF"/>
+            <xs:attribute name="to" type="xs:ID"/>
+            <xs:attribute name="toc" type="xs:IDREF"/>
+            <xs:attribute name="processor" type="xs:IDREF"/>
+            <xs:anyAttribute processContents="skip"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="page-area">
+          <xs:complexType mixed="true">
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_content"/>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="collection" type="xs:IDREF"/>
+            <xs:attribute name="ref-id" type="xs:IDREF"/>
+            <xs:attribute name="renderer" type="xs:IDREF"/>
+            <xs:attribute name="name" type="xs:ID"/>
+            <xs:attribute name="master" type="xs:IDREF"/>
+            <xs:attribute name="item" type="xs:IDREF"/>
+            <xs:attribute name="to" type="xs:ID"/>
+            <xs:attribute name="toc" type="xs:IDREF"/>
+            <xs:attribute name="processor" type="xs:IDREF"/>
+            <xs:anyAttribute processContents="skip"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="item">
+          <xs:complexType mixed="true">
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_content"/>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="collection" type="xs:IDREF"/>
+            <xs:attribute name="ref-id" type="xs:IDREF"/>
+            <xs:attribute name="renderer" type="xs:IDREF"/>
+            <xs:attribute name="name" type="xs:ID"/>
+            <xs:attribute name="master" type="xs:IDREF"/>
+            <xs:attribute name="item" type="xs:IDREF"/>
+            <xs:attribute name="to" type="xs:ID"/>
+            <xs:attribute name="toc" type="xs:IDREF"/>
+            <xs:attribute name="processor" type="xs:IDREF"/>
+            <xs:anyAttribute processContents="skip"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="before">
+          <xs:complexType mixed="true">
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_content"/>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="collection" type="xs:IDREF"/>
+            <xs:attribute name="ref-id" type="xs:IDREF"/>
+            <xs:attribute name="renderer" type="xs:IDREF"/>
+            <xs:attribute name="name" type="xs:ID"/>
+            <xs:attribute name="master" type="xs:IDREF"/>
+            <xs:attribute name="item" type="xs:IDREF"/>
+            <xs:attribute name="to" type="xs:ID"/>
+            <xs:attribute name="toc" type="xs:IDREF"/>
+            <xs:attribute name="processor" type="xs:IDREF"/>
+            <xs:anyAttribute processContents="skip"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="block">
+          <xs:complexType mixed="true">
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_content"/>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="collection" type="xs:IDREF"/>
+            <xs:attribute name="ref-id" type="xs:IDREF"/>
+            <xs:attribute name="renderer" type="xs:IDREF"/>
+            <xs:attribute name="name" type="xs:ID"/>
+            <xs:attribute name="master" type="xs:IDREF"/>
+            <xs:attribute name="item" type="xs:IDREF"/>
+            <xs:attribute name="to" type="xs:ID"/>
+            <xs:attribute name="toc" type="xs:IDREF"/>
+            <xs:attribute name="processor" type="xs:IDREF"/>
+            <xs:anyAttribute processContents="skip"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="td">
+          <xs:complexType mixed="true">
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_content"/>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="collection" type="xs:IDREF"/>
+            <xs:attribute name="ref-id" type="xs:IDREF"/>
+            <xs:attribute name="renderer" type="xs:IDREF"/>
+            <xs:attribute name="name" type="xs:ID"/>
+            <xs:attribute name="master" type="xs:IDREF"/>
+            <xs:attribute name="item" type="xs:IDREF"/>
+            <xs:attribute name="to" type="xs:ID"/>
+            <xs:attribute name="toc" type="xs:IDREF"/>
+            <xs:attribute name="processor" type="xs:IDREF"/>
+            <xs:anyAttribute processContents="skip"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="after">
+          <xs:complexType mixed="true">
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:any_content"/>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="collection" type="xs:IDREF"/>
+            <xs:attribute name="ref-id" type="xs:IDREF"/>
+            <xs:attribute name="renderer" type="xs:IDREF"/>
+            <xs:attribute name="name" type="xs:ID"/>
+            <xs:attribute name="master" type="xs:IDREF"/>
+            <xs:attribute name="item" type="xs:IDREF"/>
+            <xs:attribute name="to" type="xs:ID"/>
+            <xs:attribute name="toc" type="xs:IDREF"/>
+            <xs:attribute name="processor" type="xs:IDREF"/>
+            <xs:anyAttribute processContents="skip"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="any_element">
+    <xs:choice>
+      <xs:any namespace="##other" processContents="skip"/>
+      <xs:any namespace="##local" processContents="skip"/>
+    </xs:choice>
+  </xs:group>
 </xs:schema>

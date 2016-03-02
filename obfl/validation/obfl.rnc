@@ -141,6 +141,8 @@ obfl =
     attlist-obfl,
     meta?,
     layout-master+,
+    xml-processor*,
+    renderer*,
     table-of-contents*,
     volume-template*,
     collection*,
@@ -155,7 +157,7 @@ attlist-obfl &=
     "" | "pre-translated" | "grade0" | "grade1" | "grade2" | "grade3"
   }?
 #
-meta = element meta { attlist-meta, any }
+meta = element meta { attlist-meta, any_element_except_obfl* }
 attlist-meta &= empty
 # Layout master
 layout-master =
@@ -319,7 +321,8 @@ dynamic-sequence =
   }
 attlist-dynamic-sequence &= sequenceAtts
 # A sequence of blocks
-sequence = element sequence { attlist-sequence, (block | table)+ }
+sequence =
+  element sequence { attlist-sequence, (block | table | xml-data)+ }
 attlist-sequence &= sequenceAtts
 # fallback-scope (all|page) #IMPLIED
 page-area =
@@ -445,10 +448,106 @@ attlist-td &=
   border-atts,
   padding-atts,
   block-atts-except-list-type-and-row-spacing
-start = obfl
-any =
-  (element * - ns1:* {
-     attribute * { text }*,
-     any
-   }
-   | text)*
+# XML Data
+xml-data = element xml-data { attlist-xml-data, (any_content) }
+attlist-xml-data &= attribute renderer { xsd:IDREF }
+renderer = element renderer { attlist-renderer, (rendering-scenario)+ }
+attlist-renderer &= attribute name { xsd:ID }
+rendering-scenario =
+  element rendering-scenario { attlist-rendering-scenario }
+attlist-rendering-scenario =
+  attribute processor { xsd:IDREF },
+  attribute cost { xsd:string },
+  attribute qualifier { xsd:string }?
+xml-processor =
+  element xml-processor { attlist-xml-processor, (any_content) }
+attlist-xml-processor = attribute name { xsd:ID }
+start |= obfl
+any = (any_element_except_obfl | text)*
+any_element_except_obfl =
+  element * - ns1:* {
+    attribute * { text }*,
+    any
+  }
+any_content = (any_element | any_obfl | text)*
+
+## 
+##       This definition is complex because any id/idref values defined in obfl needs to be retained using an enumerated list.
+##       For these elements, the id/idref attributes are retained as optional. This will work for many situations, but it will
+##       fail in some cases, for example if the same id is used on two obfl elements inside different branches of an xslt choice 
+##       statement.
+##     
+any_obfl =
+  element ns1:* - (table-of-contents
+                   | collection
+                   | xml-processor
+                   | layout-master
+                   | renderer
+                   | rendering-scenario
+                   | toc-sequence
+                   | rename
+                   | anchor
+                   | sequence
+                   | dynamic-sequence
+                   | xml-data
+                   | toc-entry
+                   | page-number
+                   | list-of-references
+                   | page-area
+                   | item
+                   | before
+                   | block
+                   | td
+                   | after) {
+    attribute name { xsd:NMTOKEN }?,
+    attribute * - name { text }*,
+    any_content*
+  }
+  | element table-of-contents
+            | collection
+            | xml-processor
+            | layout-master
+            | renderer
+            | rendering-scenario
+            | toc-sequence
+            | rename
+            | anchor
+            | sequence
+            | dynamic-sequence
+            | xml-data
+            | toc-entry
+            | page-number
+            | list-of-references
+            | page-area
+            | item
+            | before
+            | block
+            | td
+            | after {
+      attribute id { xsd:ID }?,
+      attribute collection { xsd:IDREF }?,
+      attribute ref-id { xsd:IDREF }?,
+      attribute renderer { xsd:IDREF }?,
+      attribute name { xsd:ID }?,
+      attribute master { xsd:IDREF }?,
+      attribute item { xsd:IDREF }?,
+      attribute to { xsd:ID }?,
+      attribute toc { xsd:IDREF }?,
+      attribute processor { xsd:IDREF }?,
+      attribute * - (id
+                     | collection
+                     | ref-id
+                     | renderer
+                     | name
+                     | master
+                     | item
+                     | to
+                     | toc
+                     | processor) { text }*,
+      any_content*
+    }
+any_element =
+  element * - ns1:* {
+    attribute * { text }*,
+    any_content*
+  }
