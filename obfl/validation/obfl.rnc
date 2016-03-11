@@ -449,7 +449,8 @@ attlist-td &=
   padding-atts,
   block-atts-except-list-type-and-row-spacing
 # XML Data
-xml-data = element xml-data { attlist-xml-data, (any_content) }
+xml-data =
+  element xml-data { attlist-xml-data, (any_element | any_obfl) }
 attlist-xml-data &= attribute renderer { xsd:IDREF }
 renderer = element renderer { attlist-renderer, (rendering-scenario)+ }
 attlist-renderer &= attribute name { xsd:ID }

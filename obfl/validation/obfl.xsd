@@ -1246,8 +1246,11 @@
   <xs:group name="xml-data">
     <xs:sequence>
       <xs:element name="xml-data">
-        <xs:complexType mixed="true">
-          <xs:group ref="obfl:any_content"/>
+        <xs:complexType>
+          <xs:choice>
+            <xs:group ref="obfl:any_element"/>
+            <xs:group ref="obfl:any_obfl"/>
+          </xs:choice>
           <xs:attributeGroup ref="obfl:attlist-xml-data"/>
         </xs:complexType>
       </xs:element>
