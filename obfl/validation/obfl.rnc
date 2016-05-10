@@ -141,6 +141,7 @@ obfl =
     attlist-obfl,
     meta?,
     layout-master+,
+    file-reference*,
     xml-processor*,
     renderer*,
     table-of-contents*,
@@ -455,11 +456,18 @@ attlist-xml-data &= attribute renderer { xsd:IDREF }
 renderer = element renderer { attlist-renderer, (rendering-scenario)+ }
 attlist-renderer &= attribute name { xsd:ID }
 rendering-scenario =
-  element rendering-scenario { attlist-rendering-scenario }
+  element rendering-scenario { attlist-rendering-scenario, parameter* }
 attlist-rendering-scenario =
   attribute processor { xsd:IDREF },
   attribute cost { xsd:string },
   attribute qualifier { xsd:string }?
+parameter = element parameter { attlist-parameter }
+attlist-parameter =
+  attribute name { xsd:string },
+  attribute value { xsd:string }
+file-reference =
+  element file-reference { attlist-file-reference, (any_content) }
+attlist-file-reference = attribute uri { xsd:string }
 xml-processor =
   element xml-processor { attlist-xml-processor, (any_content) }
 attlist-xml-processor = attribute name { xsd:ID }

@@ -449,6 +449,9 @@
         <ref name="layout-master"/>
       </oneOrMore>
       <zeroOrMore>
+      	<ref name="file-reference"/>
+      </zeroOrMore>
+      <zeroOrMore>
         <ref name="xml-processor"/>
       </zeroOrMore>
       <zeroOrMore>
@@ -1508,6 +1511,9 @@
   <define name="rendering-scenario">
     <element name="rendering-scenario">
       <ref name="attlist-rendering-scenario"/>
+      <zeroOrMore>
+      	<ref name="parameter"/>
+      </zeroOrMore>
     </element>
   </define>
   <define name="attlist-rendering-scenario">
@@ -1522,6 +1528,32 @@
         <data type="string"/>
       </attribute>
     </optional>
+  </define>
+  <define name="parameter">
+  	<element name="parameter">
+  		<ref name="attlist-parameter"/>
+  	</element>
+  </define>
+  <define name="attlist-parameter">
+  	<attribute name="name">
+  		<data type="string"/>
+  	</attribute>
+  	<attribute name="value">
+  		<data type="string"/>
+  	</attribute>
+  </define>
+  <define name="file-reference">
+  	<element name="file-reference">
+  		<ref name="attlist-file-reference"/>
+  		<choice>
+  			<ref name="any_content"/>
+  		</choice>
+  	</element>
+  </define>
+  <define name="attlist-file-reference">
+		<attribute name="uri">
+			<data type="string"/>
+		</attribute>
   </define>
   <define name="xml-processor">
     <element name="xml-processor">

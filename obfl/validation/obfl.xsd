@@ -387,6 +387,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" ref="obfl:meta"/>
         <xs:group maxOccurs="unbounded" ref="obfl:layout-master"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:file-reference"/>
         <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:xml-processor"/>
         <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:renderer"/>
         <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:table-of-contents"/>
@@ -1276,6 +1277,9 @@
     <xs:sequence>
       <xs:element name="rendering-scenario">
         <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:parameter"/>
+          </xs:sequence>
           <xs:attributeGroup ref="obfl:attlist-rendering-scenario"/>
         </xs:complexType>
       </xs:element>
@@ -1285,6 +1289,24 @@
     <xs:attribute name="processor" use="required" type="xs:IDREF"/>
     <xs:attribute name="cost" use="required" type="xs:string"/>
     <xs:attribute name="qualifier" type="xs:string"/>
+  </xs:attributeGroup>
+  <xs:element name="parameter">
+    <xs:complexType>
+      <xs:attributeGroup ref="obfl:attlist-parameter"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-parameter">
+    <xs:attribute name="name" use="required" type="xs:string"/>
+    <xs:attribute name="value" use="required" type="xs:string"/>
+  </xs:attributeGroup>
+  <xs:element name="file-reference">
+    <xs:complexType mixed="true">
+      <xs:group ref="obfl:any_content"/>
+      <xs:attributeGroup ref="obfl:attlist-file-reference"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-file-reference">
+    <xs:attribute name="uri" use="required" type="xs:string"/>
   </xs:attributeGroup>
   <xs:group name="xml-processor">
     <xs:sequence>
