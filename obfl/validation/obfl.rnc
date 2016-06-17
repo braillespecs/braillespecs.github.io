@@ -99,9 +99,16 @@ block-atts =
 # keep-with-next, keep the following block's first line(s) together with this block
 blockAtts =
   attribute break-before { "auto" | "page" }?,
-  attribute keep { "auto" | "all" }?,
+  attribute keep { "auto" | "page" | "sheet" | "volume" }?,
   attribute keep-with-next {
     "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+  }?,
+  
+  ## 
+  ##           Indicates that the whole block should be kept in the same volume with the specified priority.
+  ##         
+  attribute volume-keep-priority {
+    xsd:integer { minInclusive = "1" maxInclusive = "9" }
   }?,
   
   ## 
@@ -134,6 +141,7 @@ blockAtts =
 sequenceAtts =
   attribute master { xsd:IDREF },
   attribute initial-page-number { text }?,
+  attribute break-before { "auto" | "volume" }?,
   textAtts
 # Document root
 obfl =

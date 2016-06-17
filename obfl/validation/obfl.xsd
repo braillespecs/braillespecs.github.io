@@ -279,7 +279,9 @@
       <xs:simpleType>
         <xs:restriction base="xs:token">
           <xs:enumeration value="auto"/>
-          <xs:enumeration value="all"/>
+          <xs:enumeration value="page"/>
+          <xs:enumeration value="sheet"/>
+          <xs:enumeration value="volume"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -296,6 +298,19 @@
           <xs:enumeration value="7"/>
           <xs:enumeration value="8"/>
           <xs:enumeration value="9"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="volume-keep-priority">
+      <xs:annotation>
+        <xs:documentation>
+          Indicates that the whole block should be kept in the same volume with the specified priority.
+        </xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:integer">
+          <xs:minInclusive value="1"/>
+          <xs:maxInclusive value="9"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -379,6 +394,14 @@
   <xs:attributeGroup name="sequenceAtts">
     <xs:attribute name="master" use="required" type="xs:IDREF"/>
     <xs:attribute name="initial-page-number"/>
+    <xs:attribute name="break-before">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="auto"/>
+          <xs:enumeration value="volume"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
     <xs:attributeGroup ref="obfl:textAtts"/>
   </xs:attributeGroup>
   <!-- Document root -->
