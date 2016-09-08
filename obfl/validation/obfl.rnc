@@ -28,8 +28,6 @@ name-id = attribute name { xsd:ID }
 # border-top-style, border top style
 # border-right-style, border right style
 # border-width, border width (thin or wide)
-border-style-enum = "none" | "solid"
-border-width-enum = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
 
 ## 
 ##       inner, align border to the inner edge of the character cell
@@ -38,16 +36,26 @@ border-width-enum = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
 ##     
 border-align-enum = "inner" | "center" | "outer"
 border-atts =
-  attribute border-style { border-style-enum }?,
-  attribute border-bottom-style { border-style-enum }?,
-  attribute border-left-style { border-style-enum }?,
-  attribute border-top-style { border-style-enum }?,
-  attribute border-right-style { border-style-enum }?,
-  attribute border-width { border-width-enum }?,
-  attribute border-bottom-width { border-width-enum }?,
-  attribute border-left-width { border-width-enum }?,
-  attribute border-top-width { border-width-enum }?,
-  attribute border-right-width { border-width-enum }?,
+  attribute border-style { "none" | "solid" }?,
+  attribute border-bottom-style { "none" | "solid" }?,
+  attribute border-left-style { "none" | "solid" }?,
+  attribute border-top-style { "none" | "solid" }?,
+  attribute border-right-style { "none" | "solid" }?,
+  attribute border-width {
+    "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+  }?,
+  attribute border-bottom-width {
+    "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+  }?,
+  attribute border-left-width {
+    "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+  }?,
+  attribute border-top-width {
+    "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+  }?,
+  attribute border-right-width {
+    "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+  }?,
   attribute border-align { border-align-enum }?,
   attribute border-bottom-align { border-align-enum }?,
   attribute border-left-align { border-align-enum }?,
@@ -73,23 +81,18 @@ padding-atts =
   attribute padding-right { text }?
 # text-indent, indent (in chars) of every line in the block except the first one
 # block-indent, indent (in chars) of this block's block children
-block-atts-except-list-type-row-spacing-id =
+block-atts-except-list-type-and-row-spacing =
   attribute first-line-indent { text }?,
   attribute text-indent { text }?,
   attribute block-indent { text }?,
   attribute align { "left" | "center" | "right" }?,
-  attribute underline-style { border-style-enum }?,
-  attribute underline-width { border-width-enum }?,
-  attribute underline-align { border-align-enum }?,
+  attribute id { xsd:ID }?,
   textAtts
-block-id = attribute id { xsd:ID }?
 # list-type, the list type of this block
-list-type = attribute list-type { "none" | "ol" | "ul" | "pl" }?
 block-atts =
-  list-type,
+  attribute list-type { "none" | "ol" | "ul" | "pl" }?,
   row-spacing,
-  block-atts-except-list-type-row-spacing-id,
-  block-id
+  block-atts-except-list-type-and-row-spacing
 # break-before, if present, break before block begins
 # first-line-indent, indent (in chars) of first line block
 # keep, keep rows in this block
@@ -357,6 +360,7 @@ item = element item { attlist-item, (blockContents | block)* }
 attlist-item &=
   attribute id { xsd:ID },
   attribute break-before { "auto" | "page" }?,
+  attribute first-line-indent { text }?,
   attribute keep { "auto" | "all" }?,
   attribute keep-with-next {
     "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
@@ -367,13 +371,21 @@ attlist-item &=
   attribute keep-with-next-sheets {
     "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
   }?,
+  attribute list-type { "none" | "ol" | "ul" | "pl" }?,
+  attribute margin-bottom { text }?,
+  attribute margin-left { text }?,
+  attribute margin-top { text }?,
+  attribute margin-right { text }?,
+  attribute padding-bottom { text }?,
+  attribute padding-left { text }?,
+  attribute padding-top { text }?,
+  attribute padding-right { text }?,
+  attribute text-indent { text }?,
+  attribute block-indent { text }?,
+  attribute align { "left" | "center" | "right" }?,
   attribute vertical-align { "before" | "center" | "after" }?,
   attribute vertical-position { text }?,
   row-spacing,
-  list-type,
-  block-atts-except-list-type-row-spacing-id,
-  margin-atts,
-  padding-atts,
   border-atts,
   textAtts
 span = element span { attlist-span, (text | style | anchor)* }
@@ -444,8 +456,7 @@ attlist-td &=
   attribute col-span { xsd:positiveInteger }?,
   border-atts,
   padding-atts,
-  block-atts-except-list-type-row-spacing-id,
-  block-id
+  block-atts-except-list-type-and-row-spacing
 # XML Data
 xml-data =
   element xml-data { attlist-xml-data, (any_element | any_obfl) }
