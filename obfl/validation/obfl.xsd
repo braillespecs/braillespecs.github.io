@@ -165,7 +165,7 @@
     <xs:attribute name="id" type="xs:ID"/>
   </xs:attributeGroup>
   <!-- list-type, the list type of this block -->
-  <xs:attributeGroup name="list-type">
+  <xs:attributeGroup name="list-atts">
     <xs:attribute name="list-type">
       <xs:simpleType>
         <xs:restriction base="xs:token">
@@ -176,9 +176,11 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
+    <xs:attribute name="list-style" type="xs:string"/>
+    <xs:attribute name="list-item-label" type="xs:string"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="block-atts">
-    <xs:attributeGroup ref="obfl:list-type"/>
+    <xs:attributeGroup ref="obfl:list-atts"/>
     <xs:attributeGroup ref="obfl:row-spacing"/>
     <xs:attributeGroup ref="obfl:block-atts-except-list-type-row-spacing-id"/>
     <xs:attributeGroup ref="obfl:block-id"/>
@@ -984,7 +986,7 @@
     </xs:attribute>
     <xs:attribute name="vertical-position"/>
     <xs:attributeGroup ref="obfl:row-spacing"/>
-    <xs:attributeGroup ref="obfl:list-type"/>
+    <xs:attributeGroup ref="obfl:list-atts"/>
     <xs:attributeGroup ref="obfl:block-atts-except-list-type-row-spacing-id"/>
     <xs:attributeGroup ref="obfl:margin-atts"/>
     <xs:attributeGroup ref="obfl:padding-atts"/>

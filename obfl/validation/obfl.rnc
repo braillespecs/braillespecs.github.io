@@ -84,9 +84,12 @@ block-atts-except-list-type-row-spacing-id =
   textAtts
 block-id = attribute id { xsd:ID }?
 # list-type, the list type of this block
-list-type = attribute list-type { "none" | "ol" | "ul" | "pl" }?
+list-atts =
+  attribute list-type { "none" | "ol" | "ul" | "pl" }?,
+  attribute list-style { xsd:string }?,
+  attribute list-item-label { xsd:string }?
 block-atts =
-  list-type,
+  list-atts,
   row-spacing,
   block-atts-except-list-type-row-spacing-id,
   block-id
@@ -370,7 +373,7 @@ attlist-item &=
   attribute vertical-align { "before" | "center" | "after" }?,
   attribute vertical-position { text }?,
   row-spacing,
-  list-type,
+  list-atts,
   block-atts-except-list-type-row-spacing-id,
   margin-atts,
   padding-atts,
