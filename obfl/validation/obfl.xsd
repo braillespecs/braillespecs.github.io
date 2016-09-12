@@ -65,6 +65,25 @@
     border-right-style, border right style
     border-width, border width (thin or wide)
   -->
+  <xs:simpleType name="border-style-enum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="none"/>
+      <xs:enumeration value="solid"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="border-width-enum">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+      <xs:enumeration value="3"/>
+      <xs:enumeration value="4"/>
+      <xs:enumeration value="5"/>
+      <xs:enumeration value="6"/>
+      <xs:enumeration value="7"/>
+      <xs:enumeration value="8"/>
+      <xs:enumeration value="9"/>
+    </xs:restriction>
+  </xs:simpleType>
   <xs:simpleType name="border-align-enum">
     <xs:annotation>
       <xs:documentation>
@@ -80,121 +99,16 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:attributeGroup name="border-atts">
-    <xs:attribute name="border-style">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="none"/>
-          <xs:enumeration value="solid"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="border-bottom-style">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="none"/>
-          <xs:enumeration value="solid"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="border-left-style">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="none"/>
-          <xs:enumeration value="solid"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="border-top-style">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="none"/>
-          <xs:enumeration value="solid"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="border-right-style">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="none"/>
-          <xs:enumeration value="solid"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="border-width">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="1"/>
-          <xs:enumeration value="2"/>
-          <xs:enumeration value="3"/>
-          <xs:enumeration value="4"/>
-          <xs:enumeration value="5"/>
-          <xs:enumeration value="6"/>
-          <xs:enumeration value="7"/>
-          <xs:enumeration value="8"/>
-          <xs:enumeration value="9"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="border-bottom-width">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="1"/>
-          <xs:enumeration value="2"/>
-          <xs:enumeration value="3"/>
-          <xs:enumeration value="4"/>
-          <xs:enumeration value="5"/>
-          <xs:enumeration value="6"/>
-          <xs:enumeration value="7"/>
-          <xs:enumeration value="8"/>
-          <xs:enumeration value="9"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="border-left-width">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="1"/>
-          <xs:enumeration value="2"/>
-          <xs:enumeration value="3"/>
-          <xs:enumeration value="4"/>
-          <xs:enumeration value="5"/>
-          <xs:enumeration value="6"/>
-          <xs:enumeration value="7"/>
-          <xs:enumeration value="8"/>
-          <xs:enumeration value="9"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="border-top-width">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="1"/>
-          <xs:enumeration value="2"/>
-          <xs:enumeration value="3"/>
-          <xs:enumeration value="4"/>
-          <xs:enumeration value="5"/>
-          <xs:enumeration value="6"/>
-          <xs:enumeration value="7"/>
-          <xs:enumeration value="8"/>
-          <xs:enumeration value="9"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="border-right-width">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="1"/>
-          <xs:enumeration value="2"/>
-          <xs:enumeration value="3"/>
-          <xs:enumeration value="4"/>
-          <xs:enumeration value="5"/>
-          <xs:enumeration value="6"/>
-          <xs:enumeration value="7"/>
-          <xs:enumeration value="8"/>
-          <xs:enumeration value="9"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
+    <xs:attribute name="border-style" type="obfl:border-style-enum"/>
+    <xs:attribute name="border-bottom-style" type="obfl:border-style-enum"/>
+    <xs:attribute name="border-left-style" type="obfl:border-style-enum"/>
+    <xs:attribute name="border-top-style" type="obfl:border-style-enum"/>
+    <xs:attribute name="border-right-style" type="obfl:border-style-enum"/>
+    <xs:attribute name="border-width" type="obfl:border-width-enum"/>
+    <xs:attribute name="border-bottom-width" type="obfl:border-width-enum"/>
+    <xs:attribute name="border-left-width" type="obfl:border-width-enum"/>
+    <xs:attribute name="border-top-width" type="obfl:border-width-enum"/>
+    <xs:attribute name="border-right-width" type="obfl:border-width-enum"/>
     <xs:attribute name="border-align" type="obfl:border-align-enum"/>
     <xs:attribute name="border-bottom-align" type="obfl:border-align-enum"/>
     <xs:attribute name="border-left-align" type="obfl:border-align-enum"/>
@@ -229,7 +143,7 @@
     text-indent, indent (in chars) of every line in the block except the first one
     block-indent, indent (in chars) of this block's block children
   -->
-  <xs:attributeGroup name="block-atts-except-list-type-and-row-spacing">
+  <xs:attributeGroup name="block-atts-except-list-type-row-spacing-id">
     <xs:attribute name="first-line-indent"/>
     <xs:attribute name="text-indent"/>
     <xs:attribute name="block-indent"/>
@@ -242,11 +156,16 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute name="id" type="xs:ID"/>
+    <xs:attribute name="underline-style" type="obfl:border-style-enum"/>
+    <xs:attribute name="underline-width" type="obfl:border-width-enum"/>
+    <xs:attribute name="underline-align" type="obfl:border-align-enum"/>
     <xs:attributeGroup ref="obfl:textAtts"/>
   </xs:attributeGroup>
+  <xs:attributeGroup name="block-id">
+    <xs:attribute name="id" type="xs:ID"/>
+  </xs:attributeGroup>
   <!-- list-type, the list type of this block -->
-  <xs:attributeGroup name="block-atts">
+  <xs:attributeGroup name="list-type">
     <xs:attribute name="list-type">
       <xs:simpleType>
         <xs:restriction base="xs:token">
@@ -257,8 +176,12 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="block-atts">
+    <xs:attributeGroup ref="obfl:list-type"/>
     <xs:attributeGroup ref="obfl:row-spacing"/>
-    <xs:attributeGroup ref="obfl:block-atts-except-list-type-and-row-spacing"/>
+    <xs:attributeGroup ref="obfl:block-atts-except-list-type-row-spacing-id"/>
+    <xs:attributeGroup ref="obfl:block-id"/>
   </xs:attributeGroup>
   <!--
     break-before, if present, break before block begins
@@ -994,7 +917,6 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute name="first-line-indent"/>
     <xs:attribute name="keep">
       <xs:simpleType>
         <xs:restriction base="xs:token">
@@ -1051,35 +973,6 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute name="list-type">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="none"/>
-          <xs:enumeration value="ol"/>
-          <xs:enumeration value="ul"/>
-          <xs:enumeration value="pl"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="margin-bottom"/>
-    <xs:attribute name="margin-left"/>
-    <xs:attribute name="margin-top"/>
-    <xs:attribute name="margin-right"/>
-    <xs:attribute name="padding-bottom"/>
-    <xs:attribute name="padding-left"/>
-    <xs:attribute name="padding-top"/>
-    <xs:attribute name="padding-right"/>
-    <xs:attribute name="text-indent"/>
-    <xs:attribute name="block-indent"/>
-    <xs:attribute name="align">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="left"/>
-          <xs:enumeration value="center"/>
-          <xs:enumeration value="right"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
     <xs:attribute name="vertical-align">
       <xs:simpleType>
         <xs:restriction base="xs:token">
@@ -1091,8 +984,11 @@
     </xs:attribute>
     <xs:attribute name="vertical-position"/>
     <xs:attributeGroup ref="obfl:row-spacing"/>
+    <xs:attributeGroup ref="obfl:list-type"/>
+    <xs:attributeGroup ref="obfl:block-atts-except-list-type-row-spacing-id"/>
+    <xs:attributeGroup ref="obfl:margin-atts"/>
+    <xs:attributeGroup ref="obfl:padding-atts"/>
     <xs:attributeGroup ref="obfl:border-atts"/>
-    <xs:attributeGroup ref="obfl:textAtts"/>
   </xs:attributeGroup>
   <xs:element name="span">
     <xs:complexType mixed="true">
@@ -1264,7 +1160,8 @@
     <xs:attribute name="col-span" type="xs:positiveInteger"/>
     <xs:attributeGroup ref="obfl:border-atts"/>
     <xs:attributeGroup ref="obfl:padding-atts"/>
-    <xs:attributeGroup ref="obfl:block-atts-except-list-type-and-row-spacing"/>
+    <xs:attributeGroup ref="obfl:block-atts-except-list-type-row-spacing-id"/>
+    <xs:attributeGroup ref="obfl:block-id"/>
   </xs:attributeGroup>
   <!-- XML Data -->
   <xs:group name="xml-data">

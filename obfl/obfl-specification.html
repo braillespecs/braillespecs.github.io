@@ -6,7 +6,7 @@
   <meta name="dc:identifier" content=""/>
   <meta name="dc:Title" content="OBFL Specification"/>
   <meta name="dc:Language" content="en"/>
-  <meta name="dc:Date" content="2016-09-08T08:28Z"/>
+  <meta name="dc:Date" content="2016-09-12T08:54Z"/>
   <link rel="stylesheet" href="styles/w3c-unofficial.css" type="text/css"/>
   <link rel="stylesheet" href="styles/style.css" type="text/css"/>
 </head>
@@ -15,7 +15,7 @@
 <h1 id="N65581">OBFL - Open Braille Formatting Language</h1>
 
 <p>Working draft, revised 2016-06-17 (UTC+01:00)</p>
-<p>Published 2016-09-08T08:28Z</p>
+<p>Published 2016-09-12T08:54Z</p>
 <dl>
   <dt>This version:</dt>
     <dd><a href="http://files.pef-format.org/drafts/obfl/obfl-specification.html">http://files.pef-format.org/drafts/obfl/obfl-specification.html</a></dd>
@@ -2272,6 +2272,24 @@ combination of braille characters [U+2800-U+28FF] and the following:</p>
   <dt>align [optional]</dt>
     <dd>Specifies the text alignment.</dd>
     <dd>One of 'left' (default), 'center' or 'right'.</dd>
+  <dt>underline-style [optional]</dt>
+    <dd>Underlines this block's text. The line is rendered on the row beneath
+      the block's last row of text and does not extend further to the left and
+      right than the block's left- and right-most characters. The behavior is
+      undefined when this block has block children.</dd>
+    <dd>One of 'none', 'solid'. Values have the same meanings as for the
+      border-bottom-style attribute (see the <a href="#borders">Borders</a>
+      attribute group).</dd>
+  <dt>underline-width [optional]</dt>
+    <dd>Sets the line width of the underlining.</dd>
+    <dd>One of '1', '2', '3', '4', '5', '6', '7', '8', '9'. Values have the
+      same meanings as for the border-bottom-width attribute (see
+      the <a href="#borders">Borders</a> attribute group).</dd>
+  <dt>underline-align [optional]</dt>
+    <dd>Set the alignment of the underlining.</dd>
+    <dd>One of 'inner', 'center', 'outer'. Values have the same meanings as for
+      the border-bottom-align attribute (see the <a href="#borders">Borders</a>
+      attribute group).</dd>
   <dt>id [optional]</dt>
     <dd>An identifier.</dd>
     <dd>Identifiers in repeating elements will be discarded.</dd>
