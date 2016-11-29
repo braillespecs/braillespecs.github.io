@@ -354,7 +354,9 @@ collection = element collection { attlist-collection, item+ }
 attlist-collection &= name-id
 # A block of text
 block =
-  element block { attlist-block, (blockContents | anchor | block)* }
+  element block {
+    attlist-block, (blockContents | anchor | block | table | xml-data)*
+  }
 attlist-block &= blockAtts
 item = element item { attlist-item, (blockContents | block)* }
 attlist-item &=

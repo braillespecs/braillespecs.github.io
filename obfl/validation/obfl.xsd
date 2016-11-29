@@ -887,6 +887,8 @@
             <xs:group ref="obfl:blockContents"/>
             <xs:group ref="obfl:anchor"/>
             <xs:group ref="obfl:block"/>
+            <xs:element ref="obfl:table"/>
+            <xs:group ref="obfl:xml-data"/>
           </xs:choice>
           <xs:attributeGroup ref="obfl:attlist-block"/>
         </xs:complexType>
