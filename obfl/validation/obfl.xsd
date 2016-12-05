@@ -495,7 +495,7 @@
   </xs:attributeGroup>
   <xs:element name="field">
     <xs:complexType>
-      <xs:choice maxOccurs="unbounded">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element ref="obfl:marker-reference"/>
         <xs:element ref="obfl:string"/>
         <xs:element ref="obfl:current-page"/>
@@ -506,6 +506,14 @@
   </xs:element>
   <xs:attributeGroup name="attlist-field">
     <xs:attribute name="text-style" type="xs:NMTOKEN"/>
+    <xs:attribute name="allow-text-flow">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
   </xs:attributeGroup>
   <xs:element name="current-page">
     <xs:complexType>

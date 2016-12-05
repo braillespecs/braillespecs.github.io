@@ -209,9 +209,11 @@ attlist-marker-indicator =
 field =
   element field {
     attlist-field,
-    (marker-reference | \string | current-page | evaluate)+
+    (marker-reference | \string | current-page | evaluate)*
   }
-attlist-field &= attribute text-style { xsd:NMTOKEN }?
+attlist-field &=
+  attribute text-style { xsd:NMTOKEN }?,
+  attribute allow-text-flow { "true" | "false" }?
 current-page = element current-page { attlist-current-page, empty }
 attlist-current-page &=
   attribute number-format {
