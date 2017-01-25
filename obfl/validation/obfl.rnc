@@ -281,7 +281,7 @@ pre-content =
 attlist-pre-content &= empty
 post-content =
   element post-content {
-    attlist-post-content, (sequence | dynamic-sequence)*
+    attlist-post-content, (sequence | dynamic-sequence | toc-sequence)*
   }
 attlist-post-content &= empty
 toc-sequence =

@@ -650,6 +650,7 @@
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:group ref="obfl:sequence"/>
         <xs:group ref="obfl:dynamic-sequence"/>
+        <xs:group ref="obfl:toc-sequence"/>
       </xs:choice>
     </xs:complexType>
   </xs:element>
