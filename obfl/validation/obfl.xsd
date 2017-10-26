@@ -327,6 +327,7 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
+    <xs:attribute name="page-number-counter" type="xs:NMTOKEN"/>
     <xs:attributeGroup ref="obfl:textAtts"/>
   </xs:attributeGroup>
   <!-- Document root -->

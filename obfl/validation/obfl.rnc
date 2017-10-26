@@ -142,6 +142,7 @@ sequenceAtts =
   attribute master { xsd:IDREF },
   attribute initial-page-number { text }?,
   attribute break-before { "auto" | "volume" }?,
+  attribute page-number-counter { xsd:NMTOKEN }?,
   textAtts
 # Document root
 obfl =
