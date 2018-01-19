@@ -341,6 +341,7 @@
         <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:renderer"/>
         <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:table-of-contents"/>
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:volume-template"/>
+        <xs:element minOccurs="0" ref="obfl:volume-transition"/>
         <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:collection"/>
         <xs:group maxOccurs="unbounded" ref="obfl:sequence"/>
       </xs:sequence>
@@ -653,6 +654,47 @@
         <xs:group ref="obfl:dynamic-sequence"/>
         <xs:group ref="obfl:toc-sequence"/>
       </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="volume-transition">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="obfl:block-interrupted"/>
+        <xs:element minOccurs="0" ref="obfl:block-resumed"/>
+        <xs:element minOccurs="0" ref="obfl:sequence-interrupted"/>
+        <xs:element minOccurs="0" ref="obfl:sequence-resumed"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="obfl:attlist-volume-transition"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist-volume-transition">
+    <xs:attribute name="range">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="page"/>
+          <xs:enumeration value="sheet"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:element name="sequence-interrupted">
+    <xs:complexType>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:block"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sequence-resumed">
+    <xs:complexType>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:block"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="block-interrupted">
+    <xs:complexType mixed="true">
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:blockContents"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="block-resumed">
+    <xs:complexType mixed="true">
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:blockContents"/>
     </xs:complexType>
   </xs:element>
   <xs:group name="toc-sequence">
