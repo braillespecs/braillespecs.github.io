@@ -211,7 +211,7 @@ attlist-marker-indicator =
 field =
   element field {
     attlist-field,
-    (marker-reference | \string | current-page | evaluate)*
+    (marker-reference | \string | current-page | evaluate-in-field)*
   }
 attlist-field &=
   attribute text-style { xsd:NMTOKEN }?,
@@ -255,10 +255,16 @@ attlist-marker-reference &=
 attlist-string &=
   attribute value { text },
   attribute text-style { xsd:NMTOKEN }?
-evaluate = element evaluate { attlist-evaluate, empty }
-attlist-evaluate &=
+evaluate-in-field =
+  element evaluate { attlist-evaluate-in-field, empty }
+attlist-evaluate-in-field &=
   attribute expression { text },
   attribute text-style { xsd:NMTOKEN }?
+evaluate =
+  element evaluate {
+    attribute expression { text },
+    empty
+  }
 table-of-contents =
   element table-of-contents { attlist-table-of-contents, toc-entry+ }
 attlist-table-of-contents &= name-id
@@ -401,7 +407,8 @@ span = element span { attlist-span, (text | style | anchor)* }
 attlist-span &= textAtts
 style =
   element style {
-    attlist-style, (text | style | marker | br | anchor)*
+    attlist-style,
+    (text | style | marker | br | anchor | evaluate | page-number)*
   }
 attlist-style &= attribute name { xsd:NMTOKEN }
 # A marker, use with headers/footers

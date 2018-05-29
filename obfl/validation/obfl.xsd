@@ -7,7 +7,7 @@
         <xs:element ref="obfl:leader"/>
         <xs:element ref="obfl:marker"/>
         <xs:element ref="obfl:br"/>
-        <xs:element ref="obfl:evaluate"/>
+        <xs:group ref="obfl:evaluate"/>
         <xs:group ref="obfl:page-number"/>
         <xs:element ref="obfl:span"/>
         <xs:element ref="obfl:style"/>
@@ -501,7 +501,7 @@
         <xs:element ref="obfl:marker-reference"/>
         <xs:element ref="obfl:string"/>
         <xs:element ref="obfl:current-page"/>
-        <xs:element ref="obfl:evaluate"/>
+        <xs:group ref="obfl:evaluate-in-field"/>
       </xs:choice>
       <xs:attributeGroup ref="obfl:attlist-field"/>
     </xs:complexType>
@@ -584,15 +584,28 @@
     <xs:attribute name="value" use="required"/>
     <xs:attribute name="text-style" type="xs:NMTOKEN"/>
   </xs:attributeGroup>
-  <xs:element name="evaluate">
-    <xs:complexType>
-      <xs:attributeGroup ref="obfl:attlist-evaluate"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist-evaluate">
+  <xs:group name="evaluate-in-field">
+    <xs:sequence>
+      <xs:element name="evaluate">
+        <xs:complexType>
+          <xs:attributeGroup ref="obfl:attlist-evaluate-in-field"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:attributeGroup name="attlist-evaluate-in-field">
     <xs:attribute name="expression" use="required"/>
     <xs:attribute name="text-style" type="xs:NMTOKEN"/>
   </xs:attributeGroup>
+  <xs:group name="evaluate">
+    <xs:sequence>
+      <xs:element name="evaluate">
+        <xs:complexType>
+          <xs:attribute name="expression" use="required"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
   <xs:group name="table-of-contents">
     <xs:sequence>
       <xs:element name="table-of-contents">
@@ -1065,6 +1078,8 @@
         <xs:element ref="obfl:marker"/>
         <xs:element ref="obfl:br"/>
         <xs:group ref="obfl:anchor"/>
+        <xs:group ref="obfl:evaluate"/>
+        <xs:group ref="obfl:page-number"/>
       </xs:choice>
       <xs:attributeGroup ref="obfl:attlist-style"/>
     </xs:complexType>
