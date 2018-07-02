@@ -98,7 +98,7 @@ block-atts =
 # keep, keep rows in this block
 # keep-with-next, keep the following block's first line(s) together with this block
 blockAtts =
-  attribute break-before { "auto" | "page" }?,
+  attribute break-before { "auto" | "page" | "sheet" }?,
   attribute keep { "auto" | "page" | "sheet" | "volume" }?,
   attribute keep-with-next {
     "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"

@@ -197,6 +197,7 @@
         <xs:restriction base="xs:token">
           <xs:enumeration value="auto"/>
           <xs:enumeration value="page"/>
+          <xs:enumeration value="sheet"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
