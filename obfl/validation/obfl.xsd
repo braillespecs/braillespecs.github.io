@@ -677,6 +677,8 @@
         <xs:element minOccurs="0" ref="obfl:block-resumed"/>
         <xs:element minOccurs="0" ref="obfl:sequence-interrupted"/>
         <xs:element minOccurs="0" ref="obfl:sequence-resumed"/>
+        <xs:element minOccurs="0" ref="obfl:any-interrupted"/>
+        <xs:element minOccurs="0" ref="obfl:any-resumed"/>
       </xs:sequence>
       <xs:attributeGroup ref="obfl:attlist-volume-transition"/>
     </xs:complexType>
@@ -709,6 +711,16 @@
   <xs:element name="block-resumed">
     <xs:complexType mixed="true">
       <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:blockContents"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="any-interrupted">
+    <xs:complexType>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:block"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="any-resumed">
+    <xs:complexType>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:block"/>
     </xs:complexType>
   </xs:element>
   <xs:group name="toc-sequence">

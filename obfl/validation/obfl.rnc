@@ -298,13 +298,17 @@ volume-transition =
     block-interrupted?,
     block-resumed?,
     sequence-interrupted?,
-    sequence-resumed?
+    sequence-resumed?,
+    any-interrupted?,
+    any-resumed?
   }
 attlist-volume-transition &= attribute range { "page" | "sheet" }?
 sequence-interrupted = element sequence-interrupted { block* }
 sequence-resumed = element sequence-resumed { block* }
 block-interrupted = element block-interrupted { blockContents* }
 block-resumed = element block-resumed { blockContents* }
+any-interrupted = element any-interrupted { block* }
+any-resumed = element any-resumed { block* }
 toc-sequence =
   element toc-sequence {
     attlist-toc-sequence,
