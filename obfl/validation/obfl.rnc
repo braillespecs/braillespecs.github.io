@@ -275,7 +275,7 @@ attlist-toc-entry &=
   blockAtts
 volume-template =
   element volume-template {
-    attlist-volume-template, pre-content, post-content
+    attlist-volume-template, pre-content?, post-content?
   }
 attlist-volume-template &=
   attribute use-when { text }?,
@@ -326,16 +326,21 @@ attlist-on-toc-start &= attribute use-when { text }?
 on-volume-start =
   element on-volume-start { attlist-on-volume-start, block+ }
 attlist-on-volume-start &= attribute use-when { text }?
+on-volume-start-in-list-of-references =
+  element on-volume-start { block+ }
 on-volume-end = element on-volume-end { attlist-on-volume-end, block+ }
 attlist-on-volume-end &= attribute use-when { text }?
+on-volume-end-in-list-of-references = element on-volume-end { block+ }
 on-toc-end = element on-toc-end { attlist-on-toc-end, block+ }
 attlist-on-toc-end &= attribute use-when { text }?
 list-of-references =
   element list-of-references {
     attlist-list-of-references,
     on-collection-start?,
+    on-volume-start-in-list-of-references?,
     on-page-start?,
     on-page-end?,
+    on-volume-end-in-list-of-references?,
     on-collection-end?
   }
 attlist-list-of-references &=

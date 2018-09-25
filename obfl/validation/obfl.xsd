@@ -640,8 +640,8 @@
   <xs:element name="volume-template">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="obfl:pre-content"/>
-        <xs:element ref="obfl:post-content"/>
+        <xs:element minOccurs="0" ref="obfl:pre-content"/>
+        <xs:element minOccurs="0" ref="obfl:post-content"/>
       </xs:sequence>
       <xs:attributeGroup ref="obfl:attlist-volume-template"/>
     </xs:complexType>
@@ -729,8 +729,8 @@
         <xs:complexType>
           <xs:sequence>
             <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:on-toc-start"/>
-            <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:on-volume-start"/>
-            <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:on-volume-end"/>
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:on-volume-start"/>
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="obfl:on-volume-end"/>
             <xs:element minOccurs="0" maxOccurs="unbounded" ref="obfl:on-toc-end"/>
           </xs:sequence>
           <xs:attributeGroup ref="obfl:attlist-toc-sequence"/>
@@ -759,24 +759,50 @@
   <xs:attributeGroup name="attlist-on-toc-start">
     <xs:attribute name="use-when"/>
   </xs:attributeGroup>
-  <xs:element name="on-volume-start">
-    <xs:complexType>
-      <xs:group maxOccurs="unbounded" ref="obfl:block"/>
-      <xs:attributeGroup ref="obfl:attlist-on-volume-start"/>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="on-volume-start">
+    <xs:sequence>
+      <xs:element name="on-volume-start">
+        <xs:complexType>
+          <xs:group maxOccurs="unbounded" ref="obfl:block"/>
+          <xs:attributeGroup ref="obfl:attlist-on-volume-start"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
   <xs:attributeGroup name="attlist-on-volume-start">
     <xs:attribute name="use-when"/>
   </xs:attributeGroup>
-  <xs:element name="on-volume-end">
-    <xs:complexType>
-      <xs:group maxOccurs="unbounded" ref="obfl:block"/>
-      <xs:attributeGroup ref="obfl:attlist-on-volume-end"/>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="on-volume-start-in-list-of-references">
+    <xs:sequence>
+      <xs:element name="on-volume-start">
+        <xs:complexType>
+          <xs:group maxOccurs="unbounded" ref="obfl:block"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="on-volume-end">
+    <xs:sequence>
+      <xs:element name="on-volume-end">
+        <xs:complexType>
+          <xs:group maxOccurs="unbounded" ref="obfl:block"/>
+          <xs:attributeGroup ref="obfl:attlist-on-volume-end"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
   <xs:attributeGroup name="attlist-on-volume-end">
     <xs:attribute name="use-when"/>
   </xs:attributeGroup>
+  <xs:group name="on-volume-end-in-list-of-references">
+    <xs:sequence>
+      <xs:element name="on-volume-end">
+        <xs:complexType>
+          <xs:group maxOccurs="unbounded" ref="obfl:block"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
   <xs:element name="on-toc-end">
     <xs:complexType>
       <xs:group maxOccurs="unbounded" ref="obfl:block"/>
@@ -792,8 +818,10 @@
         <xs:complexType>
           <xs:sequence>
             <xs:element minOccurs="0" ref="obfl:on-collection-start"/>
+            <xs:group minOccurs="0" ref="obfl:on-volume-start-in-list-of-references"/>
             <xs:element minOccurs="0" ref="obfl:on-page-start"/>
             <xs:element minOccurs="0" ref="obfl:on-page-end"/>
+            <xs:group minOccurs="0" ref="obfl:on-volume-end-in-list-of-references"/>
             <xs:element minOccurs="0" ref="obfl:on-collection-end"/>
           </xs:sequence>
           <xs:attributeGroup ref="obfl:attlist-list-of-references"/>
