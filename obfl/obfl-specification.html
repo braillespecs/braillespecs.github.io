@@ -6,7 +6,7 @@
   <meta name="dc:identifier" content=""/>
   <meta name="dc:Title" content="OBFL Specification"/>
   <meta name="dc:Language" content="en"/>
-  <meta name="dc:Date" content="2018-12-14T07:55Z"/>
+  <meta name="dc:Date" content="2018-12-21T12:50Z"/>
   <link rel="stylesheet" href="styles/w3c-unofficial.css" type="text/css"/>
   <link rel="stylesheet" href="styles/style.css" type="text/css"/>
 </head>
@@ -15,7 +15,7 @@
 <h1 id="N65581">OBFL - Open Braille Formatting Language</h1>
 
 <p>Working draft, revised 2018-01-19 (UTC+01:00)</p>
-<p>Published 2018-12-14T07:55Z</p>
+<p>Published 2018-12-21T12:50Z</p>
 <dl>
   <dt>This version:</dt>
     <dd><a href="http://files.pef-format.org/drafts/obfl/obfl-specification.html">http://files.pef-format.org/drafts/obfl/obfl-specification.html</a></dd>
@@ -55,7 +55,7 @@ seen as incompatible. In practice, this means that:</p>
 <h2 id="L77">Table of Contents</h2>
 
 <ul><li><a href="#L255">Introduction</a><ul><li><a href="#L261">What is OBFL?</a></li><li><a href="#L265">Why is OBFL Necessary?</a></li><li><a href="#L279">Scope Limitations</a></li></ul></li><li><a href="#L287">Definitions</a><ul><li><a href="#L295">Terminology</a></li><li><a href="#L302">General Terms</a></li><li><a href="#L425">Axes and Node Types</a></li><li><a href="#L449">Relationship to Other Specifications</a></li></ul></li><li><a href="#L453">Definition of OBFL</a><ul><li><a href="#L459">Document Conformance </a></li><li><a href="#L493">Using OBFL with Other
-Namespaces</a></li><li><a href="#L501">Internet Media Type and File Extension</a></li></ul></li><li><a href="#L502">White Space Processing</a><ul><li><a href="#L632">Problems with White Space</a></li><li><a href="#L657">Implications of Incorrect White Space</a></li><li><a href="#L671">Default White Space Processing</a></li></ul></li><li><a href="#L5021">Pagination</a><ul><li><a href="#L5022">Main Flow</a></li><li><a href="#L5025">Auxiliary Flows</a></li><li><a href="#L5023">Simplex</a></li><li><a href="#L5024">Duplex</a></li></ul></li><li><a href="#N66179">Page Model</a><ul><li><a href="#N66189">Recto (front side)</a></li><li><a href="#N66267">Verso (back side)</a></li></ul></li><li><a href="#L558">Elements</a><ul><li><a href="#L856">The Root Element</a><ul><li><a href="#L565">obfl</a></li></ul></li><li><a href="#L949">Document Metadata</a><ul><li><a href="#L587">meta</a></li></ul></li><li><a href="#L967">Page Templates</a><ul><li><a href="#L5871">layout-master</a></li><li><a href="#L608">template</a></li><li><a href="#L608-2">default-template</a></li><li><a href="#L647">page-area</a></li><li><a href="#L20904">fallback</a></li><li><a href="#L20925">rename</a></li><li><a href="#L629">before</a></li><li><a href="#L6291">after</a></li><li><a href="#L62911">header</a></li><li><a href="#L6471">footer</a></li><li><a href="#L1296">margin-region</a></li><li><a href="#L1328">indicators</a></li><li><a href="#L1329">marker-indicator</a><ul><li><a href="#L1365">Example</a></li></ul></li><li><a href="#L665">field</a></li><li><a href="#L683">marker-reference</a><ul><li><a href="#L1333">start-offset</a></li></ul></li><li><a href="#L696">string</a></li><li><a href="#L709">current-page</a></li></ul></li><li><a href="#L1631">Sequences</a><ul><li><a href="#L906">sequence</a></li><li><a href="#L11470">dynamic-sequence</a></li></ul></li><li><a href="#L1765">Blocks</a><ul><li><a href="#L1023">block</a></li></ul></li><li><a href="#L1894">Inline Content</a><ul><li><a href="#L722">evaluate</a><ul><li><a href="#L1033">Example</a></li></ul></li><li><a href="#L1207">leader</a></li><li><a href="#L1353">marker</a></li><li><a href="#L924">anchor</a></li><li><a href="#L1438">br</a></li><li><a href="#L836">page-number</a></li><li><a href="#L849">span</a></li><li><a href="#L8491">style</a></li></ul></li><li><a href="#L2227">Tabular Data</a><ul><li><a href="#L2229">table</a><ul><li><a href="#table-margins">Borders in and Around Tables</a></li></ul></li><li><a href="#thead">thead</a></li><li><a href="#tbody">tbody</a></li><li><a href="#L2253">tr</a></li><li><a href="#L2277">td</a></li></ul></li><li><a href="#L2167">Table of Contents</a><ul><li><a href="#L735">table-of-contents</a></li><li><a href="#L1105">toc-entry</a></li><li><a href="#L9241">toc-sequence</a></li><li><a href="#L9514">on-toc-start</a></li><li><a href="#L969">on-volume-start</a></li><li><a href="#L987">on-volume-end</a></li><li><a href="#L1005">on-toc-end</a></li></ul></li><li><a href="#L2433">Volume Templates</a><ul><li><a href="#L84911">volume-template</a></li><li><a href="#L870">pre-content</a></li><li><a href="#L888">post-content</a></li><li><a href="#L8701">volume-transition</a><ul><li><a href="#L22731">Example</a></li></ul></li><li><a href="#L8702">block-interrupted</a></li><li><a href="#L8703">block-resumed</a></li><li><a href="#L8704">sequence-interrupted</a></li><li><a href="#L8705">sequence-resumed</a></li><li><a href="#N69541">any-interrupted</a></li><li><a href="#N69574">any-resumed</a></li></ul></li><li><a href="#L2529">Achored Data</a><ul><li><a href="#L1194">collection</a></li><li><a href="#L1210">item</a></li><li><a href="#L9242">list-of-references</a></li><li><a href="#L951">on-collection-start</a></li><li><a href="#L9511">on-page-start</a></li><li><a href="#L9512">on-page-end</a></li><li><a href="#L9513">on-collection-end</a></li></ul></li><li><a href="#L2715">Dynamic Source Data Processing</a><ul><li><a href="#L2248">xml-data</a><ul><li><a href="#L2273">Example</a></li></ul></li><li><a href="#L2724">renderer</a></li><li><a href="#L2749">rendering-scenario</a><ul><li><a href="#L2793">Example</a></li></ul></li><li><a href="#N70094">parameter</a></li><li><a href="#L2690">xml-processor</a><ul><li><a href="#L2720">Example</a></li></ul></li><li><a href="#L1607">xml-processor-result</a><ul><li><a href="#L2721">Example</a></li></ul></li><li><a href="#L432">file-reference</a><ul><li><a href="#L27214">Example</a></li></ul></li></ul></li></ul></li><li><a href="#L1608">Attribute Definitions</a><ul><li><a href="#L21839">hyphenate</a><ul><li><a href="#L21851">Example</a></li></ul></li><li><a href="#pagenumbercounter">page-number-counter</a></li><li><a href="#rowspacing">row-spacing</a></li><li><a href="#L2462">translate</a><ul><li><a href="#L2475">pre-translated</a></li></ul></li></ul></li><li><a href="#L16081">Attribute Groups</a><ul><li><a href="#block-atts">Block</a><ul><li><a href="#L2519">Collapsing Margins</a></li><li><a href="#L2536">Example</a></li></ul></li><li><a href="#borders">Borders</a></li><li><a href="#margin-atts">Margin</a></li><li><a href="#padding-atts">Padding</a></li></ul></li><li><a href="#L756">Rule Sets</a><ul><li><a href="#L763">Relax NG Rule Set</a></li><li><a href="#L774">Other Rule Sets</a></li></ul></li><li><a href="#L784">References</a><ul><li><a href="#L786">Normative References</a></li><li><a href="#L881">Informative References</a></li></ul></li></ul>
+Namespaces</a></li><li><a href="#L501">Internet Media Type and File Extension</a></li></ul></li><li><a href="#L502">White Space Processing</a><ul><li><a href="#L632">Problems with White Space</a></li><li><a href="#L657">Implications of Incorrect White Space</a></li><li><a href="#L671">Default White Space Processing</a></li></ul></li><li><a href="#L5021">Pagination</a><ul><li><a href="#L5022">Main Flow</a></li><li><a href="#L5025">Auxiliary Flows</a></li><li><a href="#L5023">Simplex</a></li><li><a href="#L5024">Duplex</a></li></ul></li><li><a href="#N66179">Page Model</a><ul><li><a href="#N66189">Recto (front side)</a></li><li><a href="#N66283">Verso (back side)</a></li></ul></li><li><a href="#L558">Elements</a><ul><li><a href="#L856">The Root Element</a><ul><li><a href="#L565">obfl</a></li></ul></li><li><a href="#L949">Document Metadata</a><ul><li><a href="#L587">meta</a></li></ul></li><li><a href="#L967">Page Templates</a><ul><li><a href="#L5871">layout-master</a></li><li><a href="#L608">template</a></li><li><a href="#L608-2">default-template</a></li><li><a href="#L647">page-area</a></li><li><a href="#L20904">fallback</a></li><li><a href="#L20925">rename</a></li><li><a href="#L629">before</a></li><li><a href="#L6291">after</a></li><li><a href="#L62911">header</a></li><li><a href="#L6471">footer</a></li><li><a href="#L1296">margin-region</a></li><li><a href="#L1328">indicators</a></li><li><a href="#L1329">marker-indicator</a><ul><li><a href="#L1365">Example</a></li></ul></li><li><a href="#L665">field</a></li><li><a href="#L683">marker-reference</a><ul><li><a href="#L1333">start-offset</a></li></ul></li><li><a href="#L696">string</a></li><li><a href="#L709">current-page</a></li></ul></li><li><a href="#L1631">Sequences</a><ul><li><a href="#L906">sequence</a></li><li><a href="#L11470">dynamic-sequence</a></li></ul></li><li><a href="#L1765">Blocks</a><ul><li><a href="#L1023">block</a></li></ul></li><li><a href="#L1894">Inline Content</a><ul><li><a href="#L722">evaluate</a><ul><li><a href="#L1033">Example</a></li></ul></li><li><a href="#L1207">leader</a></li><li><a href="#L1353">marker</a></li><li><a href="#L924">anchor</a></li><li><a href="#L1438">br</a></li><li><a href="#L836">page-number</a></li><li><a href="#L849">span</a></li><li><a href="#L8491">style</a></li></ul></li><li><a href="#L2227">Tabular Data</a><ul><li><a href="#L2229">table</a><ul><li><a href="#table-margins">Borders in and Around Tables</a></li></ul></li><li><a href="#thead">thead</a></li><li><a href="#tbody">tbody</a></li><li><a href="#L2253">tr</a></li><li><a href="#L2277">td</a></li></ul></li><li><a href="#L2167">Table of Contents</a><ul><li><a href="#L735">table-of-contents</a></li><li><a href="#L1105">toc-entry</a></li><li><a href="#L9241">toc-sequence</a></li><li><a href="#L9514">on-toc-start</a></li><li><a href="#L969">on-volume-start</a></li><li><a href="#L987">on-volume-end</a></li><li><a href="#L1005">on-toc-end</a></li></ul></li><li><a href="#L2433">Volume Templates</a><ul><li><a href="#L84911">volume-template</a></li><li><a href="#L870">pre-content</a></li><li><a href="#L888">post-content</a></li><li><a href="#L8701">volume-transition</a><ul><li><a href="#L22731">Example</a></li></ul></li><li><a href="#L8702">block-interrupted</a></li><li><a href="#L8703">block-resumed</a></li><li><a href="#L8704">sequence-interrupted</a></li><li><a href="#L8705">sequence-resumed</a></li><li><a href="#N69557">any-interrupted</a></li><li><a href="#N69590">any-resumed</a></li></ul></li><li><a href="#L2529">Achored Data</a><ul><li><a href="#L1194">collection</a></li><li><a href="#L1210">item</a></li><li><a href="#L9242">list-of-references</a></li><li><a href="#L951">on-collection-start</a></li><li><a href="#L9511">on-page-start</a></li><li><a href="#L9512">on-page-end</a></li><li><a href="#L9513">on-collection-end</a></li></ul></li><li><a href="#L2715">Dynamic Source Data Processing</a><ul><li><a href="#L2248">xml-data</a><ul><li><a href="#L2273">Example</a></li></ul></li><li><a href="#L2724">renderer</a></li><li><a href="#L2749">rendering-scenario</a><ul><li><a href="#L2793">Example</a></li></ul></li><li><a href="#N70110">parameter</a></li><li><a href="#L2690">xml-processor</a><ul><li><a href="#L2720">Example</a></li></ul></li><li><a href="#L1607">xml-processor-result</a><ul><li><a href="#L2721">Example</a></li></ul></li><li><a href="#L432">file-reference</a><ul><li><a href="#L27214">Example</a></li></ul></li></ul></li></ul></li><li><a href="#L1608">Attribute Definitions</a><ul><li><a href="#L21839">hyphenate</a><ul><li><a href="#L21851">Example</a></li></ul></li><li><a href="#pagenumbercounter">page-number-counter</a></li><li><a href="#rowspacing">row-spacing</a></li><li><a href="#L2462">translate</a><ul><li><a href="#L2475">pre-translated</a></li></ul></li></ul></li><li><a href="#L16081">Attribute Groups</a><ul><li><a href="#block-atts">Block</a><ul><li><a href="#L2519">Collapsing Margins</a></li><li><a href="#L2536">Example</a></li></ul></li><li><a href="#borders">Borders</a></li><li><a href="#margin-atts">Margin</a></li><li><a href="#padding-atts">Padding</a></li></ul></li><li><a href="#L756">Rule Sets</a><ul><li><a href="#L763">Relax NG Rule Set</a></li><li><a href="#L774">Other Rule Sets</a></li></ul></li><li><a href="#L784">References</a><ul><li><a href="#L786">Normative References</a></li><li><a href="#L881">Informative References</a></li></ul></li></ul>
 
 <h2 id="L255">Introduction</h2>
 
@@ -352,12 +352,15 @@ The inner and outer margins span the full height of the page.</p>
 Stacked above and below these three areas (and spanning the full width of them) are the page area, header and footer. 
 The top and bottom page area are closest to the center. The header and footer are closest to the edge of the paper.</p>
 
+<p>Note that if text flow is allowed in the header/footer area, the area of the header/footer is reduced to align with
+the text body area so that the margin area can be used as well.</p>
+
 <p>The following table is a graphical representation of the this description.</p>
 
 <table class="page-model">
 	<tr>
 		<td rowspan="5"><p class="rotate">Inner margin</p></td>
-		<td colspan="3">Header</td>
+		<td class="intersection">A</td><td>Header</td><td class="intersection">A</td>
 		<td rowspan="5"><p class="rotate">Outer margin</p></td>
 	</tr>
 	<tr><td colspan="3">Top page area</td></tr>
@@ -367,10 +370,12 @@ The top and bottom page area are closest to the center. The header and footer ar
 		<td><p class="rotate">Right margin region(s)</p></td>
 	</tr>
 	<tr><td colspan="3">Bottom page area</td></tr>
-	<tr><td colspan="3">Footer</td></tr>
+	<tr><td class="intersection">A</td><td>Footer</td><td class="intersection">A</td></tr>
 </table>
 
-<h3 id="N66267">Verso (back side)</h3>
+<p>A = Margin region if text flow is combined with header/footer and there is a margin region, otherwise this area is available to header/footer.</p>
+
+<h3 id="N66283">Verso (back side)</h3>
 <p>The only difference between the recto and the verso side, is that the outer and inner margins have switched places.</p>
 
 <h2 id="L558">Elements</h2>
@@ -1903,7 +1908,7 @@ volume's body of pages.</p>
     </dl>
   </div>
 
-  <h4 id="N69541" class="include">any-interrupted</h4>
+  <h4 id="N69557" class="include">any-interrupted</h4>
   <div class="note">
     <p>This feature is incubating (2018-09-24). This means that the feature is
       currently a work-in-progress and may change or disappear at any time.</p>
@@ -1920,7 +1925,7 @@ volume's body of pages.</p>
     </dl>
   </div>
   
-  <h4 id="N69574" class="include">any-resumed</h4>
+  <h4 id="N69590" class="include">any-resumed</h4>
   <div class="note">
     <p>This feature is incubating (2018-09-24). This means that the feature is
       currently a work-in-progress and may change or disappear at any time.</p>
@@ -2185,7 +2190,7 @@ applied to a given xml-data.</p>
 </pre>
 </div>
 
-<h4 id="N70094" class="include">parameter</h4>
+<h4 id="N70110" class="include">parameter</h4>
 
 <p>Defines a parameter for a rendering-scenario.</p>
 
